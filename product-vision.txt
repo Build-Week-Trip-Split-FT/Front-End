@@ -1,0 +1,89 @@
+Product Vision - Trip Splitter
+Clone this document and answer the prompts to the best of your team's ability
+
+# Proposal
+
+---
+
+- What problem does your app solve?
+Keeping track of transactions over a trip and splitting it evenly between people
+
+- Be as specific as possible; how does your app solve the problem?
+You can keep track of events that happen within the trip
+Description of event/date
+Keep track of all expenses
+List the people who are involved
+Track who has paid their share (I think)
+Totaling cost at the end of the trip
+Making it easy for groups to split trip costs
+
+- What is the mission statement?
+“Equal contributions by everyone”
+
+# Features
+
+---
+
+- What features are required for your minimum viable product?
+Onboarding: login/signup
+Create trip
+Number of people/Names of people
+Destination
+Date
+Edit/Delete option
+View all events, current/completed
+Trip expense item title
+- What features may you wish to put in a future release?
+Ability to split custom amounts
+Add friends and view their trips (allow user to show/hide expenses)
+Connect people involved in trip to actual registered users
+
+- What do the top 3 similar apps do for their users?
+Tracking expenses
+History of payments
+Tracking your trip (Road Trippers)
+
+
+
+# Design - Planning
+
+---
+
+*Optional but highly recommended*
+*Please refer to this document:*
+
+[Build Weeks: Planning & Design Worksheet (How to build a beautiful application)](https://www.notion.so/aabd4ef25a184a2085e511ce93480c0f)
+
+- What design system will you use?
+  Ant or Material? (has not been decided yet)
+- What will your user flow be?
+ > Log in/sign up page
+> Redirects to home page where it shows events 
+> Able to add or edit from the home page
+> Links to Form
+> Redirect to home after finishing
+
+Different process for expenses
+
+- What is the URL to your wireframes?
+https://balsamiq.cloud/snv27r3/p65xrd9/r2F62
+
+# Frameworks - Libraries
+
+---
+
+- What 3rd party frameworks/libraries are you considering using?
+
+React
+Redux
+
+
+
+# Target Audience
+
+---
+
+- Who is your target audience? Be specific.
+Younger audience/adults (age 16-35)
+Large groups of friends
+Both people interested in short and longer trips
