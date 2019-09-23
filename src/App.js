@@ -2,19 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ExampleComponent from './components/ExampleComponent';
-import TripForm from './components/TripForm';
-import { Route } from 'react-router-dom';
-
-import './App.scss';
-
-
+import styles from './App.scss';
+import LoginWithFormik from "./components/Login/Login";
 
 const App = (props) => {
 
   return (
-    <div className="container">
-      <Route exact path="/" component={TripForm} />
-      <Route path="/events/:id/edit" component={TripForm} />
+    <div>
+      <div className={styles.app}>
+        Welcome To Trip Split
+      </div>
+      {props.title}
+      <LoginWithFormik/>
     </div>
   );
 }
