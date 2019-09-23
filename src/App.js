@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import ExampleComponent from './components/ExampleComponent';
 import styles from './App.scss';
-import Login from "./components/Login/Login";
+import LoginWithFormik from "./components/Login/Login";
 
 const App = (props) => {
 
@@ -14,7 +14,7 @@ const App = (props) => {
       </div>
       {props.title}
       <ExampleComponent />
-      <Login/>
+      <LoginWithFormik/>
     </div>
   );
 }
