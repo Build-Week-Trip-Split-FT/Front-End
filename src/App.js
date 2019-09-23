@@ -13,7 +13,6 @@ const App = (props) => {
         Welcome To Trip Split
       </div>
       {props.title}
-      <ExampleComponent />
       <LoginWithFormik/>
     </div>
   );

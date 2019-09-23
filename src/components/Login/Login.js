@@ -6,14 +6,14 @@ import * as Yup from "yup";
 import "./Login.scss";
 
 
-function Login( { isSubmitting, errors, touched, status }) {
-    const [user, setUser] = useState({ username: '', password: ''});
+function Login( { errors, touched, status }) {
+    const [user, setUser] = useState([]);
 
     useEffect(() => {
         if(status) {
             setUser([...user, status]);
         }
-    }, [status])
+    }, [user])
 
     const handleChange = e => {
         setUser({ ...user, [e.target.name]: e.target.value })
@@ -23,39 +23,35 @@ function Login( { isSubmitting, errors, touched, status }) {
     const handleSubmit = e => {
         e.preventDefault();
         setUser({ username: '', password: ''})
+        console.log(user);
     }
     return (
         <div className="login-page">
             <h2>Login</h2>
             <Form>
                 <div>
-                    Username: 
                     <Field 
                         type="text" 
                         name="username"
                         placeholder="User Name"
-                        onChange={e => handleChange(e)}
-                        value={user.username}
                         />
                     {touched.username && errors.username && <p>{errors.username}</p>}
                 </div>
                 <div>
-                    Password:
                     <Field 
                         type="password" 
                         name="password"
                         placeholder="Password"
-                        onChange={e => handleChange(e)}
-                        value={user.password}
                         />
                     {touched.password && errors.password && <p>{errors.password}</p>}
                 </div>
-                <button type="submit" onClick={handleSubmit}>Submit</button>
+                <button type="submit">Submit</button>
             </Form>
         </div>
     )
 }
 
+//Formik
 const LoginWithFormik = withFormik({
     mapPropsToValues: ({ username, password}) => {
         return {
@@ -70,16 +66,16 @@ const LoginWithFormik = withFormik({
     }),
 
     handleSubmit(values, { resetForm, setSubmitting }) {
-        const dataConfirm = { date: "Data Confirmed"}
+        console.log(values);
         axios
-        .post("https://reqres.in/api/users", dataConfirm)
+        .post("", values)
         .then(res => {
             console.log(res.data)
             resetForm();
             setSubmitting(false)
         })
         .catch(error => {
-            console.log(error)
+            console.log(error.response)
             
         })
     }
