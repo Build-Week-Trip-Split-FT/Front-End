@@ -1,125 +1,193 @@
-import React, { useState, useEffect } from "react";
-import { withFormik, Form, Field } from "formik";
-import * as Yup from "yup";
-import axios from "axios";
-import styled from "styled-components";
+import React from "react";
+import "./SignUp.scss";
+import { Form, Input, Tooltip, Icon, Checkbox, Button } from "antd";
 
-// Styled Components
-const FieldContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 25%;
-  height: 50vh;
-  margin: 2rem auto;
-  background: rgba(0, 0, 0, 0.6);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12), 0 5px 2px rgba(0, 0, 0, 0.24);
-`;
+class RegistrationForm extends React.Component {
+  state = {
+    confirmDirty: false,
+    autoCompleteResult: []
+  };
 
-const UserContainer = styled.div`
-  text-align: center;
-  padding: 1rem;
-  margin-top: 2rem;
-  background: rgba(0, 0, 0, 0.6);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12), 0 5px 2px rgba(0, 0, 0, 0.24);
-  color: #fff;
-  font-family: "Comic Sans MS", cursive, sans-serif;
-`;
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        console.log("Received values of form: ", values);
+      }
+    });
+  };
 
-const UserDiv = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-`;
+  handleConfirmBlur = e => {
+    const { value } = e.target;
+    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+  };
 
-const ListStyle = styled.div`
-  list-style: none;
-`;
-
-// UserForm Component
-const UserForm = ({ values, errors, touched, status }) => {
-  const [users, setUsers] = useState([]);
-
-  // useEffect Hook
-  useEffect(() => {
-    if (status) {
-      setUsers([...users, status]);
+  compareToFirstPassword = (value, callback) => {
+    const { form } = this.props;
+    if (value && value !== form.getFieldValue("password")) {
+      callback("Two passwords that you enter is inconsistent!");
+    } else {
+      callback();
     }
-  }, [status]);
+  };
 
-  return (
-    <div>
-      <Form>
-        <FieldContainer>
-          <Field type="text" name="name" placeholder="Name" />
-          {touched.name && errors.name && <p>{errors.name}</p>}
-          <Field type="email" name="email" placeholder="Email" />
-          {touched.email && errors.email && <p>{errors.email}</p>}
-          <Field type="password" name="password" placeholder="Password" />
-          {touched.password && errors.password && <p>{errors.password}</p>}
-          <label>
-            Terms of Service
-            <Field
-              type="checkbox"
-              name="termsOfService"
-              checked={values.termsOfService}
-            />
-          </label>
-          <button>Submit</button>
-        </FieldContainer>
-      </Form>
-      {/* Users Components */}
-      <UserDiv>
-        {users.map(user => (
-          <UserContainer>
-            <ul key={user.id}>
-              <ListStyle>
-                <li>Name:{user.name}</li>
-                <li>Email: {user.email}</li>
-                <li>Passowrd: {user.password}</li>
-              </ListStyle>
-            </ul>
-          </UserContainer>
-        ))}
-      </UserDiv>
-    </div>
-  );
-};
+  validateToNextPassword = (value, callback) => {
+    const { form } = this.props;
+    if (value && this.state.confirmDirty) {
+      form.validateFields(["confirm"], { force: true });
+    }
+    callback();
+  };
 
-// Formik
-const FormikUserForm = withFormik({
-  mapPropsToValues({ name, email, password, termsOfService }) {
-    return {
-      name: name || "",
-      email: email || "",
-      password: password || "",
-      termsOfService: termsOfService || false
+  handleWebsiteChange = value => {
+    let autoCompleteResult;
+    if (!value) {
+      autoCompleteResult = [];
+    } else {
+      autoCompleteResult = [".com", ".org", ".net"].map(
+        domain => `${value}${domain}`
+      );
+    }
+    this.setState({ autoCompleteResult });
+  };
+
+  render() {
+    const { getFieldDecorator } = this.props.form;
+    // const { autoCompleteResult } = this.state;
+
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 8 }
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 }
+      }
     };
-  },
+    const tailFormItemLayout = {
+      wrapperCol: {
+        xs: {
+          span: 24,
+          offset: 0
+        },
+        sm: {
+          span: 16,
+          offset: 8
+        }
+      }
+    };
+    // const prefixSelector = getFieldDecorator("prefix", {
+    //   initialValue: "86"
+    // })(
+    //   <Select style={{ width: 70 }}>
+    //     <Option value="86">+86</Option>
+    //     <Option value="87">+87</Option>
+    //   </Select>
+    // );
 
-  // Form Validation
-  validationSchema: Yup.object().shape({
-    name: Yup.string().required(`You must must put a name mate!`),
-    email: Yup.string()
-      .email()
-      .required(`You must include an email bro!`),
-    password: Yup.string()
-      .min(7)
-      .required(`put at least 7 characters!`)
-  }),
+    // const websiteOptions = autoCompleteResult.map(website => (
+    //   <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
+    // ));
 
-  // Axios .post
-  handleSubmit(values, { setStatus }) {
-    axios
-      .post("https://reqres.in/api/users/", values)
-      .then(response => {
-        setStatus(response.data);
-        console.log(response.data);
-      })
-      .catch(error => console.log(error.response));
+    return (
+      <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+        {/* <Form.Item label="User name">
+          {getFieldDecorator("username", {
+            rules: [
+              {
+                type: "user-name",
+                message: "The input is not valid User name!"
+              },
+              {
+                required: true,
+                message: "Please input your User name!"
+              }
+            ]
+          })(<Input />)}
+        </Form.Item> */}
+        <Form.Item
+          label={
+            <span>
+              Name&nbsp;
+              <Tooltip title="What do you want others to call you?">
+                <Icon type="question-circle-o" />
+              </Tooltip>
+            </span>
+          }
+        >
+          {getFieldDecorator("name", {
+            rules: [
+              {
+                required: true,
+                message: "Please input your name!",
+                whitespace: true
+              }
+            ]
+          })(<Input />)}
+        </Form.Item>
+        <Form.Item label="E-mail">
+          {getFieldDecorator("email", {
+            rules: [
+              {
+                type: "email",
+                message: "The input is not valid E-mail!"
+              },
+              {
+                required: true,
+                message: "Please input your E-mail!"
+              }
+            ]
+          })(<Input />)}
+        </Form.Item>
+        <Form.Item label="Password" hasFeedback>
+          {getFieldDecorator("password", {
+            rules: [
+              {
+                required: true,
+                message: "Please input your password!"
+              },
+              {
+                validator: this.validateToNextPassword
+              }
+            ]
+          })(<Input.Password />)}
+        </Form.Item>
+        <Form.Item label="Confirm Password" hasFeedback>
+          {getFieldDecorator("confirm", {
+            rules: [
+              {
+                required: true,
+                message: "Please confirm your password!"
+              },
+              {
+                validator: this.compareToFirstPassword
+              }
+            ]
+          })(<Input.Password onBlur={this.handleConfirmBlur} />)}
+        </Form.Item>
+
+        <Form.Item {...tailFormItemLayout}>
+          {getFieldDecorator("agreement", {
+            valuePropName: "checked"
+          })(
+            <Checkbox>
+              I have read the <a href="">agreement</a>
+            </Checkbox>
+          )}
+        </Form.Item>
+        <Form.Item {...tailFormItemLayout}>
+          <Button type="primary" htmlType="submit">
+            Register
+          </Button>
+        </Form.Item>
+      </Form>
+    );
   }
-})(UserForm);
+}
 
-console.log("This is the HOC", FormikUserForm);
-export default FormikUserForm;
+const WrappedRegistrationForm = Form.create({ name: "register" })(
+  RegistrationForm
+);
+
+export default WrappedRegistrationForm;
