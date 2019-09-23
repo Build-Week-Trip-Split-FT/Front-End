@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { togglePaid } from '../../actions';
 
 import styles from './ExampleComponent.module.scss';
+import { Form, Input } from 'antd';
 
 const ExampleComponent = ({ currentData, togglePaid }) => {
   let trip = currentData; 
@@ -18,6 +19,10 @@ const ExampleComponent = ({ currentData, togglePaid }) => {
         Not Paid
         {trip.people.filter(person => !person.paid).map(person => <p>{person.name}<button onClick={() => togglePaid(person, trip.people)}>X</button></p>)}
       </div>
+      This is a form from ant design
+      <Form>
+        <Input placeholder="username"/>
+      </Form>
     </div>
   )
 }

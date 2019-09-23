@@ -49,5 +49,4 @@ export const updateDB = (trip) => dispatch => {
   axiosWithAuth.put(`${baseURL}/sdfdsfds`, trip)
     .then(res => dispatch({type: "", payload: trip}))
     .catch(err => dispatch({type: "", payload: err})) 
-    asdjl;ajsdf;lkajeropiawrp[oiasdflkj;appendFileSync;laksdfa;sdlk]
 }
