@@ -13,8 +13,9 @@ const App = (props) => {
 
   return (
     <div className="container">
-      <Route exact path="/" component={TripForm} />
-      <Route path="/events/:id/edit" component={TripForm} />
+      <ExampleComponent />
+      {/* <Route exact path="/" component={TripForm} />
+      <Route path="/events/:id/edit" component={TripForm} /> */}
     </div>
   );
 }

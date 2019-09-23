@@ -32,15 +32,15 @@ export const signUpUser = (user) => dispatch => {
 }
 
 export const togglePaid = (person, trip) => {
-  let people = trip;
-  let newPeople = people.map(searchedPerson => {
-    if (searchedPerson.name == person.name) {
-      // Toggles clicked person's paid status
-      return {...searchedPerson, paid: !person.paid}
-    }
-    return searchedPerson
-  });
-  return {type: TOGGLE_PAID, payload: newPeople}
+  // let people = trip;
+  // let newPeople = people.map(searchedPerson => {
+  //   if (searchedPerson.name == person.name) {
+  //     // Toggles clicked person's paid status
+  //     return {...searchedPerson, paid: !person.paid}
+  //   }
+  //   return searchedPerson
+  // });
+  // return {type: TOGGLE_PAID, payload: newPeople}
 }
 
 // Saves when clicking on save or complete edit

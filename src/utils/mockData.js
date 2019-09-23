@@ -22,13 +22,28 @@ export const mockData = [
             debts: [
                 {
                     person_name: "Jordan",
-                    amount: "25",
+                    amount: 25,
                 },
                 {
                     person_name: "Bill",
-                    amount:"25",
+                    amount: 0,
                 },
             ]
+          },
+          {
+              name:"Amusement park",
+              amount:40,
+              person_name:"Jordan",
+              debts: [
+                  {
+                      person_name: "Jordan",
+                      amount: 0,
+                  },
+                  {
+                      person_name: "Bill",
+                      amount:20
+                  }
+              ]
           }
         ]
     },
