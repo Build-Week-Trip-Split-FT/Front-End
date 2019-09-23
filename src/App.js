@@ -1,17 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import ExampleComponent from './components/ExampleComponent';
-import styles from './App.module.scss';
+import TripForm from './components/TripForm';
+import { Route } from 'react-router-dom';
+
+import './App.scss';
+
+
 
 const App = (props) => {
 
   return (
-    <div>
-      <div className={styles.app}>
-        Welcome To Trip Split
-      </div>
-      {props.title}
-      <ExampleComponent />
+    <div className="container">
+      <Route exact path="/" component={TripForm} />
+      <Route path="/events/:id/edit" component={TripForm} />
     </div>
   );
 }
