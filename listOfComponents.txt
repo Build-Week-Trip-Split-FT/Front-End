@@ -1,0 +1,10 @@
+log in form
+sign up form
+navbar
+home view -> log in and sign up buttons
+secondary home view for logged in users -> views list of events
+specific view for event
+
+
+add/edit event from
+
