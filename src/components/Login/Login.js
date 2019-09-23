@@ -1,23 +1,41 @@
 import React, { useState } from "react";
-// import styles from './ExampleComponent.module.scss';
+// import styles from './ExampleComponent.scss';
 
 
 function Login() {
-    const [username, setUsername] = useState("");
-    
-    const changeHandler = e => {
-        setUsername(e.target.value);
+    const [user, setUser] = useState({ name: "", password:""});
+
+    const handleChange = e => {
+        setUser({ ...user, [e.target.value]: e.target.value })
+    }
+    const handleSubmit = e => {
+        e.preventDefault();
+        console.log(user.username)
+        console.log(user.password);
     }
 
-    console.log(changeHandler);
+    
     return (
         <div className="login-page">
             <h2>Login</h2>
-            <form>
+            <form onSubmit={ e => handleSubmit(e)}>
                 <label>
                     Username:
-                    <input type="text" onChange={e => changeHandler(e)}/>
+                    <input 
+                        type="text" 
+                        name="username"
+                        onChange={e => handleChange(e)}
+                        />
                 </label>
+                <label>
+                    Password:
+                    <input 
+                        type="text" 
+                        name="password"
+                        onChange={e => handleChange(e)}
+                        />
+                </label>
+                <button>Submit</button>
             </form>
         </div>
     )
