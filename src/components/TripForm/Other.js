@@ -39,7 +39,11 @@ const OtherForm = () => {
     setData({...initData, [field]: newArray});
   }
   const handleChange = (event) => {
-    setData({...initData, [event.target.name]: event.target.value});
+    if (event.target.name === "active") {
+      setData({...initData, active: !initData.active});
+    } else {
+      setData({...initData, [event.target.name]: event.target.value});
+    }
   }
 
   const handleSubmit = (event) => {
