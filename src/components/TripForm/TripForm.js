@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Icon, Button} from 'antd';
+import { Form, Input, Icon, Button, Checkbox, DatePicker, Row, Col } from 'antd';
 
 import "./TripForm.scss";
 
@@ -25,11 +25,21 @@ const TripForm = (props) => {
       setValidation({...validation, [event.target.name]: {type: 'error', help: 'Required'}})
     }
   }
+  const formItemLayout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 5 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 12 },
+    },
+  };
 
   return (
     <div>
       This is the {status} trip form!
-      <Form onSubmit={(e) => handleSubmit(e)}>
+      <Form {...formItemLayout} onSubmit={(e) => handleSubmit(e)} className="trip-form">
         <Form.Item
           label="Destination:"
           validateStatus={validation.name.type}
@@ -37,6 +47,7 @@ const TripForm = (props) => {
           name="name"
         >
           <Input
+            className="field"
             prefix={<Icon type="paper-clip" style={{ color: 'rgba(0,0,0,.25)' }} />}
             placeholder="Trip Name"
             name="name"
@@ -44,6 +55,28 @@ const TripForm = (props) => {
             onBlur={(e) => validateField(e)}
             value={trip.name}
           />
+        </Form.Item>
+        <Form.Item
+          label="Date"
+        >
+          <DatePicker format="MM/DD/YYYY" />
+        </Form.Item>
+        <Form.Item label="In Progress">
+          <Checkbox />
+        </Form.Item>
+        <Form.Item label="People">
+          <Row>
+            <Col span={16}>
+              <Input
+                name="name"
+                placeholder="person"
+              />
+            </Col>
+            <Col span={8}>
+              Paid?: 
+              <Checkbox />
+            </Col>
+          </Row>
         </Form.Item>
         <Button type="primary" htmlType="submit">
           Add Trip
