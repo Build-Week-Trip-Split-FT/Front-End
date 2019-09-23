@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import ExampleComponent from "./components/ExampleComponent";
 import WrappedRegistrationForm from "./components/SignUp/SignUp";
 
