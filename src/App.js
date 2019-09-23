@@ -3,16 +3,18 @@ import { connect } from 'react-redux';
 
 import ExampleComponent from './components/ExampleComponent';
 import TripForm from './components/TripForm';
+import { Route } from 'react-router-dom';
 
-import styles from './App.module.scss';
+import './App.scss';
 
 
 
 const App = (props) => {
 
   return (
-    <div>
-      <TripForm />
+    <div className="container">
+      <Route exact path="/" component={TripForm} />
+      <Route path="/events/:id/edit" component={TripForm} />
     </div>
   );
 }

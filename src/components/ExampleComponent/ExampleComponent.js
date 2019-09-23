@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { togglePaid } from '../../actions';
 
-import styles from './ExampleComponent.module.scss';
+import styles from './ExampleComponent.scss';
 import { Form, Input } from 'antd';
 
 const ExampleComponent = ({ currentData, togglePaid }) => {
