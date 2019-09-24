@@ -1,1 +1,7 @@
-@import '../../App.scss';
+@import "../../App.scss";
+
+.sign-up-container {
+  display: flex;
+  justify-content: center;
+  height: 30vh;
+}
