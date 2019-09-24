@@ -12,9 +12,18 @@ export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 export const TOGGLE_PAID = "TOGGLE_PAID";
 export const SET_EVENT = "SET_EVENT";
 export const ERROR = "ERROR";
+export const FETCHING_USER = "ERROR";
+export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 
 const baseURL = "https://bd-trip-split.herokuapp.com/api";
 
+export const fetchUser = (username) => dispatch => {
+  let URL = baseURL + `/users/${username}`;
+  dispatch({type: FETCHING_USER});
+  axiosWithAuth().get(URL)
+    .then(res => dispatch({type: FETCH_USER_SUCCESS, payload: res.data}));
+
+}
 export const fetchTrip = (partial) => dispatch => {
   let URL = baseURL + partial;
   dispatch({type: FETCHING_TRIP})

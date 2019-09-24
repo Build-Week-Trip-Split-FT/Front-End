@@ -1,4 +1,4 @@
-import { FETCHING_TRIP, FETCH_TRIP_SUCCESS, FETCH_TRIP_FAILURE, ERROR, LOGGING_IN, LOGIN_FAILURE, LOGIN_SUCCESS, SIGNING_UP, SIGNUP_FAILURE, SIGNUP_SUCCESS, TOGGLE_PAID, SET_EVENT } from '../actions';
+import { FETCHING_TRIP, FETCH_TRIP_SUCCESS, FETCH_USER_SUCCESS, FETCHING_USER, FETCH_TRIP_FAILURE, ERROR, LOGGING_IN, LOGIN_FAILURE, LOGIN_SUCCESS, SIGNING_UP, SIGNUP_FAILURE, SIGNUP_SUCCESS, TOGGLE_PAID, SET_EVENT } from '../actions';
 import { mockData, mockTrips } from '../utils';
 
 export const reducer = (state = initialState, action) => {
@@ -21,8 +21,11 @@ export const reducer = (state = initialState, action) => {
       return {...state, isFetching: true, fetching_message: "I am fetching!"}
     case FETCH_TRIP_SUCCESS:
       return {...state, isFetching: false, fetching_message: "", singleTrip: action.payload}
+    case FETCHING_USER:
+      return {...state, isFetching: true, fetching_message: "Getting user info"}
+    case FETCH_USER_SUCCESS:
+      return {...state, isFetching: false, fetching_message:"", userTrips: action.payload}
     case "POST_SUCCESS":
-      console.log("Added to DB");
       return state;
     case TOGGLE_PAID:
       return {...state, userTrips: {...state.userTrips, people: action.payload}}
@@ -36,12 +39,11 @@ export const reducer = (state = initialState, action) => {
 }
 
 const initialState = {
-  userTrips: mockData,
+  userTrips: {},
   singleTrip: mockData[0],
   isFetching: false,
   fetching_message: "",
   error: false,
   error_message: "",
   username: localStorage.getItem('username'),
-  tripViews: mockTrips,
 };

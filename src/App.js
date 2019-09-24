@@ -26,7 +26,7 @@ const App = () => {
           <button onClick={logOut}>Log out</button>
         </li>
       </ul>
-      <PrivateRoute path="/addtrip" component={AddTrip} />
+      <PrivateRoute path="/add" component={AddTrip} />
       <Message />
       <PrivateRoute path="/secret" component={ExampleComponent} />
       <PrivateRoute path="/homeview" component={HomeView} />
