@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { withFormik, Form, Field } from "formik";
+import { withFormik } from "formik";
 import { connect } from 'react-redux';
 import * as Yup from "yup";
+import { Form, Button, Icon, Input } from 'antd';
 
 import { logInUser } from '../../actions';
 
@@ -30,7 +31,7 @@ function Login( { errors, touched, status, logInUser, history }) {
             <h2>Login</h2>
             <Form onChange={handleChange}>
                 <div>
-                    <Field 
+                    <input 
                         type="text" 
                         name="username"
                         placeholder="User Name"
@@ -39,7 +40,7 @@ function Login( { errors, touched, status, logInUser, history }) {
                     {touched.username && errors.username && <p>{errors.username}</p>}
                 </div>
                 <div>
-                    <Field 
+                    <input 
                         type="password" 
                         name="password"
                         placeholder="Password"
@@ -47,7 +48,7 @@ function Login( { errors, touched, status, logInUser, history }) {
                         />
                     {touched.password && errors.password && <p>{errors.password}</p>}
                 </div>
-                <button type="submit" onClick={(e) => handleSubmit(e)}>Submit</button>
+                <Button type="primary" block onClick={(e) => handleSubmit(e)}>Submit</Button>
             </Form>
         </div>
     )
