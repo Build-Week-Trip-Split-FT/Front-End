@@ -8,7 +8,7 @@ import Login from "./components/Login/";
 import HomeView from "./components/HomeView/HomeView";
 import Message from './components/Message';
 import NavBar from "./components/NavBar/NavBar";
-
+import AddTrip from "./components/TripForm/AddTrip";
 import './App.scss';
 
 
@@ -28,6 +28,7 @@ const App = () => {
           <button onClick={logOut}>Log out</button>
         </li>
       </ul>
+      <PrivateRoute path="/addtrip" component={AddTrip} />
       <Message />
       <PrivateRoute path="/secret" component={ExampleComponent} />
       <PrivateRoute path="/homeview" component={HomeView} />
