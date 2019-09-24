@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "./SignUp.scss";
 import { Form, Input, Tooltip, Icon, Checkbox, Button } from "antd";
 
-import { connect } from 'react-redux';
-import { signUpUser } from '../../actions';
+import { connect } from "react-redux";
+import { signUpUser } from "../../actions";
 
 const RegistrationForm = props => {
   const [confirmDirty, setConfirmDirty] = useState();
@@ -17,8 +17,9 @@ const RegistrationForm = props => {
     e.preventDefault();
     props.signUpUser(confirmDirty);
     setConfirmDirty({ name: "", username: "", email: "", password: "" });
+    props.history.push(`/secret/${confirmDirty.username}`);
   };
-  
+
   const { getFieldDecorator } = props.form;
 
   const formItemLayout = {
@@ -99,7 +100,7 @@ const RegistrationForm = props => {
             {
               required: true,
               message: "Please input your password!"
-            },
+            }
           ]
         })(<Input.Password name="password" onChange={e => handleChanges(e)} />)}
       </Form.Item>
@@ -117,4 +118,7 @@ const WrappedRegistrationForm = Form.create({ name: "register" })(
   RegistrationForm
 );
 
-export default connect(null, {signUpUser: signUpUser})(WrappedRegistrationForm);
+export default connect(
+  null,
+  { signUpUser: signUpUser }
+)(WrappedRegistrationForm);
