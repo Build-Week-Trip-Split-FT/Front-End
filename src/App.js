@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Route, Link } from "react-router-dom";
 
@@ -6,16 +5,20 @@ import { PrivateRoute } from "./utils";
 import ExampleComponent from "./components/ExampleComponent";
 import SignUp from "./components/SignUp/";
 import Login from "./components/Login/";
+import HomeView from "./components/HomeView/HomeView";
+import Message from './components/Message';
 import NavBar from "./components/NavBar/NavBar";
 
-const App = () => {
+import './App.scss';
 
+
+const App = () => {
   const logOut = () => {
-    localStorage.setItem('token',"");
-  }
+    localStorage.setItem("token", "");
+  };
 
   return (
-    <div>
+    <div className="container">
       <NavBar/>
      <div>
         Welcome To Trip Split
@@ -25,10 +28,11 @@ const App = () => {
           <button onClick={logOut}>Log out</button>
         </li>
       </ul>
+      <Message />
       <PrivateRoute path="/secret" component={ExampleComponent} />
-      <Route path="/signup" component={SignUp} />  
-      <Route path ="/login" component={Login} />
-
+      <PrivateRoute path="/homeview" component={HomeView} />
+      <Route path="/signup" component={SignUp} />
+      <Route path="/login" component={Login} />
     </div>
   );
 };

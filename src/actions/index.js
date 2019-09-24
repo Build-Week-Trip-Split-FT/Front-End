@@ -11,6 +11,7 @@ export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 export const TOGGLE_PAID = "TOGGLE_PAID";
 export const SET_EVENT = "SET_EVENT";
+export const ERROR = "ERROR";
 
 const baseURL = "https://bd-trip-split.herokuapp.com/api";
 
@@ -18,11 +19,17 @@ export const fetchData = (partial) => dispatch => {
   dispatch({type: FETCHING})
 }
 
+export const postData = (partial, data) => dispatch => {
+  let URL = baseURL + partial;
+  dispatch({type: FETCHING})
+  axiosWithAuth().post(URL, data)
+}
+
 export const logInUser = (user) => dispatch => {
   let URL = baseURL+"/auth/login";
   dispatch({type: LOGGING_IN})
   axiosWithAuth().post(URL, user)
-    .then(res => dispatch({type: LOGIN_SUCCESS, payload: res.data.token}))
+    .then(res => dispatch({type: LOGIN_SUCCESS, payload: res.data.token, user: user.username}))
     .catch(err => dispatch({type: LOGIN_FAILURE, payload: err}));
 }
 
@@ -64,4 +71,10 @@ export const updateDB = (trip) => dispatch => {
   axiosWithAuth.put(`${baseURL}/sdfdsfds`, trip)
     .then(res => dispatch({type: "", payload: trip}))
     .catch(err => dispatch({type: "", payload: err})) 
+}
+
+export const checkLogin = () => {
+  if (!localStorage.getItem('token')) {
+    return {type: ERROR, payload: "You must be logged in to view this page!"}
+  }
 }

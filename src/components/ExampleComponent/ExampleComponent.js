@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { togglePaid, setEvent } from '../../actions';
 
-const ExampleComponent = ({ currentData, singleTrip, togglePaid, setEvent }) => {
+const ExampleComponent = ({ singleTrip, togglePaid, setEvent }) => {
   return (
     <div>
       <p>Destination: {singleTrip.destination}</p>
@@ -45,7 +45,7 @@ const ExampleComponent = ({ currentData, singleTrip, togglePaid, setEvent }) => 
 
 const mapStateToProps = state => {
   return {
-    currentData: state.currentData,
+    userTrips: state.userTrips,
     singleTrip: state.singleTrip
   }
 };
