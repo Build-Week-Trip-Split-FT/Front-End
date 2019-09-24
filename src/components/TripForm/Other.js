@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 const OtherForm = () => {
-  {
-    name:
-    username:
-    password:
-    email:
-  }
+  // {
+  //   name:
+  //   username:
+  //   password:
+  //   email:
+  // }
   let [initData, setData] = useState(
     {
       destination: "",

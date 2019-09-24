@@ -12,10 +12,6 @@ function NavBar() {
         <Link to="/signup">Sign Up</Link>
         <Link to="">About</Link>
         <Link to="/homeview">Home View</Link>
-        {/* <a href="#">Trips</a>
-            <a href="#">About</a>
-            <a href="#">Login</a>
-            <a href="#">Sign Up</a> */}
       </nav>
     </div>
   );
