@@ -1,0 +1,16 @@
+.main-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+
+  .trips-container {
+    border: 1px solid lightgrey;
+    padding: 2rem;
+    border-radius: 20px;
+  }
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
