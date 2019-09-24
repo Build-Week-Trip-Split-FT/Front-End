@@ -20,9 +20,11 @@ export const fetchData = (partial) => dispatch => {
 }
 
 export const postData = (partial, data) => dispatch => {
+  let URL = baseURL + partial;
   dispatch({type: FETCHING})
-
+  axiosWithAuth().post(URL, data)
 }
+
 export const logInUser = (user) => dispatch => {
   let URL = baseURL+"/auth/login";
   dispatch({type: LOGGING_IN})

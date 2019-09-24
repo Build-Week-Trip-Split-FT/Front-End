@@ -19,7 +19,7 @@ export const reducer = (state = initialState, action) => {
     case SIGNUP_FAILURE: 
       return {...state, isFetching: false, fetching_message: "", error: true, error_message:"U FAILED"}
     case TOGGLE_PAID:
-      return {...state, currentData: {...state.currentData, people: action.payload}}
+      return {...state, userTrips: {...state.userTrips, people: action.payload}}
     case SET_EVENT:
       return {...state, singleTrip: action.payload}
     case ERROR:
@@ -30,7 +30,7 @@ export const reducer = (state = initialState, action) => {
 }
 
 const initialState = {
-  currentData: mockData,
+  userTrips: mockData,
   singleTrip: mockData[0],
   isFetching: false,
   fetching_message: "",

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 import { postData } from '../../actions';
 
-const PeopleForm = () => {
+const PeopleForm = (props) => {
+  let id = 0;
   let [nameInfo, setName] = useState({first_name: "", last_name: ""});
   
   const handleChange = (event) => {
@@ -12,7 +13,7 @@ const PeopleForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    postData(`/trips/${id}/people`, nameInfo);
+    props.postData(`/trips/${id}/people`, nameInfo);
   }
 
   return (
@@ -30,4 +31,4 @@ const PeopleForm = () => {
 
 }
 
-export default connect(null, {PeopleForm;
+export default connect(null,{postData:postData})(PeopleForm);
