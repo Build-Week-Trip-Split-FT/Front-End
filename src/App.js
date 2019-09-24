@@ -2,6 +2,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Link } from "react-router-dom";
+import { PrivateRoute } from "./utils";
 import ExampleComponent from "./components/ExampleComponent";
 import WrappedRegistrationForm from "./components/SignUp/SignUp";
 
@@ -12,7 +13,6 @@ import LoginWithFormik from "./components/Login/Login";
 const App = props => {
   return (
     <div>
-
      <div className={styles.app}>
         Welcome To Trip Split
       </div>
@@ -21,15 +21,18 @@ const App = props => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/signup/">Sign Up</Link>
+          <Link to="/signup">Sign Up</Link>
+        </li>
+        <li>
+          <Link to ="/secret">You can view this if youre logged in</Link>
         </li>
       </ul>
       {props.title}
-      <Route exact path="/" component={ExampleComponent} />
-      <Route exact path="/signup/" component={WrappedRegistrationForm} />
+      <PrivateRoute path="/secret" component={ExampleComponent} />
+      <Route exact path="/signup" component={WrappedRegistrationForm} />
 
       <LoginWithFormik/>
-
+      
     </div>
   );
 };

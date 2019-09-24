@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./SignUp.scss";
 import { Form, Input, Tooltip, Icon, Checkbox, Button } from "antd";
 
+import { connect } from 'react-redux';
+import { signUpUser } from '../../actions';
+
 const RegistrationForm = props => {
   const [confirmDirty, setConfirmDirty] = useState();
 
@@ -12,30 +15,8 @@ const RegistrationForm = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log("this is inputed data", confirmDirty);
+    props.signUpUser(confirmDirty);
     setConfirmDirty({ name: "", username: "", email: "", password: "" });
-  };
-
-  const handleConfirmBlur = e => {
-    const { value } = e.target;
-    setConfirmDirty({ confirmDirty: confirmDirty || !!value });
-  };
-
-  const compareToFirstPassword = (value, callback) => {
-    const { form } = props;
-    if (value && value !== form.getFieldValue("password")) {
-      callback("Two passwords that you enter is inconsistent!");
-    } else {
-      callback();
-    }
-  };
-
-  const validateToNextPassword = (value, callback) => {
-    const { form } = props;
-    if (value && confirmDirty) {
-      form.validateFields(["confirm"], { force: true });
-    }
-    callback();
   };
   
   const { getFieldDecorator } = props.form;
@@ -66,7 +47,7 @@ const RegistrationForm = props => {
 
   return (
     <Form {...formItemLayout} onSubmit={handleSubmit}>
-      <Form.Item
+      {/* <Form.Item
         label={
           <span>
             Name&nbsp;
@@ -85,7 +66,7 @@ const RegistrationForm = props => {
             }
           ]
         })(<Input name="name" onChange={e => handleChanges(e)} />)}
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item label="User name">
         {getFieldDecorator("username", {
           rules: [
@@ -97,7 +78,7 @@ const RegistrationForm = props => {
         })(<Input name="username" onChange={e => handleChanges(e)} />)}
       </Form.Item>
 
-      <Form.Item label="E-mail">
+      {/* <Form.Item label="E-mail">
         {getFieldDecorator("email", {
           rules: [
             {
@@ -110,7 +91,7 @@ const RegistrationForm = props => {
             }
           ]
         })(<Input name="email" onChange={e => handleChanges(e)} />)}
-      </Form.Item>
+      </Form.Item> */}
 
       <Form.Item label="Password" hasFeedback>
         {getFieldDecorator("password", {
@@ -119,36 +100,10 @@ const RegistrationForm = props => {
               required: true,
               message: "Please input your password!"
             },
-            {
-              validator: validateToNextPassword
-            }
           ]
         })(<Input.Password name="password" onChange={e => handleChanges(e)} />)}
       </Form.Item>
 
-      <Form.Item label="Confirm Password" hasFeedback>
-        {getFieldDecorator("confirm", {
-          rules: [
-            {
-              required: true,
-              message: "Please confirm your password!"
-            },
-            {
-              validator: compareToFirstPassword
-            }
-          ]
-        })(<Input.Password onBlur={handleConfirmBlur} />)}
-      </Form.Item>
-
-      <Form.Item {...tailFormItemLayout}>
-        {getFieldDecorator("agreement", {
-          valuePropName: "checked"
-        })(
-          <Checkbox>
-            I have read the <a href="#">agreement</a>
-          </Checkbox>
-        )}
-      </Form.Item>
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
           Register
@@ -162,4 +117,4 @@ const WrappedRegistrationForm = Form.create({ name: "register" })(
   RegistrationForm
 );
 
-export default WrappedRegistrationForm;
+export default connect(null, {signUpUser: signUpUser})(WrappedRegistrationForm);
