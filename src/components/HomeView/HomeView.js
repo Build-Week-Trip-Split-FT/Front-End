@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import axios from "axios";
 
 import "./HomeView.scss";
 
-const HomeView = (props) => {
+const HomeView = props => {
   let mockData = props.tripViews;
+
   console.log(mockData);
+<<<<<<< HEAD
 
   const [users, setUsers] = useState([{}]);
+=======
+  const [users, setUsers] = useState(mockData);
+>>>>>>> bf9c18fa809dc3a5709a96883042d723fdc74436
 
   // useEffect(() => {
   //   const getUser = () => {
@@ -28,33 +33,41 @@ const HomeView = (props) => {
   // }, []);
 
   return (
-    <div>
-      {users.map(user => (
-        <UserDetails
-          key={user.id}
-          username={user.username}
-          destination={user.destination}
-          date={user.date}
-          active={user.active}
-        />
-      ))}
+    <div className="container">
+      <div className="button-container">
+        <button>Add a trip!</button>
+      </div>
+      <div>
+        {mockData.trips.map((user, key) => (
+          <UserDetails
+            key={key}
+            username={user.username}
+            destination={user.destination}
+            date={user.date}
+            active={user.active}
+            num_people={user.num_people}
+            // destination={user.destination}
+            // date={user.date}
+            // active={user.active}
+          />
+        ))}
+      </div>
     </div>
   );
 };
 
-function UserDetails({ username, destination, date, active }) {
+function UserDetails(props) {
   return (
-    <div>
-      <div>Welcome {username}</div>
-      <div>
-        Trips
-        <p>Destination:{destination}</p>
-        <p>Date:{date}</p>
-        <p>Active:{active}</p>
-        <p>Number of People:</p>
+    <div className="main-container">
+      <div className="trips-container">
+        <div>Welcome {props.username}</div>
+        <div>
+          <p>Destination: {props.destination}</p>
+          <p>Date: {props.date.toString()}</p>
+          <p>Active: {props.active}</p>
+          <p>Number of People: {props.num_people}</p>
+        </div>
       </div>
-      <div>Trip</div>
-      <button>Add Trip</button>
     </div>
   );
 }
@@ -62,7 +75,10 @@ function UserDetails({ username, destination, date, active }) {
 const mapStateToProps = state => {
   return {
     tripViews: state.tripViews
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, {})(HomeView);
+export default connect(
+  mapStateToProps,
+  {}
+)(HomeView);
