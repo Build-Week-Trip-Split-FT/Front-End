@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, Input, Button } from "antd";
 
 import { connect } from 'react-redux';
@@ -7,19 +7,13 @@ import { signUpUser } from '../../actions';
 import './SignUp.scss';
 
 const RegistrationForm = props => {
-  const [user, setUser] = useState({ name: "", username: "", email: "", password: "" });
-
-  const handleChanges = e => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = e => {
     e.preventDefault();
     props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        props.signUpUser(user);
-        setUser({ name: "", username: "", email: "", password: "" });
-        props.history.push("/");
+        props.signUpUser(values);
+        props.form.setFieldsValue({ username: "", password: ""});
       }
     });
   };
@@ -80,7 +74,7 @@ const RegistrationForm = props => {
               message: "Please input a username!"
             }
           ]
-        })(<Input name="username" onChange={e => handleChanges(e)} value={user.username}/>)}
+        })(<Input name="username" />)}
       </Form.Item>
 
       {/* <Form.Item label="E-mail">
@@ -106,7 +100,7 @@ const RegistrationForm = props => {
               message: "Please input your password!"
             },
           ]
-        })(<Input.Password name="password" onChange={e => handleChanges(e)} value={user.password}/>)}
+        })(<Input.Password name="password" />)}
       </Form.Item>
 
       <Form.Item {...tailFormItemLayout}>
