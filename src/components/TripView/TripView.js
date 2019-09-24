@@ -1,9 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { fetchData } from '../../actions';
 
-const TripView = () => {
+const TripView = (props) => {
   return (
     <div>Hey</div>
   )
 }
 
-export default TripView;
+const mapStateToProps = state => {
+  return {
+    singleTrip: state.singleTrip,
+  }
+};
+
+export default connect(mapStateToProps, {fetchData: fetchData})(TripView);

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { connect } from 'react-redux';
 
+import { addTrip } from '../../actions';
 
-const AddTrip = () => {
-    
+const AddTrip = (props) => {
     let [trip, setTrip] = useState(
         {
-            username: "",
+            username: props.username,
             destination:"",
             date: new Date(),
             active: true
@@ -26,28 +27,25 @@ const AddTrip = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(trip);
+        props.addTrip(trip);
+        props.history.push('/homeview');
     }
 
     return (
         <div>
             Add a Trip!
             <form>
-                <div onChange={(e) => handleChange(e)}>
-                    <label>Username: </label>
-                     <input type="text" placeholder="Username" name="username" value={trip.username} />
-                </div>
-                <div onChange={(e) => handleChange(e)}>
+                <div >
                     <label>Destination: </label>
-                    <input type="text" name="destination" placeholder="Destination" value={trip.destination} />
+                    <input type="text" name="destination" placeholder="Destination" value={trip.destination} onChange={(e) => handleChange(e)}/>
                 </div>
-                <div onChange={(e) => handleChange(e)}>
+                <div >
                     <label>Date: </label>
-                    <input type="text" placeholder="Date" name="date" value={trip.date}/>
+                    <input type="date" placeholder="Date" name="date" value={trip.date} onChange={(e) => handleChange(e)}/>
                 </div>
-                <div onChange={(e) => handleChange(e)}>
+                <div >
                     <label>Active Trip: </label>
-                    <input type="checkbox" name="active" checked={trip.active}/>
+                    <input type="checkbox" name="active" checked={trip.active} onChange={(e) => handleChange(e)}/>
                 </div>
                 <button onClick={(e) => handleSubmit(e)}>Add Trip</button>
             </form>
@@ -55,4 +53,9 @@ const AddTrip = () => {
     )
 }
 
-export default AddTrip;
+const mapStateToProps = state => {
+    return {
+        username: state.username,
+    }
+}
+export default connect(mapStateToProps, {addTrip: addTrip})(AddTrip);

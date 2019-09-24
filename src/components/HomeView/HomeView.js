@@ -7,6 +7,7 @@ import "./HomeView.scss";
 const HomeView = (props) => {
   let mockData = props.tripViews;
   console.log(mockData);
+
   const [users, setUsers] = useState([{}]);
 
   // useEffect(() => {

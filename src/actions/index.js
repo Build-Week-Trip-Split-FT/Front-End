@@ -1,8 +1,8 @@
 import { axiosWithAuth } from '../utils';
 
-export const FETCHING = "FETCHING";
-export const FETCH_SUCCESS = "FETCH_SUCCESS";
-export const FETCH_FAILURE = "FETCH_FAILURE";
+export const FETCHING_TRIP = "FETCHING";
+export const FETCH_TRIP_SUCCESS = "FETCH_SUCCESS";
+export const FETCH_TRIP_FAILURE = "FETCH_FAILURE";
 export const LOGGING_IN = "LOGGING_IN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_ERROR";
@@ -15,15 +15,19 @@ export const ERROR = "ERROR";
 
 const baseURL = "https://bd-trip-split.herokuapp.com/api";
 
-export const fetchData = (partial) => dispatch => {
-  dispatch({type: FETCHING})
+export const fetchTrip = (partial) => dispatch => {
+  let URL = baseURL + partial;
+  dispatch({type: FETCHING_TRIP})
+  axiosWithAuth().get(URL)
+    .then(res => dispatch({type: FETCH_TRIP_SUCCESS, payload: res.data}))
 }
 
-export const postData = (partial, data) => dispatch => {
-  let URL = baseURL + partial;
-  dispatch({type: FETCHING})
-  axiosWithAuth().post(URL, data)
-}
+// export const postData = (partial, data) => dispatch => {
+//   let URL = baseURL + partial;
+//   dispatch({type: FETCHING_TRIP})
+//   axiosWithAuth().post(URL, data)
+//     .then(res => dispatch({type:"POST_SUCCESS"}));
+// }
 
 export const logInUser = (user) => dispatch => {
   let URL = baseURL+"/auth/login";
@@ -71,6 +75,13 @@ export const updateDB = (trip) => dispatch => {
   axiosWithAuth.put(`${baseURL}/sdfdsfds`, trip)
     .then(res => dispatch({type: "", payload: trip}))
     .catch(err => dispatch({type: "", payload: err})) 
+}
+
+export const addTrip = (trip) => dispatch => {
+  let URL = baseURL + `/users/${trip.username}/trips`;
+  dispatch({type: FETCHING_TRIP});
+  axiosWithAuth().post(URL, trip)
+    .then(res => dispatch({type: "POST_SUCCESS"}))
 }
 
 export const checkLogin = () => {
