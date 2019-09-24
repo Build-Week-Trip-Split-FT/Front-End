@@ -1,19 +1,21 @@
 
 import React from "react";
-import { connect } from "react-redux";
 import { Route, Link } from "react-router-dom";
+
 import { PrivateRoute } from "./utils";
 import ExampleComponent from "./components/ExampleComponent";
-import WrappedRegistrationForm from "./components/SignUp/SignUp";
+import SignUp from "./components/SignUp/";
+import Login from "./components/Login/";
 
-import styles from './App.scss';
-import LoginWithFormik from "./components/Login/Login";
+const App = () => {
 
+  const logOut = () => {
+    localStorage.setItem('token',"");
+  }
 
-const App = props => {
   return (
     <div>
-     <div className={styles.app}>
+     <div>
         Welcome To Trip Split
       </div>
       <ul>
@@ -21,27 +23,24 @@ const App = props => {
           <Link to="/">Home</Link>
         </li>
         <li>
+          <Link to="/login">Login</Link>
+        </li>
+        <li>
           <Link to="/signup">Sign Up</Link>
         </li>
         <li>
           <Link to ="/secret">You can view this if youre logged in</Link>
         </li>
+        <li>
+          <button onClick={logOut}>Log out</button>
+        </li>
       </ul>
-      {props.title}
       <PrivateRoute path="/secret" component={ExampleComponent} />
-      <Route exact path="/signup" component={WrappedRegistrationForm} />
+      <Route path="/signup" component={SignUp} />  
+      <Route path ="/login" component={Login} />
 
-      <LoginWithFormik/>
-      
     </div>
   );
 };
 
-const mapStateToProps = state => ({
-  title: state.title
-});
-
-export default connect(
-  mapStateToProps,
-  {}
-)(App);
+export default App;
