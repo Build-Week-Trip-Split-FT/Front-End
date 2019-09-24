@@ -1,23 +1,28 @@
 import React, { useState } from "react";
-import "./SignUp.scss";
-import { Form, Input, Tooltip, Icon, Checkbox, Button } from "antd";
+import { Form, Input, Button } from "antd";
 
 import { connect } from "react-redux";
 import { signUpUser } from "../../actions";
 
+import "./SignUp.scss";
+
 const RegistrationForm = props => {
-  const [confirmDirty, setConfirmDirty] = useState();
+  const [user, setUser] = useState({
+    name: "",
+    username: "",
+    email: "",
+    password: ""
+  });
 
   const handleChanges = e => {
-    setConfirmDirty({ ...confirmDirty, [e.target.name]: e.target.value });
-    console.log(`this is confirmdirty`, confirmDirty);
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    props.signUpUser(confirmDirty);
-    setConfirmDirty({ name: "", username: "", email: "", password: "" });
-    props.history.push(`/secret/${confirmDirty.username}`);
+    props.signUpUser(user);
+    setUser({ name: "", username: "", email: "", password: "" });
+    props.history.push(`/secret/${user.username}`);
   };
 
   const { getFieldDecorator } = props.form;
@@ -47,8 +52,9 @@ const RegistrationForm = props => {
   };
 
   return (
-    <Form {...formItemLayout} onSubmit={handleSubmit}>
-      {/* <Form.Item
+    <div class="signUpContainer">
+      <Form {...formItemLayout} onSubmit={handleSubmit}>
+        {/* <Form.Item
         label={
           <span>
             Name&nbsp;
@@ -68,18 +74,24 @@ const RegistrationForm = props => {
           ]
         })(<Input name="name" onChange={e => handleChanges(e)} />)}
       </Form.Item> */}
-      <Form.Item label="User name">
-        {getFieldDecorator("username", {
-          rules: [
-            {
-              required: true,
-              message: "Please input your User name!"
-            }
-          ]
-        })(<Input name="username" onChange={e => handleChanges(e)} />)}
-      </Form.Item>
+        <Form.Item label="User name">
+          {getFieldDecorator("username", {
+            rules: [
+              {
+                required: true,
+                message: "Please input a username!"
+              }
+            ]
+          })(
+            <Input
+              name="username"
+              onChange={e => handleChanges(e)}
+              value={user.username}
+            />
+          )}
+        </Form.Item>
 
-      {/* <Form.Item label="E-mail">
+        {/* <Form.Item label="E-mail">
         {getFieldDecorator("email", {
           rules: [
             {
@@ -94,23 +106,30 @@ const RegistrationForm = props => {
         })(<Input name="email" onChange={e => handleChanges(e)} />)}
       </Form.Item> */}
 
-      <Form.Item label="Password" hasFeedback>
-        {getFieldDecorator("password", {
-          rules: [
-            {
-              required: true,
-              message: "Please input your password!"
-            }
-          ]
-        })(<Input.Password name="password" onChange={e => handleChanges(e)} />)}
-      </Form.Item>
+        <Form.Item label="Password" hasFeedback>
+          {getFieldDecorator("password", {
+            rules: [
+              {
+                required: true,
+                message: "Please input your password!"
+              }
+            ]
+          })(
+            <Input.Password
+              name="password"
+              onChange={e => handleChanges(e)}
+              value={user.password}
+            />
+          )}
+        </Form.Item>
 
-      <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
-          Register
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item {...tailFormItemLayout}>
+          <Button type="primary" htmlType="submit">
+            Register
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   );
 };
 
