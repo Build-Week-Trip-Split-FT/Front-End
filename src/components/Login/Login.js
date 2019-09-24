@@ -11,17 +11,6 @@ import "./Login.scss";
 function Login( { errors, touched, status, logInUser, history }) {
     const [user, setUser] = useState({username: "", password:""});
 
-<<<<<<< HEAD
-    useEffect(() => {
-        if(status) {
-            setUser([...user, status]);
-        }
-    }, [user])
-
-<<<<<<< HEAD
-=======
-=======
->>>>>>> faee20a4404b3b46fbc0c92421764db0e164d7ba
     const handleChange = e => {
         setUser({ ...user, [e.target.name]: e.target.value })
     }
@@ -36,7 +25,6 @@ function Login( { errors, touched, status, logInUser, history }) {
         }
     }
 
->>>>>>> a68ed321fca859294d6acbaf733eb9fafcd3f840
     return (
         <div className="login-page">
             <h2>Login</h2>
@@ -80,8 +68,4 @@ const LoginWithFormik = withFormik({
     }),
 })(Login);
 
-<<<<<<< HEAD
-export default LoginWithFormik;
-=======
 export default connect(null, {logInUser: logInUser})(LoginWithFormik);
->>>>>>> a68ed321fca859294d6acbaf733eb9fafcd3f840
