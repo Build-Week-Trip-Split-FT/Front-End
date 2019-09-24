@@ -28,7 +28,7 @@ const AddTrip = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         props.addTrip(trip);
-        props.history.push('/homeview');
+        props.history.push('/trips');
     }
 
     return (
