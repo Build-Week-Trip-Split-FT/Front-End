@@ -19,6 +19,10 @@ export const fetchData = (partial) => dispatch => {
   dispatch({type: FETCHING})
 }
 
+export const postData = (partial, data) => dispatch => {
+  dispatch({type: FETCHING})
+
+}
 export const logInUser = (user) => dispatch => {
   let URL = baseURL+"/auth/login";
   dispatch({type: LOGGING_IN})
