@@ -11,6 +11,7 @@ export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 export const TOGGLE_PAID = "TOGGLE_PAID";
 export const SET_EVENT = "SET_EVENT";
+export const ERROR = "ERROR";
 
 const baseURL = "https://bd-trip-split.herokuapp.com/api";
 
@@ -64,4 +65,10 @@ export const updateDB = (trip) => dispatch => {
   axiosWithAuth.put(`${baseURL}/sdfdsfds`, trip)
     .then(res => dispatch({type: "", payload: trip}))
     .catch(err => dispatch({type: "", payload: err})) 
+}
+
+export const checkLogin = () => {
+  if (!localStorage.getItem('token')) {
+    return {type: ERROR, payload: "You must be logged in to view this page!"}
+  }
 }
