@@ -6,6 +6,11 @@ import ExampleComponent from "./components/ExampleComponent";
 import SignUp from "./components/SignUp/";
 import Login from "./components/Login/";
 import HomeView from "./components/HomeView/HomeView";
+import Message from './components/Message';
+import NavBar from "./components/NavBar/NavBar";
+
+import './App.scss';
+
 
 const App = () => {
   const logOut = () => {
@@ -13,28 +18,17 @@ const App = () => {
   };
 
   return (
-    <div>
-      <div>Welcome To Trip Split</div>
+    <div className="container">
+      <NavBar/>
+     <div>
+        Welcome To Trip Split
+      </div>
       <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/signup">Sign Up</Link>
-        </li>
-        <li>
-          <Link to="/secret">You can view this if youre logged in</Link>
-        </li>
-        <li>
-          <Link to="/homeview">You can view this if youre logged in</Link>
-        </li>
         <li>
           <button onClick={logOut}>Log out</button>
         </li>
       </ul>
+      <Message />
       <PrivateRoute path="/secret" component={ExampleComponent} />
       <PrivateRoute path="/homeview" component={HomeView} />
       <Route path="/signup" component={SignUp} />
