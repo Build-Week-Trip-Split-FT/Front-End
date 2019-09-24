@@ -15,16 +15,6 @@ function Login( { errors, touched, status }) {
         }
     }, [user])
 
-    const handleChange = e => {
-        setUser({ ...user, [e.target.name]: e.target.value })
-    }
-    
-    //USED W/ REACT, CHANGED FOR FORMIK
-    const handleSubmit = e => {
-        e.preventDefault();
-        setUser({ username: '', password: ''})
-        console.log(user);
-    }
     return (
         <div className="login-page">
             <h2>Login</h2>
@@ -80,12 +70,5 @@ const LoginWithFormik = withFormik({
         })
     }
 })(Login);
-
-
-
-
-
-
-
 
 export default LoginWithFormik;
