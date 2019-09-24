@@ -6,16 +6,15 @@ import { fetchUser } from '../../actions';
 import "./HomeView.scss";
 
 const HomeView = props => {
-
+  console.log(props.userTrips);
   useEffect(() => {
-    console.log(props);
     props.fetchUser(props.username);
   }, []);
 
   const redirect = () => {
     props.history.push("/add");
   }
-  
+
   return (
     <div className="container">
       <h2>Welcome {props.username}</h2>
@@ -32,9 +31,6 @@ const HomeView = props => {
               date={user.date}
               active={user.active}
               num_people={user.num_people}
-              // destination={user.destination}
-              // date={user.date}
-              // active={user.active}
             />
           ))}
         </div>

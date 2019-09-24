@@ -24,8 +24,8 @@ export const fetchUser = (username) => dispatch => {
     .then(res => dispatch({type: FETCH_USER_SUCCESS, payload: res.data}));
 
 }
-export const fetchTrip = (partial) => dispatch => {
-  let URL = baseURL + partial;
+export const fetchTrip = (id) => dispatch => {
+  let URL = baseURL + `/trips/${id}`;
   dispatch({type: FETCHING_TRIP})
   axiosWithAuth().get(URL)
     .then(res => dispatch({type: FETCH_TRIP_SUCCESS, payload: res.data}))
@@ -90,7 +90,7 @@ export const addTrip = (trip) => dispatch => {
   let URL = baseURL + `/users/${trip.username}/trips`;
   dispatch({type: FETCHING_TRIP});
   axiosWithAuth().post(URL, trip)
-    .then(res => dispatch({type: "POST_SUCCESS"}))
+    .then(res => dispatch({type: "POST_SUCCESS", payload: res.data}))
 }
 
 export const checkLogin = () => {

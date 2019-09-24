@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchData } from '../../actions';
+import { fetchTrip } from '../../actions';
 
 const TripView = (props) => {
+  useEffect(() => {
+    let id = props.match.params("tripID");
+    props.fetchTrip(id);
+  }, []);
+  
   return (
     <div>Hey</div>
   )
@@ -11,7 +16,8 @@ const TripView = (props) => {
 const mapStateToProps = state => {
   return {
     singleTrip: state.singleTrip,
+    username: state.username,
   }
 };
 
-export default connect(mapStateToProps, {fetchData: fetchData})(TripView);
+export default connect(mapStateToProps, {fetchTrip: fetchTrip})(TripView);
