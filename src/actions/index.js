@@ -55,15 +55,6 @@ export const togglePaid = (person, expense, trip) => {
   })
   let newTrip = {...trip, expenses: newExpenses}
   return {type: SET_EVENT, payload: newTrip};
-  // let people = trip;
-  // let newPeople = people.map(searchedPerson => {
-  //   if (searchedPerson.name == person.name) {
-  //     // Toggles clicked person's paid status
-  //     return {...searchedPerson, paid: !person.paid}
-  //   }
-  //   return searchedPerson
-  // });
-  // return {type: TOGGLE_PAID, payload: newPeople}
 }
 
 // Saves when clicking on save or complete edit
