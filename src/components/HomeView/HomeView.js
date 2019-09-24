@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from "react";
+import { connect } from 'react-redux';
 import axios from "axios";
+
 import "./HomeView.scss";
 
-const HomeView = () => {
+const HomeView = (props) => {
+  let mockData = props.tripViews;
+  console.log(mockData);
   const [users, setUsers] = useState([{}]);
 
-  useEffect(() => {
-    const getUser = () => {
-      axios
+  // useEffect(() => {
+  //   const getUser = () => {
+  //     axios
 
-        .get(`https://bd-trip-split.herokuapp.com/api/:username`)
-        .then(response => {
-          setUsers(response.data.results);
-          console.log(response);
-        })
-        .catch(error => {
-          console.error("this is an error", error);
-        });
-    };
+  //       .get(`https://bd-trip-split.herokuapp.com/api/:username`)
+  //       .then(response => {
+  //         setUsers(response.data.results);
+  //         console.log(response);
+  //       })
+  //       .catch(error => {
+  //         console.error("this is an error", error);
+  //       });
+  //   };
 
-    getUser();
-  }, []);
+  //   getUser();
+  // }, []);
 
   return (
     <div>
@@ -54,4 +58,10 @@ function UserDetails({ username, destination, date, active }) {
   );
 }
 
-export default HomeView;
+const mapStateToProps = state => {
+  return {
+    tripViews: state.tripViews
+  }
+}
+
+export default connect(mapStateToProps, {})(HomeView);
