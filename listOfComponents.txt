@@ -8,3 +8,5 @@ specific view for event
 
 add/edit event from
 
+another form
+for editing expenses more specifically

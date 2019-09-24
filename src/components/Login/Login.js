@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { withFormik, Form, Field } from "formik";
+import { connect } from 'react-redux';
 import axios from "axios";
 import * as Yup from "yup";
-// import styles from './ExampleComponent.scss';
+
+import { logInUser } from '../../actions';
 import "./Login.scss";
 
 
-function Login( { errors, touched, status }) {
-    const [user, setUser] = useState([]);
+function Login( { errors, touched, status, logInUser }) {
+    const [user, setUser] = useState({username: "", password:""});
 
     useEffect(() => {
         if(status) {
@@ -15,15 +17,30 @@ function Login( { errors, touched, status }) {
         }
     }, [user])
 
+<<<<<<< HEAD
+=======
+    const handleChange = e => {
+        setUser({ ...user, [e.target.name]: e.target.value })
+    }
+    
+    //USED W/ REACT, CHANGED FOR FORMIK
+    const handleSubmit = e => {
+        e.preventDefault();
+        logInUser(user)
+        setUser({ username: '', password: ''})
+    }
+
+>>>>>>> a68ed321fca859294d6acbaf733eb9fafcd3f840
     return (
         <div className="login-page">
             <h2>Login</h2>
-            <Form>
+            <Form onChange={handleChange}>
                 <div>
                     <Field 
                         type="text" 
                         name="username"
                         placeholder="User Name"
+                        value={user.username}
                         />
                     {touched.username && errors.username && <p>{errors.username}</p>}
                 </div>
@@ -32,10 +49,11 @@ function Login( { errors, touched, status }) {
                         type="password" 
                         name="password"
                         placeholder="Password"
+                        value={user.password}
                         />
                     {touched.password && errors.password && <p>{errors.password}</p>}
                 </div>
-                <button type="submit">Submit</button>
+                <button type="submit" onClick={(e) => handleSubmit(e)}>Submit</button>
             </Form>
         </div>
     )
@@ -56,7 +74,6 @@ const LoginWithFormik = withFormik({
     }),
 
     handleSubmit(values, { resetForm, setSubmitting }) {
-        console.log(values);
         axios
         .post("", values)
         .then(res => {
@@ -68,7 +85,12 @@ const LoginWithFormik = withFormik({
             console.log(error.response)
             
         })
-    }
+    },
+    logInUser
 })(Login);
 
+<<<<<<< HEAD
 export default LoginWithFormik;
+=======
+export default connect(null, {logInUser: logInUser})(LoginWithFormik);
+>>>>>>> a68ed321fca859294d6acbaf733eb9fafcd3f840

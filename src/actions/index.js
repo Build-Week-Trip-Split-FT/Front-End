@@ -10,37 +10,51 @@ export const SIGNING_UP = "SIGNIN_UP";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 export const TOGGLE_PAID = "TOGGLE_PAID";
-
-const baseURL = "";
+export const SET_EVENT = "SET_EVENT";
+const baseURL = "https://bd-trip-split.herokuapp.com/api";
 
 export const fetchData = (partial) => dispatch => {
   dispatch({type: FETCHING})
 }
 
 export const logInUser = (user) => dispatch => {
+  let URL = baseURL+"/auth/login";
   dispatch({type: LOGGING_IN})
-  axiosWithAuth().post(`${baseURL}/login`, user)
+  axiosWithAuth().post(URL, user)
     .then(res => dispatch({type: LOGIN_SUCCESS, payload: res.data.token}))
     .catch(err => dispatch({type: LOGIN_FAILURE, payload: err}));
 }
 
 export const signUpUser = (user) => dispatch => {
+  let URL = baseURL + "/auth/register";
   dispatch({type: SIGNING_UP})
-  axiosWithAuth().post(`${baseURL}/signup`, user)
+  axiosWithAuth().post(URL, user)
     .then(res => dispatch({type: SIGNUP_SUCCESS}))
     .catch(err => dispatch({type: SIGNUP_FAILURE, payload: err}));
 }
 
-export const togglePaid = (person, trip) => {
-  let people = trip;
-  let newPeople = people.map(searchedPerson => {
-    if (searchedPerson.name == person.name) {
-      // Toggles clicked person's paid status
-      return {...searchedPerson, paid: !person.paid}
-    }
-    return searchedPerson
-  });
-  return {type: TOGGLE_PAID, payload: newPeople}
+export const setEvent = (event) => {
+  return {type: SET_EVENT, payload:event}
+}
+
+export const togglePaid = (person, expense, trip) => {
+  let newExpenses = trip.expenses.map(oldExpense => {
+    if (oldExpense.name === expense.name) {
+      return {...oldExpense, debts: oldExpense.debts.map(oldPerson => {
+        if (oldPerson.person_name === person.person_name) {
+          if (person.amount === 0) {
+            oldPerson.amount = expense.amount / expense.debts.length
+          } else {
+            oldPerson.amount = 0
+          }
+        }
+        return oldPerson
+      })
+    }}
+    return oldExpense
+  })
+  let newTrip = {...trip, expenses: newExpenses}
+  return {type: SET_EVENT, payload: newTrip};
 }
 
 // Saves when clicking on save or complete edit
