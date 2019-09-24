@@ -6,11 +6,10 @@ import ExampleComponent from "./components/ExampleComponent";
 import SignUp from "./components/SignUp/";
 import Login from "./components/Login/";
 import HomeView from "./components/HomeView/HomeView";
-import Message from './components/Message';
+import Message from "./components/Message";
 import NavBar from "./components/NavBar/NavBar";
 
-import './App.scss';
-
+import "./App.scss";
 
 const App = () => {
   const logOut = () => {
@@ -19,10 +18,8 @@ const App = () => {
 
   return (
     <div className="container">
-      <NavBar/>
-     <div>
-        Welcome To Trip Split
-      </div>
+      <NavBar />
+      <div>Welcome To Trip Split</div>
       <ul>
         <li>
           <button onClick={logOut}>Log out</button>
