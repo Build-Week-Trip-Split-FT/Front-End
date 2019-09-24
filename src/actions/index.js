@@ -31,12 +31,12 @@ export const fetchTrip = (id) => dispatch => {
     .then(res => dispatch({type: FETCH_TRIP_SUCCESS, payload: res.data}))
 }
 
-// export const postData = (partial, data) => dispatch => {
-//   let URL = baseURL + partial;
-//   dispatch({type: FETCHING_TRIP})
-//   axiosWithAuth().post(URL, data)
-//     .then(res => dispatch({type:"POST_SUCCESS"}));
-// }
+export const postData = (partial, data) => dispatch => {
+  let URL = baseURL + partial;
+  dispatch({type: FETCHING_TRIP})
+  axiosWithAuth().post(URL, data)
+    .then(res => dispatch({type:"POST_SUCCESS"}));
+}
 
 export const logInUser = (user) => dispatch => {
   let URL = baseURL+"/auth/login";
