@@ -7,10 +7,34 @@
     border: 1px solid lightgrey;
     padding: 2rem;
     border-radius: 20px;
+    background: white;
+    width: 25vw;
+    // border-radius: $border-radius-size + 5;
+    position: relative;
+    text-align: center;
+    box-shadow: -1px 15px 30px -12px black;
+    z-index: 9999;
   }
 }
 
 .button-container {
   display: flex;
   justify-content: center;
+  .addTrip {
+    background: #ec9b3b;
+    // background: #659dbd;
+    width: 10rem;
+    height: 3rem;
+    border: none;
+    border-radius: 2rem;
+    color: #fff;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    font-weight: 600;
+  }
+  .addTrip:hover {
+    background-color: #fff;
+    color: #659dbd;
+    color: #ec9b3b;
+  }
 }

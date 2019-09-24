@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
-import { fetchUser } from '../../actions';
+import { fetchUser } from "../../actions";
 
 import "./HomeView.scss";
 
@@ -13,15 +13,17 @@ const HomeView = props => {
 
   const redirect = () => {
     props.history.push("/add");
-  }
+  };
 
   return (
     <div className="container">
       <h2>Welcome {props.username}</h2>
       <div className="button-container">
-        <button onClick={redirect}>Add a trip!</button>
+        <button className="addTrip" onClick={redirect}>
+          Add a trip!
+        </button>
       </div>
-      {props.userTrips.trips && 
+      {props.userTrips.trips && (
         <div>
           {props.userTrips.trips.map((user, key) => (
             <UserDetails
@@ -34,7 +36,7 @@ const HomeView = props => {
             />
           ))}
         </div>
-      }
+      )}
     </div>
   );
 };
@@ -57,11 +59,11 @@ function UserDetails(props) {
 const mapStateToProps = state => {
   return {
     userTrips: state.userTrips,
-    username: state.username,
-  }
+    username: state.username
+  };
 };
 
 export default connect(
   mapStateToProps,
-  {fetchUser : fetchUser}
+  { fetchUser: fetchUser }
 )(HomeView);
