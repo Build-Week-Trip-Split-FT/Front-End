@@ -1,5 +1,5 @@
 import { FETCHING, FETCH_SUCCESS, FETCH_FAILURE, ERROR, LOGGING_IN, LOGIN_FAILURE, LOGIN_SUCCESS, SIGNING_UP, SIGNUP_FAILURE, SIGNUP_SUCCESS, TOGGLE_PAID, SET_EVENT } from '../actions';
-import { mockData } from '../utils';
+import { mockData, mockTrips } from '../utils';
 
 export const reducer = (state = initialState, action) => {
   switch(action.type) {
@@ -37,4 +37,5 @@ const initialState = {
   error: false,
   error_message: "",
   username: "",
+  tripViews: mockTrips,
 };

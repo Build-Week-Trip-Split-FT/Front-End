@@ -82,3 +82,31 @@ export const mockData = [
     },
 ]
 
+export const mockTrips = {
+  id: 0,
+  username: "testuser",
+  photo: "",
+  trips: [
+    {
+      id:0,
+      destination: "Bahamas",
+      date: new Date("08/27/2018"),
+      active: false,
+      num_people: 5,
+    },
+    {
+      id:0,
+      destination: "New York",
+      date: new Date("09/23/2019"),
+      active: true,
+      num_people: 4,
+    },
+    {
+      id:0,
+      destination: "New York",
+      date: new Date("09/23/2019"),
+      active: true,
+      num_people: 4,
+    },
+  ]
+};

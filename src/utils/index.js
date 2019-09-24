@@ -1,7 +1,8 @@
 import { axiosWithAuth } from './axiosWithAuth';
 import PrivateRoute from './PrivateRoute';
-import { mockData } from './mockData';
+import { mockData, mockTrips } from './mockData';
 
 export { axiosWithAuth };
 export { PrivateRoute };
 export { mockData };
+export { mockTrips };

@@ -8,7 +8,7 @@ function NavBar() {
         <h1>Trip Split</h1>
         <nav>
             <Link to="/">Home</Link>
-            <Link to="">Trips</Link>
+            <Link to="/addtrip">Trips</Link>
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
             <Link to="">About</Link>
