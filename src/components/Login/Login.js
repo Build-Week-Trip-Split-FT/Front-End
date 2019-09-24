@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { withFormik, Form, Field } from "formik";
 import { connect } from 'react-redux';
-import axios from "axios";
 import * as Yup from "yup";
 
 import { logInUser } from '../../actions';
+
 import "./Login.scss";
 
 
-function Login( { errors, touched, status, logInUser }) {
+function Login( { errors, touched, status, logInUser, history }) {
     const [user, setUser] = useState({username: "", password:""});
 
+<<<<<<< HEAD
     useEffect(() => {
         if(status) {
             setUser([...user, status]);
@@ -19,6 +20,8 @@ function Login( { errors, touched, status, logInUser }) {
 
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> faee20a4404b3b46fbc0c92421764db0e164d7ba
     const handleChange = e => {
         setUser({ ...user, [e.target.name]: e.target.value })
     }
@@ -26,8 +29,11 @@ function Login( { errors, touched, status, logInUser }) {
     //USED W/ REACT, CHANGED FOR FORMIK
     const handleSubmit = e => {
         e.preventDefault();
-        logInUser(user)
-        setUser({ username: '', password: ''})
+        if (user.username && user.password) {
+            logInUser(user)
+            setUser({ username: '', password: ''})
+            history.push("/");
+        }
     }
 
 >>>>>>> a68ed321fca859294d6acbaf733eb9fafcd3f840
@@ -72,21 +78,6 @@ const LoginWithFormik = withFormik({
         username: Yup.string("Username is not valid").required("Username is required"),
         password: Yup.string().required("Password is required")
     }),
-
-    handleSubmit(values, { resetForm, setSubmitting }) {
-        axios
-        .post("", values)
-        .then(res => {
-            console.log(res.data)
-            resetForm();
-            setSubmitting(false)
-        })
-        .catch(error => {
-            console.log(error.response)
-            
-        })
-    },
-    logInUser
 })(Login);
 
 <<<<<<< HEAD
