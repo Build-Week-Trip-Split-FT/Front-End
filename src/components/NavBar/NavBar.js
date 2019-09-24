@@ -10,8 +10,8 @@ function NavBar() {
         <Link to="/">Home</Link>
         <Link to="/login">Login</Link>
         <Link to="/signup">Sign Up</Link>
-        <Link to="">About</Link>
         <Link to="/homeview">Home View</Link>
+        <Link to="/add">Add a trip</Link>
       </nav>
     </div>
   );

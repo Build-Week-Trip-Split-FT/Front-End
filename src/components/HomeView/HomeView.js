@@ -1,52 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import axios from "axios";
+
+import { fetchUser } from '../../actions';
 
 import "./HomeView.scss";
 
 const HomeView = props => {
-  let mockData = props.tripViews;
+  console.log(props.userTrips);
+  useEffect(() => {
+    props.fetchUser(props.username);
+  }, []);
 
-  console.log(mockData);
-  const [users, setUsers] = useState(mockData);
-
-  // useEffect(() => {
-  //   const getUser = () => {
-  //     axios
-
-  //       .get(`https://bd-trip-split.herokuapp.com/api/:username`)
-  //       .then(response => {
-  //         setUsers(response.data.results);
-  //         console.log(response);
-  //       })
-  //       .catch(error => {
-  //         console.error("this is an error", error);
-  //       });
-  //   };
-
-  //   getUser();
-  // }, []);
+  const redirect = () => {
+    props.history.push("/add");
+  }
 
   return (
     <div className="container">
+      <h2>Welcome {props.username}</h2>
       <div className="button-container">
-        <button>Add a trip!</button>
+        <button onClick={redirect}>Add a trip!</button>
       </div>
-      <div>
-        {mockData.trips.map((user, key) => (
-          <UserDetails
-            key={key}
-            username={user.username}
-            destination={user.destination}
-            date={user.date}
-            active={user.active}
-            num_people={user.num_people}
-            // destination={user.destination}
-            // date={user.date}
-            // active={user.active}
-          />
-        ))}
-      </div>
+      {props.userTrips.trips && 
+        <div>
+          {props.userTrips.trips.map((user, key) => (
+            <UserDetails
+              key={key}
+              username={user.username}
+              destination={user.destination}
+              date={user.date}
+              active={user.active}
+              num_people={user.num_people}
+            />
+          ))}
+        </div>
+      }
     </div>
   );
 };
@@ -55,11 +43,10 @@ function UserDetails(props) {
   return (
     <div className="main-container">
       <div className="trips-container">
-        <div>Welcome {props.username}</div>
         <div>
           <p>Destination: {props.destination}</p>
           <p>Date: {props.date.toString()}</p>
-          <p>Active: {props.active}</p>
+          <p>Active: {props.active ? "Yes" : "No"}</p>
           <p>Number of People: {props.num_people}</p>
         </div>
       </div>
@@ -69,11 +56,12 @@ function UserDetails(props) {
 
 const mapStateToProps = state => {
   return {
-    tripViews: state.tripViews
-  };
+    userTrips: state.userTrips,
+    username: state.username,
+  }
 };
 
 export default connect(
   mapStateToProps,
-  {}
+  {fetchUser : fetchUser}
 )(HomeView);
