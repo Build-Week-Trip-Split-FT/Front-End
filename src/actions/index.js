@@ -11,6 +11,7 @@ export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 export const TOGGLE_PAID = "TOGGLE_PAID";
 export const SET_EVENT = "SET_EVENT";
+
 const baseURL = "https://bd-trip-split.herokuapp.com/api";
 
 export const fetchData = (partial) => dispatch => {

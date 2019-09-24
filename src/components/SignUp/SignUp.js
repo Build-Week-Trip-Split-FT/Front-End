@@ -1,22 +1,27 @@
 import React, { useState } from "react";
-import "./SignUp.scss";
-import { Form, Input, Tooltip, Icon, Checkbox, Button } from "antd";
+import { Form, Input, Button } from "antd";
 
 import { connect } from 'react-redux';
 import { signUpUser } from '../../actions';
 
+import './SignUp.scss';
+
 const RegistrationForm = props => {
-  const [confirmDirty, setConfirmDirty] = useState();
+  const [user, setUser] = useState({ name: "", username: "", email: "", password: "" });
 
   const handleChanges = e => {
-    setConfirmDirty({ ...confirmDirty, [e.target.name]: e.target.value });
-    console.log(`this is confirmdirty`, confirmDirty);
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    props.signUpUser(confirmDirty);
-    setConfirmDirty({ name: "", username: "", email: "", password: "" });
+    props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        props.signUpUser(user);
+        setUser({ name: "", username: "", email: "", password: "" });
+        props.history.push("/");
+      }
+    });
   };
   
   const { getFieldDecorator } = props.form;
@@ -72,10 +77,10 @@ const RegistrationForm = props => {
           rules: [
             {
               required: true,
-              message: "Please input your User name!"
+              message: "Please input a username!"
             }
           ]
-        })(<Input name="username" onChange={e => handleChanges(e)} />)}
+        })(<Input name="username" onChange={e => handleChanges(e)} value={user.username}/>)}
       </Form.Item>
 
       {/* <Form.Item label="E-mail">
@@ -101,7 +106,7 @@ const RegistrationForm = props => {
               message: "Please input your password!"
             },
           ]
-        })(<Input.Password name="password" onChange={e => handleChanges(e)} />)}
+        })(<Input.Password name="password" onChange={e => handleChanges(e)} value={user.password}/>)}
       </Form.Item>
 
       <Form.Item {...tailFormItemLayout}>
@@ -113,8 +118,6 @@ const RegistrationForm = props => {
   );
 };
 
-const WrappedRegistrationForm = Form.create({ name: "register" })(
-  RegistrationForm
-);
+const WrappedRegistrationForm = Form.create({ name: "register" })(RegistrationForm);
 
 export default connect(null, {signUpUser: signUpUser})(WrappedRegistrationForm);
