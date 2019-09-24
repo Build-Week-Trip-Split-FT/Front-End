@@ -9,7 +9,7 @@ export const reducer = (state = initialState, action) => {
       return {...state, isFetching: true, fetching_message: "Logging in User..."}
     case LOGIN_SUCCESS:
       localStorage.setItem('token', action.payload);
-      return {...state, isFetching: false, fetching_message: "", error: false}
+      return {...state, isFetching: false, fetching_message: "", username:action.user, error: false}
     case LOGIN_FAILURE:
       return {...state, isFetching: false, fetching_message: "", error: true, error_message: "Failed to Login"}
     case SIGNING_UP:
@@ -36,4 +36,5 @@ const initialState = {
   fetching_message: "",
   error: false,
   error_message: "",
+  username: "",
 };

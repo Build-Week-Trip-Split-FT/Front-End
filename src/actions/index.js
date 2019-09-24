@@ -23,7 +23,7 @@ export const logInUser = (user) => dispatch => {
   let URL = baseURL+"/auth/login";
   dispatch({type: LOGGING_IN})
   axiosWithAuth().post(URL, user)
-    .then(res => dispatch({type: LOGIN_SUCCESS, payload: res.data.token}))
+    .then(res => dispatch({type: LOGIN_SUCCESS, payload: res.data.token, user: user.username}))
     .catch(err => dispatch({type: LOGIN_FAILURE, payload: err}));
 }
 
