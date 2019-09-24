@@ -1,3 +1,3 @@
 import TripForm from './TripForm';
-
-export default TripForm;
+import Other from './Other';
+export default Other;
