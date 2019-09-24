@@ -1,0 +1,53 @@
+@import '~antd/dist/antd.css';
+
+.container-nav {
+    background-color: #659DBD;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    // @media @mobile {
+    //     flex-direction: column;
+    //     justify-content: center;
+    //     width: 100%;
+    //     // background-color: red;
+    // }
+
+    h1 {
+        color: white;
+        width: 20%;
+        margin: 0;
+        text-align: center;
+        // @media @mobile {
+        //     align-content: center;
+        //     justify-content: center;
+        //     width: 100%;
+        // }//this closes media query
+
+    }//this closes h1
+
+    nav {
+        width: 40%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        // @media @mobile {
+        //     flex-direction: row;
+        //     align-items: center;
+        //     justify-content: space-evenly;
+        //     width: 100%;
+        // }
+
+        a{
+            color: white;
+            text-decoration: none;
+            font-size: 1.4rem;
+            // @media @mobile {
+            //     flex-direction: row;
+            //     height: 50px;
+            //     padding-top: 20px;
+            //     }
+            // }//this closes a
+        }//this closes nav
+    }
+}
