@@ -22,7 +22,7 @@ const TripView = (props) => {
         <p>Attendees:</p>
           {singleTrip.people.map(person=> 
             (<div key={person.id}>
-              {person.first_name} {person.last_name}
+              {person.first_name} {person.last_name} <button onClick={() => redirect(`/people/${person.id}/edit`)}>Edit person</button>
             </div>
             ))}
       </div>
@@ -30,18 +30,18 @@ const TripView = (props) => {
         <p>Expenses:</p>
           {singleTrip.expenses.map(expense=> 
             (<div key={expense.id}>
-              {expense.name}: {expense.amount} paid by {expense.person_name}
+              {expense.name}: {expense.amount} paid by {expense.person_name} <button onClick={() => redirect(`/expense/${expense.id}/edit`)}>Edit expense</button>
               <ul>
                 {expense.debts.map(debt => 
                   <li key={debt.person_id}>{debt.person_name} owes {debt.amount} dollars</li>  
                 )}
               </ul>
-              {singleTrip.expenses.length > 0  && <button onClick={() => redirect(`/${expense.id}/add`)}>Add Debt</button>}
+              {singleTrip.expenses.length > 0  && <button onClick={() => redirect(`/${expense.id}/debt/add`)}>Add Debt</button>}
             </div>
             ))}
       </div>
-      <button onClick={() => redirect("/add/person")}>Add Person</button>
-      {singleTrip.people.length > 0 && <button onClick={() => redirect("/add/expense")}>Add Expense</button>}
+      <button onClick={() => redirect("/people/add")}>Add Person</button>
+      {singleTrip.people.length > 0 && <button onClick={() => redirect("/expense/add")}>Add Expense</button>}
     </div>}
     </>
   )

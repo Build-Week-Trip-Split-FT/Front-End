@@ -46,7 +46,7 @@ const AddTrip = (props) => {
 
     return (
         <div>
-            Add a Trip!
+            {status} a Trip!
             <form>
                 <div >
                     <label>Destination: </label>
@@ -60,7 +60,7 @@ const AddTrip = (props) => {
                     <label>Active Trip: </label>
                     <input type="checkbox" name="active" checked={trip.active} onChange={(e) => handleChange(e)}/>
                 </div>
-                <button onClick={(e) => handleSubmit(e)}>Add Trip</button>
+                <button onClick={(e) => handleSubmit(e)}>{status} Trip</button>
             </form>
         </div>
     )
