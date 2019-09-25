@@ -97,7 +97,7 @@ export const updateDB = (partial, trip) => dispatch => {
   dispatch({type:"WOO"});
   axiosWithAuth().put(`${baseURL}${partial}`, trip)
     .then(res => dispatch({type: "WOO", payload: trip}))
-    .catch(err => dispatch({type: FETCH_TRIP_FAILURE, payload: err})) 
+    .catch(err => console.log(err.response)) 
 }
 
 export const addTrip = (trip) => dispatch => {
