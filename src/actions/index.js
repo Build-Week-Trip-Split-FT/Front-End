@@ -22,7 +22,7 @@ export const checkTime = () => {
   let currentTime = new Date().getTime();
   let oldTime = Number(localStorage.getItem('time'));
   if (!oldTime || currentTime - oldTime > 1.08e+7) {
-    logOut();
+    return logOut();
   }
   return ({type:"default"});
 }
@@ -30,6 +30,7 @@ export const checkTime = () => {
 export const logOut = () => {
   return {type:LOG_OUT}
 }
+
 export const fetchUser = (username) => dispatch => {
   let URL = baseURL + `/users/${username}`;
   dispatch({type: FETCHING_USER});
@@ -105,10 +106,4 @@ export const addTrip = (trip) => dispatch => {
   dispatch({type: FETCHING_TRIP});
   axiosWithAuth().post(URL, trip)
     .then(res => dispatch({type: "POST_SUCCESS", payload: res.data}))
-}
-
-export const checkLogin = () => {
-  if (!localStorage.getItem('token')) {
-    return {type: ERROR, payload: "You must be logged in to view this page!"}
-  }
 }

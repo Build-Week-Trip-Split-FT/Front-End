@@ -12,9 +12,10 @@ const TripView = (props) => {
   const redirect = (type) => {
     props.history.push(`/trips/${props.match.params.tripID}${type}`);
   }
+
   return (
     <>
-    {singleTrip &&<div>
+    {singleTrip && <div>
       <h2>{singleTrip.destination}</h2>
       <p>Date of Trip: {singleTrip.date.substring(0,10)}</p>
       <p>Active: {singleTrip.active ? "Yes" : "No"}</p>
@@ -33,7 +34,12 @@ const TripView = (props) => {
               {expense.name}: {expense.amount} paid by {expense.person_name} <button onClick={() => redirect(`/expense/${expense.id}/edit`)}>Edit expense</button>
               <ul>
                 {expense.debts.map(debt => 
-                  <li key={debt.person_id}>{debt.person_name} owes {debt.amount} dollars <button onClick={() => redirect(`/expense/${expense.id}/debt/${debt.id}/edit`)}>Edit Debt</button></li>  
+                  <li key={debt.person_id}>
+                    {debt.person_name} owes {debt.amount} dollars 
+                    <button onClick={() => redirect(`/expense/${expense.id}/debt/${debt.person_id}/edit`)}>
+                      Edit Debt
+                    </button>
+                  </li>  
                 )}
               </ul>
               {singleTrip.expenses.length > 0  && <button onClick={() => redirect(`/expense/${expense.id}/debt/add`)}>Add Debt</button>}
