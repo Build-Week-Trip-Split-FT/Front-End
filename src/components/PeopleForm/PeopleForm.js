@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Icon } from "antd";
-import { postData } from "../../actions";
 
 import { postData, updateDB, deleteInfo } from "../../actions";
 
@@ -49,24 +48,25 @@ const PeopleForm = props => {
 
   const backSubmit = event => {
     event.preventDefault();
-    props.history.push(`/trips/${tripID}`);
-    console.log(backSubmit);
+    props.history.goBack();
   };
+
   return (
     <div>
       <div className="back-arrow">
-        <a onClick={backSubmit}>
+        <p onClick={backSubmit}>
           <Icon type="arrow-left" />
-        </a>
+        </p>
       </div>
       <h2>Who went on the trip?</h2>
-      <form onSubmit={e => handleSubmit(e)} onChange={e => handleChange(e)}>
+      <form onSubmit={e => handleSubmit(e)} >
         <label>First Name</label>
         <input
           type="text"
           placeholder="first name"
           name="first_name"
           value={nameInfo.first_name}
+          onChange={e => handleChange(e)}
         />
         <label>Last Name</label>
         <input
@@ -74,6 +74,7 @@ const PeopleForm = props => {
           placeholder="last name"
           name="last_name"
           value={nameInfo.last_name}
+          onChange={e => handleChange(e)}
         />
         <button>Add person</button>
       </form>
@@ -82,7 +83,10 @@ const PeopleForm = props => {
   );
 };
 
-export default connect(
-  null,
-  { postData: postData }
-)(PeopleForm);
+const mapStateToProps = state => {
+  return {
+    singleTrip: state.singleTrip,
+  }
+}
+
+export default connect(mapStateToProps, {postData:postData, updateDB: updateDB, deleteInfo : deleteInfo})(PeopleForm)

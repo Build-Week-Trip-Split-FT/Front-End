@@ -15,6 +15,7 @@ const ExpenseForm = (props) => {
   let [expense, setExpense] = useState(initialState);
 
   const handleChange = (event) => {
+    console.log(expense);
     setExpense({...expense, [event.target.name]: event.target.value});
   }
 
@@ -28,6 +29,7 @@ const ExpenseForm = (props) => {
     } else if (!expense.person_id) {
       alert("Please choose someone");
     } else {
+      console.log(expense);
       props.postData(`/trips/${tripID}/expenses`, expense);
       props.history.push("/trips");
     }
@@ -54,10 +56,10 @@ const ExpenseForm = (props) => {
         <label>
           Who Paid
         </label>
-        <select name="person_id" defaultValue={expense.person_id}>
-          <option disabled value="-1" onChange={(e) => handleChange(e)} >Select a person</option>
+        <select name="person_id" defaultValue={expense.person_id} onChange={(e) => handleChange(e)}>
+          <option disabled value="-1">Select a person</option>
           {props.singleTrip.people.map(person => 
-            <option key={person.id} value={person.id} name="person_id" onChange={(e) => handleChange(e)}>
+            <option key={person.id} value={person.id} name="person_id">
               {person.first_name} {person.last_name}
             </option>)}
         </select>
