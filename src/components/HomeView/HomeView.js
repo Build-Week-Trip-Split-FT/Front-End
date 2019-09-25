@@ -62,11 +62,10 @@ function UserDetails(props) {
 }
 
 
-function Map() {
-  return (
-
-  )
-}
+//function Map() {
+//  return (
+//  )
+// }
 
 const mapStateToProps = state => {
   return {
