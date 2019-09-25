@@ -37,7 +37,9 @@ function Login( { errors, touched, status, logInUser, history }) {
                         name="username"
                         placeholder="User Name"
                         value={user.username}
-                        
+                        style={{marginBottom: 10,
+                                width: 300,
+                                height: 40 }}
                         prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                         suffix={<Tooltip title="Extra information">
                                 <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} 
@@ -52,6 +54,8 @@ function Login( { errors, touched, status, logInUser, history }) {
                         name="password"
                         placeholder="Password"
                         value={user.password}
+                        style={{marginBottom: 10,
+                                height: 40}}
                         prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                         suffix={<Tooltip title="Extra information">
                                 <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} 

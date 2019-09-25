@@ -4,6 +4,10 @@
     display: flex;
     flex-flow: column;
     align-items: center;
+    line-height: 1.5;
 
-    
+    h2 {
+        border: 2px solid black;
+        
+    }
 }
