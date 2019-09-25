@@ -11,7 +11,6 @@ const NavBar = props => {
   let [token, setToken] = useState(props.token);
   useEffect(() => {
     setToken(props.token);
-    console.log(token);
   }, [props.token]);
 
   return (
@@ -19,10 +18,9 @@ const NavBar = props => {
       <h1>Trip Split</h1>
       <nav>
         <Link to={props.token ? "/trips" : "/login"}>Home</Link>
-        {token && <Link to="/login" onClick={props.logOut}>Log out</Link>}
         {!token && <Link to="/login">Login</Link>}
         {!token && <Link to="/signup">Sign Up</Link>}
-        {token&& <Link to="/trips/add">Add a trip</Link>}
+        {token&& <Link to="/add">Add a trip</Link>}
       </nav>
     </div>
   );

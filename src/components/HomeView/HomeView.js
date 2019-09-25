@@ -26,6 +26,7 @@ const HomeView = props => {
           Add a trip!
         </button>
       </div>
+
       {props.userTrips.trips && (
         <div className="wrapper">
           <Slider
@@ -49,9 +50,13 @@ const HomeView = props => {
             ))}
           </Slider>
         </div>
+        
+        <div className="button-container">
+          <button onClick={() => redirect("/add")}>Add a trip!</button>
+        </div>
       )}
-    </div>
   );
+
 };
 
 function UserDetails(props) {

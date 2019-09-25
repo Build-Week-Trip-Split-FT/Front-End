@@ -1,9 +1,17 @@
 @import '../../App.scss';
 
-.login-page {
+.login-container{
     display: flex;
-    flex-flow: column;
-    align-items: center;
+    justify-content: center;
+    margin-top: 8%;
 
-    
+    .login-page {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        line-height: 1.5;
+        background: rgb(245, 247, 248);
+        width: 40%;
+        border-radius: 20px;
+    }
 }
