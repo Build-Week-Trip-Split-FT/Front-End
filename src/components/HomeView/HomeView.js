@@ -54,6 +54,7 @@ function UserDetails(props) {
           <p>Active: {props.active ? "Yes" : "No"}</p>
           <p>Number of People: {props.num_people}</p>
           <button onClick={() => props.redirect(`/trips/${props.id}`)}>View More</button>
+          <button onClick={() => props.redirect(`/trips/${props.id}/edit`)}>Edit Information</button>
         </div>
         <p></p>
       </div>

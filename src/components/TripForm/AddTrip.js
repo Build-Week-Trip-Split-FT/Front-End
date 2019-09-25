@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
 
-import { addTrip } from '../../actions';
-import "./AddTrip.scss"
-
+import { addTrip, updateDB } from '../../actions';
 
 const AddTrip = (props) => {
-    let [trip, setTrip] = useState(
+    let id = props.match.params.tripID;
+    let matchedTrip;
+    if (id) {
+        matchedTrip = props.userTrips.trips.find(trip => Number(id) === trip.id);
+    }
+    console.log(matchedTrip)
+    // let initialState = (id ? )
+    let [trip, setTrip] = useState (
         {
             username: props.username,
             destination:"",
@@ -14,10 +19,6 @@ const AddTrip = (props) => {
             active: true
         }
     )
-    // const addNewTrip = (e) => {
-    //     e.preventDefault();
-    //     setTrip({...trip})
-    // }
     
     const handleChange = (e) => {
         if (e.target.name === "active") {
@@ -57,7 +58,8 @@ const AddTrip = (props) => {
 
 const mapStateToProps = state => {
     return {
+        userTrips: state.userTrips,
         username: state.username,
     }
 }
-export default connect(mapStateToProps, {addTrip: addTrip})(AddTrip);
+export default connect(mapStateToProps, {addTrip: addTrip, updateDB : updateDB})(AddTrip);
