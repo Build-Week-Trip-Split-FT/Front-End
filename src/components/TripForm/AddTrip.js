@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-import { Button, Input, DatePicker, Checkbox } from 'antd';
+import { Button, Input } from 'antd';
 
 import { addTrip, updateDB } from '../../actions';
 import styled from "styled-components";
