@@ -27,7 +27,7 @@ const HomeView = props => {
         </button>
       </div>
 
-      {props.userTrips.trips && (
+      {props.userTrips && (
         <div className="wrapper">
           <Slider
             speed={500}

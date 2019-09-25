@@ -15,7 +15,6 @@ const ExpenseForm = (props) => {
   let [expense, setExpense] = useState(initialState);
 
   const handleChange = (event) => {
-    console.log(expense);
     setExpense({...expense, [event.target.name]: event.target.value});
   }
 
@@ -29,7 +28,6 @@ const ExpenseForm = (props) => {
     } else if (!expense.person_id) {
       alert("Please choose someone");
     } else {
-      console.log(expense);
       props.postData(`/trips/${tripID}/expenses`, expense);
       props.history.push("/trips");
     }
