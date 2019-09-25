@@ -28,11 +28,11 @@ const App = (props) => {
     <div className="container">
       <NavBar />
       <div>Welcome To Trip Split</div>
-      <PrivateRoute path="/trips/add" component={AddTrip} />
       <Message />
       <PrivateRoute path="/secret" component={ExampleComponent} />
       <PrivateRoute exact path="/trips" component={HomeView} />
       <PrivateRoute exact path="/trips/:tripID" component={TripView} />
+      <PrivateRoute path={["/trips/add", "/trips/:tripID/edit"]} component={AddTrip} />
       <PrivateRoute path="/trips/:tripID/add/person" component={PeopleForm} />
       <PrivateRoute path="/trips/:tripID/add/expense" component={ExpenseForm} />
       <PrivateRoute path="/trips/:tripID/:expID/add" component={DebtForm} />
