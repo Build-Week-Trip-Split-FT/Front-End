@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Icon } from "antd";
-// import { postData } from "../../actions";
 
 import { postData, updateDB, deleteInfo } from "../../actions";
 
