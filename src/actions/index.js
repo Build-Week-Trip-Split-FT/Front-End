@@ -1,8 +1,8 @@
 import { axiosWithAuth } from '../utils';
 
 export const FETCHING_TRIP = "FETCHING";
-export const FETCH_TRIP_SUCCESS = "FETCH_SUCCESS";
-export const FETCH_TRIP_FAILURE = "FETCH_FAILURE";
+export const FETCH_TRIP_SUCCESS = "FETCH_TRIP_SUCCESS";
+export const FETCH_TRIP_FAILURE = "FETCH_TRIP_FAILURE";
 export const LOGGING_IN = "LOGGING_IN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_ERROR";
@@ -93,11 +93,11 @@ export const togglePaid = (person, expense, trip) => {
 }
 
 // Saves when clicking on save or complete edit
-export const updateDB = (trip) => dispatch => {
-  dispatch({});
-  axiosWithAuth.put(`${baseURL}/sdfdsfds`, trip)
-    .then(res => dispatch({type: "", payload: trip}))
-    .catch(err => dispatch({type: "", payload: err})) 
+export const updateDB = (partial, trip) => dispatch => {
+  dispatch({type:"WOO"});
+  axiosWithAuth().put(`${baseURL}${partial}`, trip)
+    .then(res => dispatch({type: "WOO", payload: trip}))
+    .catch(err => dispatch({type: FETCH_TRIP_FAILURE, payload: err})) 
 }
 
 export const addTrip = (trip) => dispatch => {

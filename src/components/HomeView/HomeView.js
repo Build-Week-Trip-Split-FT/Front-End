@@ -50,7 +50,7 @@ function UserDetails(props) {
       <div className="trips-container">
         <div>
           <p>Destination: {props.destination}</p>
-          <p>Date: {props.date.toString()}</p>
+          <p>Date: {props.date.toString().substring(0,10)}</p>
           <p>Active: {props.active ? "Yes" : "No"}</p>
           <p>Number of People: {props.num_people}</p>
           <button onClick={() => props.redirect(`/trips/${props.id}`)}>View More</button>
