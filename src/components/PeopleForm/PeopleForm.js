@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { postData, updateDB } from '../../actions';
+import { postData, updateDB, deleteInfo } from '../../actions';
 
 const PeopleForm = (props) => {
   let tripID = props.match.params.tripID;
@@ -32,6 +32,12 @@ const PeopleForm = (props) => {
     props.history.push("/trips");
   }
 
+  const handleDelete = () => {
+    let partial = `/people/${pID}`;
+    props.deleteInfo(partial);
+    props.history.push("/trips");
+  }
+
   return (
     <div>
       <h2>{status} person</h2>
@@ -42,6 +48,7 @@ const PeopleForm = (props) => {
         <input type="text" placeholder="last name" name="last_name" value={nameInfo.last_name}/>
         <button>{status} person</button>
       </form>
+      {pID && <button onClick={() => handleDelete()}>Delete Entry</button>}
     </div>
   )
 
@@ -52,4 +59,4 @@ const mapStateToProps = state => {
     singleTrip: state.singleTrip,
   }
 }
-export default connect(mapStateToProps, {postData:postData, updateDB: updateDB})(PeopleForm);
+export default connect(mapStateToProps, {postData:postData, updateDB: updateDB, deleteInfo : deleteInfo})(PeopleForm);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { postData, updateDB } from '../../actions';
+import { postData, updateDB, deleteInfo } from '../../actions';
 
 const ExpenseForm = (props) => {
   let expID = Number(props.match.params.expID);
@@ -32,6 +32,13 @@ const ExpenseForm = (props) => {
       props.history.push("/trips");
     }
   }
+
+  const handleDelete = () => {
+    let partial = `/expenses/${expID}`;
+    props.deleteInfo(partial);
+    props.history.push("/trips");
+  }
+
   return (
     <div>
       <h2>Add an expense</h2>
@@ -53,6 +60,7 @@ const ExpenseForm = (props) => {
         </select>
         <button>Add Expense</button>
       </form>
+      {matchedExp && <button onClick={() => handleDelete()}>Delete Entry</button>}
     </div>
   )
 }
@@ -62,4 +70,4 @@ const mapStateToProps = state => {
     singleTrip: state.singleTrip
   }
 }
-export default connect(mapStateToProps, {postData : postData, updateDB : updateDB})(ExpenseForm);
+export default connect(mapStateToProps, {postData : postData, updateDB : updateDB, deleteInfo : deleteInfo})(ExpenseForm);

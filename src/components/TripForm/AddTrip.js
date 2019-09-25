@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
 
-import { addTrip, updateDB } from '../../actions';
+import { addTrip, updateDB, deleteInfo } from '../../actions';
 
 const AddTrip = (props) => {
     let id = props.match.params.tripID;
@@ -44,6 +44,12 @@ const AddTrip = (props) => {
         props.history.push('/trips');
     }
 
+    const handleDelete = () => {
+        let partial = `/trips/${id}`;
+        props.deleteInfo(partial);
+        props.history.push("/trips");
+    }
+
     return (
         <div>
             {status} a Trip!
@@ -62,6 +68,7 @@ const AddTrip = (props) => {
                 </div>
                 <button onClick={(e) => handleSubmit(e)}>{status} Trip</button>
             </form>
+            {id && <button onClick={() => handleDelete()}>Delete Entry</button>}
         </div>
     )
 }
@@ -72,4 +79,4 @@ const mapStateToProps = state => {
         username: state.username,
     }
 }
-export default connect(mapStateToProps, {addTrip: addTrip, updateDB : updateDB})(AddTrip);
+export default connect(mapStateToProps, {addTrip: addTrip, updateDB : updateDB, deleteInfo : deleteInfo})(AddTrip);

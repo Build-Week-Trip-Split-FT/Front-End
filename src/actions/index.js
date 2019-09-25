@@ -18,6 +18,11 @@ export const LOG_OUT = "LOG_OUT";
 
 const baseURL = "https://bd-trip-split.herokuapp.com/api";
 
+export const deleteInfo = (partial) => dispatch => {
+  axiosWithAuth().delete(baseURL+partial)
+    .then(res => dispatch({type: "DELETE_SUCCESS"}));
+}
+
 export const checkTime = () => {
   let currentTime = new Date().getTime();
   let oldTime = Number(localStorage.getItem('time'));
