@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchTrip } from '../../actions';
 
+import TotalPrice from '../TotalPrice';
+
 const TripView = (props) => {
   let singleTrip = props.singleTrip;
   useEffect(() => {
@@ -49,6 +51,7 @@ const TripView = (props) => {
         </div>
         <button onClick={() => redirect("/people/add")}>Add Person</button>
         {singleTrip.people.length > 0 && <button onClick={() => redirect("/expense/add")}>Add Expense</button>}
+        <TotalPrice singleTrip={singleTrip} />
       </div>
     }
     </>
