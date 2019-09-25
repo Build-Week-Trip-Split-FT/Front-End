@@ -2,19 +2,13 @@ import React, { useState } from "react";
 import { withFormik, Form } from "formik";
 import { connect } from 'react-redux';
 import * as Yup from "yup";
-import styled from 'styled-components';
 import { Button, Input, Tooltip, Icon } from 'antd';
-import ReactDOM from 'react-dom';
+
 
 import { logInUser } from '../../actions';
 
 import "./Login.scss";
 
-
-const StyledInput = styled.input`
-    margin: 5% 0;
-    width: 200px;
-`;
 
 function Login( { errors, touched, status, logInUser, history }) {
     const [user, setUser] = useState({username: "", password:""});
