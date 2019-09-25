@@ -18,10 +18,12 @@ const DebtForm = (props) => {
     event.preventDefault();
     if (debt.person_id) { 
       props.postData(`/expenses/${expID}/debts`, debt);
+      props.history.push("/");
     } else {
       alert("Choose a person");
     }
   }
+
   return (
     <div>
       Debt Form
