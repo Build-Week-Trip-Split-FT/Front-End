@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { GoogleMap, withScriptjs, withGoogleMap } from "react-google-maps";
+// import { GoogleMap, withScriptjs, withGoogleMap } from "react-google-maps";
 import { connect } from "react-redux";
 
 import { fetchUser } from "../../actions";
@@ -21,7 +21,9 @@ const HomeView = props => {
         <h2>Welcome {props.username}!</h2>
       </div>
       <div className="button-container">
-        <button onClick={() => redirect("/add")}>Add a trip!</button>
+        <button className="addTrip" onClick={() => redirect("/add")}>
+          Add a trip!
+        </button>
       </div>
       {props.userTrips.trips && (
         <div>
@@ -52,7 +54,7 @@ function UserDetails(props) {
           <p>Date: {props.date.toString()}</p>
           <p>Active: {props.active ? "Yes" : "No"}</p>
           <p>Number of People: {props.num_people}</p>
-          <div style={{ width: "20vw", height: "20rem" }}>
+          {/* <div style={{ width: "20vw", height: "20rem" }}>
             <WrappedMap
               googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBogHSf0D1ydBuNLDO0tYjZB_sN5r15Psw`}
               loadingElement={<div style={{ height: "100%" }} />}
@@ -60,7 +62,7 @@ function UserDetails(props) {
               mapElement={<div style={{ height: "100%" }} />}
               destination={props.destination}
             />
-          </div>
+          </div> */}
         </div>
         <p></p>
       </div>
@@ -68,17 +70,17 @@ function UserDetails(props) {
   );
 }
 
-function Map(props) {
-  return (
-    <GoogleMap
-      defaultZoom={10}
-      // defaultCenter={{ lat: 45.421532, lng: -75.697189 }}
-      defaultCenter={props.destination}
-    />
-  );
-}
+// function Map(props) {
+//   return (
+//     <GoogleMap
+//       defaultZoom={10}
+//       // defaultCenter={{ lat: 45.421532, lng: -75.697189 }}
+//       defaultCenter={props.destination}
+//     />
+//   );
+// }
 
-const WrappedMap = withScriptjs(withGoogleMap(Map));
+// const WrappedMap = withScriptjs(withGoogleMap(Map));
 
 const mapStateToProps = state => {
   return {
