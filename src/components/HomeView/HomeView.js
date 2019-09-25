@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
+import {GoogleMap} from 'react-google-maps';
 import { connect } from "react-redux";
 
-import { fetchUser } from '../../actions';
+import { fetchUser } from "../../actions";
 
 import "./HomeView.scss";
 
 const HomeView = props => {
-  console.log(props.userTrips);
+  
   useEffect(() => {
     props.fetchUser(props.username);
   }, []);
@@ -17,11 +18,13 @@ const HomeView = props => {
 
   return (
     <div className="container">
-      <h2>Welcome {props.username}</h2>
+      <div className="welcomeUser">
+        <h2>Welcome {props.username}!</h2>
+      </div>
       <div className="button-container">
         <button onClick={() => redirect("/add")}>Add a trip!</button>
       </div>
-      {props.userTrips.trips && 
+      {props.userTrips.trips && (
         <div>
           {props.userTrips.trips.map((user, key) => (
             <UserDetails
@@ -36,7 +39,7 @@ const HomeView = props => {
             />
           ))}
         </div>
-      }
+      )}
     </div>
   );
 };
@@ -52,19 +55,27 @@ function UserDetails(props) {
           <p>Number of People: {props.num_people}</p>
           <button onClick={() => props.redirect(`/trips/${props.id}`)}>View More</button>
         </div>
+        <p></p>
       </div>
     </div>
   );
 }
 
+
+function Map() {
+  return (
+
+  )
+}
+
 const mapStateToProps = state => {
   return {
     userTrips: state.userTrips,
-    username: state.username,
-  }
+    username: state.username
+  };
 };
 
 export default connect(
   mapStateToProps,
-  {fetchUser : fetchUser}
+  { fetchUser: fetchUser }
 )(HomeView);
