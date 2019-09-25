@@ -1,12 +1,20 @@
 import React, { useState } from "react";
-import { withFormik, Form, Field } from "formik";
+import { withFormik, Form } from "formik";
 import { connect } from 'react-redux';
 import * as Yup from "yup";
+import styled from 'styled-components';
+import { Button, Input, Tooltip, Icon } from 'antd';
+import ReactDOM from 'react-dom';
 
 import { logInUser } from '../../actions';
 
 import "./Login.scss";
 
+
+const StyledInput = styled.input`
+    margin: 5% 0;
+    width: 200px;
+`;
 
 function Login( { errors, touched, status, logInUser, history }) {
     const [user, setUser] = useState({username: "", password:""});
@@ -30,24 +38,35 @@ function Login( { errors, touched, status, logInUser, history }) {
             <h2>Login</h2>
             <Form onChange={handleChange}>
                 <div>
-                    <Field 
+                    <Input 
                         type="text" 
                         name="username"
                         placeholder="User Name"
                         value={user.username}
+                        
+                        prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        suffix={<Tooltip title="Extra information">
+                                <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} 
                         />
-                    {touched.username && errors.username && <p>{errors.username}</p>}
+                        </Tooltip>
+                      }
+                     />  
                 </div>
                 <div>
-                    <Field 
+                    <Input 
                         type="password" 
                         name="password"
                         placeholder="Password"
                         value={user.password}
+                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        suffix={<Tooltip title="Extra information">
+                                <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} 
                         />
-                    {touched.password && errors.password && <p>{errors.password}</p>}
+                        </Tooltip>
+                    }
+                    />
                 </div>
-                <button type="submit" onClick={(e) => handleSubmit(e)}>Submit</button>
+                <Button type="primary" block onClick={(e) => handleSubmit(e)}>Submit</Button>
             </Form>
         </div>
     )
@@ -67,5 +86,7 @@ const LoginWithFormik = withFormik({
         password: Yup.string().required("Password is required")
     }),
 })(Login);
+
+
 
 export default connect(null, {logInUser: logInUser})(LoginWithFormik);
