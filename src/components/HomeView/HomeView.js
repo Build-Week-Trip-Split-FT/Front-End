@@ -49,9 +49,6 @@ const HomeView = props => {
               />
             ))}
           </Slider>
-          <div className="button-container">
-            <button onClick={() => redirect("/add")}>Add a trip!</button>
-          </div>
         </div>
       )}
     </div>
