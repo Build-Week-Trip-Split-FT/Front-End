@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { connect } from 'react-redux';
 
 import { addTrip } from '../../actions';
+import "./AddTrip.scss"
+
 
 const AddTrip = (props) => {
     let [trip, setTrip] = useState(
