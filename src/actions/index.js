@@ -14,21 +14,35 @@ export const SET_EVENT = "SET_EVENT";
 export const ERROR = "ERROR";
 export const FETCHING_USER = "ERROR";
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
+export const LOG_OUT = "LOG_OUT";
 
 const baseURL = "https://bd-trip-split.herokuapp.com/api";
 
+export const checkTime = () => {
+  let currentTime = new Date().getTime();
+  let oldTime = Number(localStorage.getItem('token'));
+  if (!oldTime || currentTime - oldTime > 1.08e+7) {
+    logOut();
+  }
+  return ({type:"default"});
+}
+
+export const logOut = () => {
+  return {type:LOG_OUT}
+}
 export const fetchUser = (username) => dispatch => {
   let URL = baseURL + `/users/${username}`;
   dispatch({type: FETCHING_USER});
   axiosWithAuth().get(URL)
     .then(res => dispatch({type: FETCH_USER_SUCCESS, payload: res.data}));
-
 }
+
 export const fetchTrip = (id) => dispatch => {
   let URL = baseURL + `/trips/${id}`;
   dispatch({type: FETCHING_TRIP})
   axiosWithAuth().get(URL)
     .then(res => dispatch({type: FETCH_TRIP_SUCCESS, payload: res.data}))
+    .catch(err => dispatch({type: FETCH_TRIP_FAILURE, payload: err.response.data.code}));
 }
 
 export const postData = (partial, data) => dispatch => {
