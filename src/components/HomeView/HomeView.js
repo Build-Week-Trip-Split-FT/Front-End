@@ -7,20 +7,13 @@ import { fetchUser } from "../../actions";
 import "./HomeView.scss";
 
 const HomeView = props => {
-  console.log(props.userTrips);
   useEffect(() => {
     props.fetchUser(props.username);
   }, []);
 
-<<<<<<< HEAD
-  const redirect = () => {
-    props.history.push("/add");
-  };
-=======
-  const redirect = (link) => {
+  const redirect = link => {
     props.history.push(link);
-  }
->>>>>>> 7d5fa018ad1917a7f958eac2a61fe8fa68af2f62
+  };
 
   return (
     <div className="container">
@@ -28,13 +21,7 @@ const HomeView = props => {
         <h2>Welcome {props.username}!</h2>
       </div>
       <div className="button-container">
-<<<<<<< HEAD
-        <button className="addTrip" onClick={redirect}>
-          Add a trip!
-        </button>
-=======
         <button onClick={() => redirect("/add")}>Add a trip!</button>
->>>>>>> 7d5fa018ad1917a7f958eac2a61fe8fa68af2f62
       </div>
       {props.userTrips.trips && (
         <div>
@@ -65,7 +52,6 @@ function UserDetails(props) {
           <p>Date: {props.date.toString()}</p>
           <p>Active: {props.active ? "Yes" : "No"}</p>
           <p>Number of People: {props.num_people}</p>
-<<<<<<< HEAD
           <div style={{ width: "20vw", height: "20rem" }}>
             <WrappedMap
               googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBogHSf0D1ydBuNLDO0tYjZB_sN5r15Psw`}
@@ -75,9 +61,6 @@ function UserDetails(props) {
               destination={props.destination}
             />
           </div>
-=======
-          <button onClick={() => props.redirect(`/trips/${props.id}`)}>View More</button>
->>>>>>> 7d5fa018ad1917a7f958eac2a61fe8fa68af2f62
         </div>
         <p></p>
       </div>
