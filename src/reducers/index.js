@@ -15,7 +15,7 @@ export const reducer = (state = initialState, action) => {
       localStorage.setItem('token', action.payload);
       localStorage.setItem('username', action.user);
       localStorage.setItem('time', new Date().getTime());
-      return {...state, isFetching: false, fetching_message: "", username:action.user, error: false}
+      return {...state, isFetching: false, fetching_message: "", username:action.user, error: false, token:action.payload}
     case LOGIN_FAILURE:
       return {...state, isFetching: false, fetching_message: "", error: true, error_message: "Failed to Login"}
     case LOG_OUT:
@@ -56,4 +56,5 @@ const initialState = {
   error: false,
   error_message: "",
   username: localStorage.getItem('username'),
+  token: localStorage.getItem('token'),
 };
