@@ -1,11 +1,17 @@
+// .wrapper {
+//   position: absolute;
+//   position: relative;
+// }
+
 .main-container {
   display: flex;
   justify-content: center;
   margin: 2rem;
+  // border: 1px solid black;
 
   .trips-container {
     border: 1px solid lightgrey;
-    padding: 2rem;
+    // padding: 2rem;
     border-radius: 20px;
     background: white;
     width: 25vw;
@@ -14,6 +20,73 @@
     text-align: center;
     box-shadow: -1px 15px 30px -12px black;
     z-index: 9999;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    // border: 1px solid black;
+
+    .content-details {
+      margin-top: 7rem;
+      // background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/barbarian-bg.jpg);
+
+      .destination {
+        color: black;
+        font-weight: 600;
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .card-button {
+    display: flex;
+    justify-content: space-evenly;
+    background: #ec9b3b;
+    height: 5rem;
+    border-radius: 0px 0px 20px 20px;
+
+    .card-button-container1 {
+      padding-top: 1rem;
+      width: 50%;
+      .button-card {
+        font-size: 12px;
+        width: 6rem;
+        height: 2rem;
+        border: none;
+        border-radius: 2rem;
+        margin: 0.5rem 0;
+        cursor: pointer;
+      }
+
+      .button-card:hover {
+        background-color: #fff;
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        color: #ec9b3b;
+      }
+    }
+    .card-button-container2 {
+      padding-top: 1rem;
+      width: 50%;
+      border-left: 1px solid #de7b09;
+      .button-card {
+        font-size: 12px;
+        width: 6rem;
+        height: 2rem;
+        border: none;
+        border-radius: 2rem;
+        margin: 0.5rem 0;
+        cursor: pointer;
+      }
+
+      .button-card:hover {
+        background-color: #fff;
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        color: #ec9b3b;
+      }
+    }
   }
 }
 

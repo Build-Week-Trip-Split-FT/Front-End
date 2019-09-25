@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-// import {GoogleMap} from 'react-google-maps';
+// import { GoogleMap, withScriptjs, withGoogleMap } from "react-google-maps";
+import Slider from "react-slick";
 import { connect } from "react-redux";
 
 import { fetchUser } from "../../actions";
@@ -7,27 +8,34 @@ import { fetchUser } from "../../actions";
 import "./HomeView.scss";
 
 const HomeView = props => {
-  
   useEffect(() => {
     props.fetchUser(props.username);
   }, []);
 
-  const redirect = (link) => {
+  const redirect = link => {
     props.history.push(link);
-  }
+  };
 
   return (
     <div className="container">
-      { props.userTrips && 
-      <>
-        <div className="welcomeUser">
-          <h2>Welcome {props.username}!</h2>
-        </div>
-        <div className="button-container">
-          <button onClick={() => redirect("/add")}>Add a trip!</button>
-        </div>
-        {props.userTrips.trips && (
-          <div>
+      <div className="welcomeUser">
+        <h2>Hello {props.username}!</h2>
+      </div>
+      <div className="button-container">
+        <button className="addTrip" onClick={() => redirect("/add")}>
+          Add a trip!
+        </button>
+      </div>
+
+      {props.userTrips.trips && (
+        <div className="wrapper">
+          <Slider
+            speed={500}
+            slidesToShow={1}
+            slidesToScroll={1}
+            infinite={false}
+            dots={true}
+          >
             {props.userTrips.trips.map((user, key) => (
               <UserDetails
                 key={key}
@@ -40,39 +48,72 @@ const HomeView = props => {
                 redirect={redirect}
               />
             ))}
-          </div>
-        )}
-      </>
-      }
-    </div>
-
+          </Slider>
+        </div>
+        
+        <div className="button-container">
+          <button onClick={() => redirect("/add")}>Add a trip!</button>
+        </div>
+      )}
   );
+
 };
 
 function UserDetails(props) {
   return (
     <div className="main-container">
       <div className="trips-container">
-        <div>
-          <p>Destination: {props.destination}</p>
-          <p>Date: {props.date.toString().substring(0,10)}</p>
+        <div className="content-details">
+          <div className="destination">
+            <p>Destination: {props.destination}</p>
+          </div>
+          <p>Date: {props.date.toString()}</p>
           <p>Active: {props.active ? "Yes" : "No"}</p>
           <p>Number of People: {props.num_people}</p>
-          <button onClick={() => props.redirect(`/trips/${props.id}`)}>View More</button>
-          <button onClick={() => props.redirect(`/trips/${props.id}/edit`)}>Edit Information</button>
+          {/* <div style={{ width: "20vw", height: "20rem" }}>
+            <WrappedMap
+              googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBogHSf0D1ydBuNLDO0tYjZB_sN5r15Psw`}
+              loadingElement={<div style={{ height: "100%" }} />}
+              containerElement={<div style={{ height: "100%" }} />}
+              mapElement={<div style={{ height: "100%" }} />}
+              destination={props.destination}
+            />
+          </div> */}
         </div>
-        <p></p>
+        <div className="card-button">
+          <div className="card-button-container1">
+            <button
+              className="button-card"
+              onClick={() => props.redirect(`/trips/${props.id}`)}
+            >
+              View More
+            </button>
+          </div>
+          <div className="card-button-container2">
+            <button
+              className="button-card"
+              onClick={() => props.redirect(`/trips/${props.id}/edit`)}
+            >
+              Edit Trip
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-
-// function Map() {
+// function Map(props) {
 //   return (
-
-//   )
+//     <GoogleMap
+//       defaultZoom={10}
+//       // defaultCenter={{ lat: 45.421532, lng: -75.697189 }}
+//       defaultCenter={props.destination}
+//     />
+//   );
 // }
+
+// const WrappedMap = withScriptjs(withGoogleMap(Map));
 
 const mapStateToProps = state => {
   return {
