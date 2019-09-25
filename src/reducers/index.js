@@ -1,4 +1,4 @@
-import { LOG_OUT, FETCHING_TRIP, FETCH_TRIP_SUCCESS, FETCH_USER_SUCCESS, FETCHING_USER, FETCH_TRIP_FAILURE, ERROR, LOGGING_IN, LOGIN_FAILURE, LOGIN_SUCCESS, SIGNING_UP, SIGNUP_FAILURE, SIGNUP_SUCCESS, TOGGLE_PAID, SET_EVENT } from '../actions';
+import { LOG_OUT, FETCHING_TRIP, FETCH_TRIP_SUCCESS, FETCH_USER_SUCCESS, FETCHING_USER, FETCH_TRIP_FAILURE, ERROR, LOGGING_IN, LOGIN_FAILURE, LOGIN_SUCCESS, SIGNING_UP, SIGNUP_FAILURE, SIGNUP_SUCCESS, SET_EVENT } from '../actions';
 
 export const reducer = (state = initialState, action) => {
   switch(action.type) {
@@ -23,20 +23,20 @@ export const reducer = (state = initialState, action) => {
     case FETCHING_TRIP:
       return {...state, isFetching: true, fetching_message: "I am fetching!", error:false, singleTrip:""}
     case FETCH_TRIP_SUCCESS:
+      localStorage.setItem('trip', JSON.stringify(action.payload));
       return {...state, isFetching: false, fetching_message: "", error: false, singleTrip: action.payload}
     case FETCH_TRIP_FAILURE:
       return {...state, isFetching:false, error: true, error_message: action.payload}
     case FETCHING_USER:
       return {...state, isFetching: true, fetching_message: "Getting user info"}
     case FETCH_USER_SUCCESS:
+      localStorage.setItem('user', JSON.stringify(action.payload));
       return {...state, isFetching: false, fetching_message:"", userTrips: action.payload}
     case "POST_SUCCESS":
       if (action.payload) {
         return {...state, userTrips: action.payload}
       } 
       return state;
-    case TOGGLE_PAID:
-      return {...state, userTrips: {...state.userTrips, people: action.payload}}
     case SET_EVENT:
       return {...state, singleTrip: action.payload}
     case ERROR:
@@ -47,8 +47,8 @@ export const reducer = (state = initialState, action) => {
 }
 
 const initialState = {
-  userTrips: "",
-  singleTrip: "",
+  userTrips: JSON.parse(localStorage.getItem('user')),
+  singleTrip: JSON.parse(localStorage.getItem('trip')),
   isFetching: false,
   fetching_message: "",
   error: false,

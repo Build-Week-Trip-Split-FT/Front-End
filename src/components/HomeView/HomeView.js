@@ -18,29 +18,34 @@ const HomeView = props => {
 
   return (
     <div className="container">
-      <div className="welcomeUser">
-        <h2>Welcome {props.username}!</h2>
-      </div>
-      <div className="button-container">
-        <button onClick={() => redirect("/add")}>Add a trip!</button>
-      </div>
-      {props.userTrips.trips && (
-        <div>
-          {props.userTrips.trips.map((user, key) => (
-            <UserDetails
-              key={key}
-              id={user.id}
-              username={user.username}
-              destination={user.destination}
-              date={user.date}
-              active={user.active}
-              num_people={user.num_people}
-              redirect={redirect}
-            />
-          ))}
+      { props.userTrips && 
+      <>
+        <div className="welcomeUser">
+          <h2>Welcome {props.username}!</h2>
         </div>
-      )}
+        <div className="button-container">
+          <button onClick={() => redirect("/add")}>Add a trip!</button>
+        </div>
+        {props.userTrips.trips && (
+          <div>
+            {props.userTrips.trips.map((user, key) => (
+              <UserDetails
+                key={key}
+                id={user.id}
+                username={user.username}
+                destination={user.destination}
+                date={user.date}
+                active={user.active}
+                num_people={user.num_people}
+                redirect={redirect}
+              />
+            ))}
+          </div>
+        )}
+      </>
+      }
     </div>
+
   );
 };
 

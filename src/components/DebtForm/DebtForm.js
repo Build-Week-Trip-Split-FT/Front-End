@@ -26,7 +26,6 @@ const DebtForm = (props) => {
     event.preventDefault();
     if (pID) {
       let newDebt = {amount: Number(debt.amount)}
-      console.log(newDebt);
       props.updateDB(`/expenses/${expID}/debts/${pID}`, newDebt);
       props.history.push("/trips");
     } else if (debt.person_id) { 
@@ -46,21 +45,27 @@ const DebtForm = (props) => {
   return (
     <div>
       Debt Form
-      <form onChange={(e) => handleChange(e)} onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <label>Person</label>
         {!pID &&
           <select name="person_id" defaultValue="-1">
-            <option disabled value="-1">Select a person</option>
-            {props.singleTrip.people.filter(person => person.id !== paidPersonID).map(person => <option value={person.id} name="person_id" >{person.first_name} {person.last_name}</option>)}
+            <option disabled value="-1" onChange={(e) => handleChange(e)}>Select a person</option>
+            {props.singleTrip.people.filter(person => person.id !== paidPersonID).map(person => 
+              <option value={person.id} name="person_id" onChange={(e) => handleChange(e)}>
+                {person.first_name} {person.last_name}
+              </option>)}
           </select>
         }
         {pID && 
           <select name="person_id" defaultValue={pID}>
-            {props.singleTrip.people.filter(person => person.id === pID).map(person => <option value={person.id} name="person_id" >{person.first_name} {person.last_name}</option>)}
+            {props.singleTrip.people.filter(person => person.id === pID).map(person => 
+              <option key={person.id} value={person.id} name="person_id" onChange={(e) => handleChange(e)}>
+                {person.first_name} {person.last_name}
+              </option>)}
           </select>
         }
         <label>Amount</label>
-        <input type="number" name="amount" value={debt.amount} />
+        <input type="number" name="amount" value={debt.amount} onChange={(e) => handleChange(e)}/>
         <button>Submit</button>
       </form>
       {matchedDebt && <button onClick={() => handleDelete()}>Delete Entry</button>}

@@ -41,11 +41,11 @@ const PeopleForm = (props) => {
   return (
     <div>
       <h2>{status} person</h2>
-      <form onSubmit={(e) => handleSubmit(e)} onChange={(e) => handleChange(e)}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <label>First Name</label>
-        <input type="text" placeholder="first name" name="first_name" value={nameInfo.first_name}/>
+        <input type="text" placeholder="first name" name="first_name" value={nameInfo.first_name} onChange={(e) => handleChange(e)} />
         <label>Last Name</label>
-        <input type="text" placeholder="last name" name="last_name" value={nameInfo.last_name}/>
+        <input type="text" placeholder="last name" name="last_name" value={nameInfo.last_name} onChange={(e) => handleChange(e)} />
         <button>{status} person</button>
       </form>
       {pID && <button onClick={() => handleDelete()}>Delete Entry</button>}

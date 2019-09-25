@@ -42,21 +42,24 @@ const ExpenseForm = (props) => {
   return (
     <div>
       <h2>Add an expense</h2>
-      <form onSubmit={(e) => handleSubmit(e)} onChange={(e) => handleChange(e)} >
+      <form onSubmit={(e) => handleSubmit(e)}  >
         <label>
           Name of expense
         </label>
-        <input type="text" placeholder="Expense" name="name" value={expense.name}/>
+        <input type="text" placeholder="Expense" name="name"onChange={(e) => handleChange(e)}  value={expense.name}/>
         <label>
           Cost
         </label>
-        <input type="number" placeholder="Cost" name="amount" value={expense.amount}/>
+        <input type="number" placeholder="Cost" name="amount" onChange={(e) => handleChange(e)} value={expense.amount}/>
         <label>
           Who Paid
         </label>
         <select name="person_id" defaultValue={expense.person_id}>
-          <option disabled value="-1">Select a person</option>
-          {props.singleTrip.people.map(person => <option value={person.id} name="person_id">{person.first_name} {person.last_name}</option>)}
+          <option disabled value="-1" onChange={(e) => handleChange(e)} >Select a person</option>
+          {props.singleTrip.people.map(person => 
+            <option key={person.id} value={person.id} name="person_id" onChange={(e) => handleChange(e)}>
+              {person.first_name} {person.last_name}
+            </option>)}
         </select>
         <button>Add Expense</button>
       </form>

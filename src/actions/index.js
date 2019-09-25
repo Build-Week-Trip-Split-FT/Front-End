@@ -9,7 +9,6 @@ export const LOGIN_FAILURE = "LOGIN_ERROR";
 export const SIGNING_UP = "SIGNIN_UP";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
-export const TOGGLE_PAID = "TOGGLE_PAID";
 export const SET_EVENT = "SET_EVENT";
 export const ERROR = "ERROR";
 export const FETCHING_USER = "ERROR";
@@ -72,30 +71,6 @@ export const signUpUser = (user) => dispatch => {
   axiosWithAuth().post(URL, user)
     .then(res => dispatch({type: SIGNUP_SUCCESS}))
     .catch(err => dispatch({type: SIGNUP_FAILURE, payload: err}));
-}
-
-export const setEvent = (event) => {
-  return {type: SET_EVENT, payload:event}
-}
-
-export const togglePaid = (person, expense, trip) => {
-  let newExpenses = trip.expenses.map(oldExpense => {
-    if (oldExpense.name === expense.name) {
-      return {...oldExpense, debts: oldExpense.debts.map(oldPerson => {
-        if (oldPerson.person_name === person.person_name) {
-          if (person.amount === 0) {
-            oldPerson.amount = expense.amount / expense.debts.length
-          } else {
-            oldPerson.amount = 0
-          }
-        }
-        return oldPerson
-      })
-    }}
-    return oldExpense
-  })
-  let newTrip = {...trip, expenses: newExpenses}
-  return {type: SET_EVENT, payload: newTrip};
 }
 
 // Saves when clicking on save or complete edit
