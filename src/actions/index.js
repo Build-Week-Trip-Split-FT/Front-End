@@ -22,13 +22,14 @@ export const fetchUser = (username) => dispatch => {
   dispatch({type: FETCHING_USER});
   axiosWithAuth().get(URL)
     .then(res => dispatch({type: FETCH_USER_SUCCESS, payload: res.data}));
-
 }
+
 export const fetchTrip = (id) => dispatch => {
   let URL = baseURL + `/trips/${id}`;
   dispatch({type: FETCHING_TRIP})
   axiosWithAuth().get(URL)
     .then(res => dispatch({type: FETCH_TRIP_SUCCESS, payload: res.data}))
+    .catch(err => dispatch({type: FETCH_TRIP_FAILURE, payload: err.response.data.code}));
 }
 
 export const postData = (partial, data) => dispatch => {

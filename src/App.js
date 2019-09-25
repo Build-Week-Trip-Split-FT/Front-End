@@ -12,6 +12,7 @@ import AddTrip from "./components/TripForm/AddTrip";
 import TripView from './components/TripView';
 import PeopleForm from './components/PeopleForm';
 import ExpenseForm from './components/ExpenseForm';
+import DebtForm from './components/DebtForm';
 import './App.scss';
 
 
@@ -36,6 +37,7 @@ const App = () => {
       <PrivateRoute exact path="/trips/:tripID" component={TripView} />
       <PrivateRoute path="/trips/:tripID/add/person" component={PeopleForm} />
       <PrivateRoute path="/trips/:tripID/add/expense" component={ExpenseForm} />
+      <PrivateRoute path="/trips/:tripID/:expID/add" component={DebtForm} />
       <Route path="/signup" component={SignUp} />
       <Route path="/login" component={Login} />
     </div>

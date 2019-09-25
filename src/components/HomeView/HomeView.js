@@ -7,6 +7,7 @@ import "./HomeView.scss";
 
 const HomeView = props => {
   console.log(props.userTrips);
+  console.log(localStorage.getItem('token'));
   useEffect(() => {
     props.fetchUser(props.username);
   }, []);

@@ -18,9 +18,11 @@ export const reducer = (state = initialState, action) => {
     case LOGIN_FAILURE:
       return {...state, isFetching: false, fetching_message: "", error: true, error_message: "Failed to Login"}
     case FETCHING_TRIP:
-      return {...state, isFetching: true, fetching_message: "I am fetching!"}
+      return {...state, isFetching: true, fetching_message: "I am fetching!", error:false, singleTrip:""}
     case FETCH_TRIP_SUCCESS:
       return {...state, isFetching: false, fetching_message: "", singleTrip: action.payload}
+    case FETCH_TRIP_FAILURE:
+      return {...state, isFetching:false, error: true, error_message: action.payload}
     case FETCHING_USER:
       return {...state, isFetching: true, fetching_message: "Getting user info"}
     case FETCH_USER_SUCCESS:
@@ -42,8 +44,8 @@ export const reducer = (state = initialState, action) => {
 }
 
 const initialState = {
-  userTrips: {},
-  singleTrip: mockData[0],
+  userTrips: "",
+  singleTrip: "",
   isFetching: false,
   fetching_message: "",
   error: false,

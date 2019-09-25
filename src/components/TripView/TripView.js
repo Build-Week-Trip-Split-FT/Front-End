@@ -4,40 +4,46 @@ import { fetchTrip } from '../../actions';
 
 const TripView = (props) => {
   let singleTrip = props.singleTrip;
-  console.log(singleTrip);
   useEffect(() => {
-    let id = props.match.params.tripID
+    let id = props.match.params.tripID;
     props.fetchTrip(id);
   }, []);
   
   const redirect = (type) => {
-    props.history.push(`/trips/${props.match.params.tripID}/add/${type}`);
+    props.history.push(`/trips/${props.match.params.tripID}${type}`);
   }
   return (
-    <div>
+    <>
+    {singleTrip &&<div>
       <h2>{singleTrip.destination}</h2>
       <p>Date of Trip: {singleTrip.date.substring(0,10)}</p>
       <p>Active: {singleTrip.active ? "Yes" : "No"}</p>
-      <p> 
-        Attendees:
+      <div> 
+        <p>Attendees:</p>
           {singleTrip.people.map(person=> 
-            (<div>
+            (<div key={person.id}>
               {person.first_name} {person.last_name}
             </div>
             ))}
-      </p>
-      <p> 
-        Expenses:
+      </div>
+      <div> 
+        <p>Expenses:</p>
           {singleTrip.expenses.map(expense=> 
-            (<div>
-              {expense.amount} paid by {expense.person_name}
+            (<div key={expense.id}>
+              {expense.name}: {expense.amount} paid by {expense.person_name}
+              <ul>
+                {expense.debts.map(debt => 
+                  <li key={debt.person_id}>{debt.person_name} owes {debt.amount} dollars</li>  
+                )}
+              </ul>
+              {singleTrip.expenses.length > 0  && <button onClick={() => redirect(`/${expense.id}/add`)}>Add Debt</button>}
             </div>
             ))}
-      </p>
-      <button onClick={() => redirect("person")}>Add Person</button>
-      <button onClick={() => redirect("expense")}>Add Expense</button>
-      <button>Save Changes</button>
-    </div>
+      </div>
+      <button onClick={() => redirect("/add/person")}>Add Person</button>
+      {singleTrip.people.length > 0 && <button onClick={() => redirect("/add/expense")}>Add Expense</button>}
+    </div>}
+    </>
   )
 }
 

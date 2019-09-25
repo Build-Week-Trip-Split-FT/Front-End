@@ -7,7 +7,6 @@ const ExpenseForm = (props) => {
   let [expense, setExpense] = useState({name: "", amount: 0, person_name: ""});
 
   const handleChange = (event) => {
-    console.log(expense);
     setExpense({...expense, [event.target.name]: event.target.value});
   }
 
