@@ -21,7 +21,7 @@ export const reducer = (state = initialState, action) => {
     case LOG_OUT:
       localStorage.setItem('token', "");
       localStorage.setItem('username', "");
-      return {...initialState}
+      return {...initialState, token: ""}
     case FETCHING_TRIP:
       return {...state, isFetching: true, fetching_message: "I am fetching!", error:false, singleTrip:""}
     case FETCH_TRIP_SUCCESS:

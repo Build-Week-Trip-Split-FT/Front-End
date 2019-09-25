@@ -28,7 +28,7 @@ const App = (props) => {
     <div className="container">
       <NavBar />
       <div>Welcome To Trip Split</div>
-      <PrivateRoute path="/add" component={AddTrip} />
+      <PrivateRoute path="/trips/add" component={AddTrip} />
       <Message />
       <PrivateRoute path="/secret" component={ExampleComponent} />
       <PrivateRoute exact path="/trips" component={HomeView} />
