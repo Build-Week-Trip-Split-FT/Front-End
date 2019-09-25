@@ -1,1 +1,8 @@
-@import '../../App.scss';
+@import "../../App.scss";
+
+.back-arrow {
+  a {
+    font-size: 3rem;
+    color: #ec9b3b;
+  }
+}

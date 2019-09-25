@@ -16,8 +16,8 @@ const TripView = (props) => {
   }
 
   return (
-    <>
-    {singleTrip && 
+    <div>
+          {singleTrip && 
       <div>
         <h2>{singleTrip.destination}</h2>
         <p>Date of Trip: {singleTrip.date.substring(0,10)}</p>
@@ -54,8 +54,8 @@ const TripView = (props) => {
         <TotalPrice singleTrip={singleTrip} />
       </div>
     }
-    </>
-  )
+    </div>
+  );
 }
 
 const mapStateToProps = state => {
