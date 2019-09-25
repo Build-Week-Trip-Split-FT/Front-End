@@ -47,9 +47,8 @@ const AddTrip = (props) => {
         matchedTrip.date = matchedTrip.date.substring(0,10);
     }
 
-    let initialState = (matchedTrip 
-        ? matchedTrip 
-        :   {
+    let initialState = (matchedTrip ? matchedTrip  : 
+        {
             username: props.username,
             destination:"",
             date: new Date().toJSON().substring(0,10),
@@ -87,7 +86,7 @@ const AddTrip = (props) => {
     return (
         <AlignDiv>
             <TripDiv>
-                <Title>Add a Trip!</Title>
+                <Title>{status} a Trip!</Title>
                 <NewForm>
                     <Input
                         type="text"
@@ -123,8 +122,9 @@ const AddTrip = (props) => {
                         <label>Active Trip: </label>
                         <input type="checkbox" name="active" checked={trip.active} onChange={(e) => handleChange(e)}/>
                     </div> */}
-                    <Button type="primary" onClick={(e) => handleSubmit(e)} style={{ marginTop: 10}}>Add Trip</Button>
+                    <Button type="primary" onClick={(e) => handleSubmit(e)} style={{ marginTop: 10}}>{status} Trip</Button>
                 </NewForm>
+                {id && <Button type="danger" style={{ marginTop: 10}} onClick={() => handleDelete()}>Delete Trip</Button>}
             </TripDiv>
         </AlignDiv>
     )
