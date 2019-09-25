@@ -7,14 +7,14 @@ import { fetchUser } from "../../actions";
 import "./HomeView.scss";
 
 const HomeView = props => {
-  console.log(props.userTrips);
+  
   useEffect(() => {
     props.fetchUser(props.username);
   }, []);
 
-  const redirect = () => {
-    props.history.push("/add");
-  };
+  const redirect = (link) => {
+    props.history.push(link);
+  }
 
   return (
     <div className="container">
@@ -22,20 +22,20 @@ const HomeView = props => {
         <h2>Welcome {props.username}!</h2>
       </div>
       <div className="button-container">
-        <button className="addTrip" onClick={redirect}>
-          Add a trip!
-        </button>
+        <button onClick={() => redirect("/add")}>Add a trip!</button>
       </div>
       {props.userTrips.trips && (
         <div>
           {props.userTrips.trips.map((user, key) => (
             <UserDetails
               key={key}
+              id={user.id}
               username={user.username}
               destination={user.destination}
               date={user.date}
               active={user.active}
               num_people={user.num_people}
+              redirect={redirect}
             />
           ))}
         </div>
@@ -53,6 +53,7 @@ function UserDetails(props) {
           <p>Date: {props.date.toString()}</p>
           <p>Active: {props.active ? "Yes" : "No"}</p>
           <p>Number of People: {props.num_people}</p>
+          <button onClick={() => props.redirect(`/trips/${props.id}`)}>View More</button>
         </div>
         <p></p>
       </div>
