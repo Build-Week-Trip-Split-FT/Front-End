@@ -20,7 +20,7 @@ const baseURL = "https://bd-trip-split.herokuapp.com/api";
 
 export const checkTime = () => {
   let currentTime = new Date().getTime();
-  let oldTime = Number(localStorage.getItem('token'));
+  let oldTime = Number(localStorage.getItem('time'));
   if (!oldTime || currentTime - oldTime > 1.08e+7) {
     logOut();
   }
