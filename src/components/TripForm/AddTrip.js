@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from 'react-redux';
 import { Button, Input } from 'antd';
 
-import { addTrip, updateDB } from '../../actions';
+import { addTrip, updateDB, deleteInfo } from '../../actions';
 import styled from "styled-components";
 
 //  START OF STYLED COMPONENTS
@@ -37,25 +37,27 @@ const NewForm = styled.form`
 
 //END OF STYLED COMPONENTS
 
-
-
 const AddTrip = (props) => {
     let id = props.match.params.tripID;
     let matchedTrip;
+    let status = (id ? "Edit" : "Add");
+
     if (id) {
         matchedTrip = props.userTrips.trips.find(trip => Number(id) === trip.id);
+        matchedTrip.date = matchedTrip.date.substring(0,10);
     }
-    console.log(matchedTrip)
-    // let initialState = (id ? )
-    let [trip, setTrip] = useState (
+
+    let initialState = (matchedTrip ? matchedTrip  : 
         {
             username: props.username,
             destination:"",
-            date: new Date(),
+            date: new Date().toJSON().substring(0,10),
             active: true
         }
     )
-    
+
+    let [trip, setTrip] = useState(initialState);
+
     const handleChange = (e) => {
         if (e.target.name === "active") {
             setTrip({...trip, active: !trip.active});
@@ -66,14 +68,25 @@ const AddTrip = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.addTrip(trip);
+        if (id) {
+            let newTrip = {destination: trip.destination, date: trip.date, active: trip.active};
+            props.updateDB(`/trips/${id}`, newTrip)
+        } else {
+            props.addTrip(trip);
+        }
         props.history.push('/trips');
+    }
+
+    const handleDelete = () => {
+        let partial = `/trips/${id}`;
+        props.deleteInfo(partial);
+        props.history.push("/trips");
     }
 
     return (
         <AlignDiv>
             <TripDiv>
-                <Title>Add a Trip!</Title>
+                <Title>{status} a Trip!</Title>
                 <NewForm>
                     <Input
                         type="text"
@@ -109,8 +122,9 @@ const AddTrip = (props) => {
                         <label>Active Trip: </label>
                         <input type="checkbox" name="active" checked={trip.active} onChange={(e) => handleChange(e)}/>
                     </div> */}
-                    <Button type="primary" onClick={(e) => handleSubmit(e)} style={{ marginTop: 10}}>Add Trip</Button>
+                    <Button type="primary" onClick={(e) => handleSubmit(e)} style={{ marginTop: 10}}>{status} Trip</Button>
                 </NewForm>
+                {id && <Button type="danger" style={{ marginTop: 10}} onClick={() => handleDelete()}>Delete Trip</Button>}
             </TripDiv>
         </AlignDiv>
     )
@@ -122,4 +136,4 @@ const mapStateToProps = state => {
         username: state.username,
     }
 }
-export default connect(mapStateToProps, {addTrip: addTrip, updateDB : updateDB})(AddTrip);
+export default connect(mapStateToProps, {addTrip: addTrip, updateDB : updateDB, deleteInfo : deleteInfo})(AddTrip);

@@ -32,10 +32,10 @@ const App = (props) => {
       <PrivateRoute path="/secret" component={ExampleComponent} />
       <PrivateRoute exact path="/trips" component={HomeView} />
       <PrivateRoute exact path="/trips/:tripID" component={TripView} />
-      <PrivateRoute path={["/trips/add", "/trips/:tripID/edit"]} component={AddTrip} />
-      <PrivateRoute path="/trips/:tripID/add/person" component={PeopleForm} />
-      <PrivateRoute path="/trips/:tripID/add/expense" component={ExpenseForm} />
-      <PrivateRoute path="/trips/:tripID/:expID/add" component={DebtForm} />
+      <PrivateRoute exact path={["/add", "/trips/:tripID/edit"]} component={AddTrip} />
+      <PrivateRoute exact path={["/trips/:tripID/people/add", "/trips/:tripID/people/:pID/edit"]} component={PeopleForm} />
+      <PrivateRoute exact path={["/trips/:tripID/expense/add", "/trips/:tripID/expense/:expID/edit"]} component={ExpenseForm} />
+      <PrivateRoute exact path={["/trips/:tripID/expense/:expID/debt/add","/trips/:tripID/expense/:expID/debt/:debtID/edit"]} component={DebtForm} />
       <Route path="/signup" component={SignUp} />
       <Route path="/login" component={Login} />
     </div>
