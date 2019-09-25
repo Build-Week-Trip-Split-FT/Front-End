@@ -17,6 +17,15 @@
   }
 }
 
+.welcomeUser {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+  h2 {
+    color: #fff;
+  }
+}
+
 .button-container {
   display: flex;
   justify-content: center;
@@ -31,6 +40,7 @@
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
     font-weight: 600;
+    cursor: pointer;
   }
   .addTrip:hover {
     background-color: #fff;

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import {GoogleMap} from 'react-google-maps';
 import { connect } from "react-redux";
 
 import { fetchUser } from "../../actions";
@@ -17,7 +18,9 @@ const HomeView = props => {
 
   return (
     <div className="container">
-      <h2>Welcome {props.username}</h2>
+      <div className="welcomeUser">
+        <h2>Welcome {props.username}!</h2>
+      </div>
       <div className="button-container">
         <button className="addTrip" onClick={redirect}>
           Add a trip!
@@ -51,9 +54,17 @@ function UserDetails(props) {
           <p>Active: {props.active ? "Yes" : "No"}</p>
           <p>Number of People: {props.num_people}</p>
         </div>
+        <p></p>
       </div>
     </div>
   );
+}
+
+
+function Map() {
+  return (
+
+  )
 }
 
 const mapStateToProps = state => {
