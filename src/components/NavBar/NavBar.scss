@@ -27,7 +27,7 @@
     }//this closes h1
 
     nav {
-        width: 40%;
+        width: 50%;
         display: flex;
         align-items: center;
         justify-content: space-evenly;
@@ -42,6 +42,12 @@
             color: white;
             text-decoration: none;
             font-size: 1.4rem;
+        }
+        a:hover {
+            color:  #659DBD;
+            background-color: white;
+            border-radius: 15px;
+        }
             // @media @mobile {
             //     flex-direction: row;
             //     height: 50px;
@@ -49,5 +55,4 @@
             //     }
             // }//this closes a
         }//this closes nav
-    }
 }
