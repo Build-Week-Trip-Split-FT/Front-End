@@ -1,7 +1,34 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
+import { Button } from 'antd';
 
 import { addTrip, updateDB } from '../../actions';
+import styled from "styled-components";
+
+//  START OF STYLED COMPONENTS
+
+const TripDiv = styled.div`
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+    background-color: white;
+    align-items: center;
+    width: 50%;
+    height: 30vh;
+    border-radius: 15px;
+`;
+
+const AlignDiv = styled.div`
+    display: flex;
+    justify-content: center;
+`;
+
+const Title = styled.h2`
+    margin-top: 3%;
+    font-weight: bold;
+`;
+
+//END OF STYLED COMPONENTS
 
 const AddTrip = (props) => {
     let id = props.match.params.tripID;
@@ -35,24 +62,26 @@ const AddTrip = (props) => {
     }
 
     return (
-        <div>
-            Add a Trip!
-            <form>
-                <div >
-                    <label>Destination: </label>
-                    <input type="text" name="destination" placeholder="Destination" value={trip.destination} onChange={(e) => handleChange(e)}/>
-                </div>
-                <div >
-                    <label>Date: </label>
-                    <input type="date" placeholder="Date" name="date" value={trip.date} onChange={(e) => handleChange(e)}/>
-                </div>
-                <div >
-                    <label>Active Trip: </label>
-                    <input type="checkbox" name="active" checked={trip.active} onChange={(e) => handleChange(e)}/>
-                </div>
-                <button onClick={(e) => handleSubmit(e)}>Add Trip</button>
-            </form>
-        </div>
+        <AlignDiv>
+            <TripDiv>
+                <Title>Add a Trip!</Title>
+                <form>
+                    <div >
+                        <label>Destination: </label>
+                        <input type="text" name="destination" placeholder="Destination" value={trip.destination} onChange={(e) => handleChange(e)}/>
+                    </div>
+                    <div >
+                        <label>Date: </label>
+                        <input type="date" placeholder="Date" name="date" value={trip.date} onChange={(e) => handleChange(e)}/>
+                    </div>
+                    <div >
+                        <label>Active Trip: </label>
+                        <input type="checkbox" name="active" checked={trip.active} onChange={(e) => handleChange(e)}/>
+                    </div>
+                    <Button type="primary" onClick={(e) => handleSubmit(e)}>Add Trip</Button>
+                </form>
+            </TripDiv>
+        </AlignDiv>
     )
 }
 
