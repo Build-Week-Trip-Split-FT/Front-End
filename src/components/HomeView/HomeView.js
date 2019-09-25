@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 // import { GoogleMap, withScriptjs, withGoogleMap } from "react-google-maps";
+import Slider from "react-slick";
 import { connect } from "react-redux";
 
 import { fetchUser } from "../../actions";
@@ -18,7 +19,7 @@ const HomeView = props => {
   return (
     <div className="container">
       <div className="welcomeUser">
-        <h2>Welcome {props.username}!</h2>
+        <h2>Hello {props.username}!</h2>
       </div>
       <div className="button-container">
         <button className="addTrip" onClick={() => redirect("/add")}>
@@ -26,19 +27,27 @@ const HomeView = props => {
         </button>
       </div>
       {props.userTrips.trips && (
-        <div>
-          {props.userTrips.trips.map((user, key) => (
-            <UserDetails
-              key={key}
-              id={user.id}
-              username={user.username}
-              destination={user.destination}
-              date={user.date}
-              active={user.active}
-              num_people={user.num_people}
-              redirect={redirect}
-            />
-          ))}
+        <div className="wrapper">
+          <Slider
+            speed={500}
+            slidesToShow={1}
+            slidesToScroll={1}
+            infinite={false}
+            dots={true}
+          >
+            {props.userTrips.trips.map((user, key) => (
+              <UserDetails
+                key={key}
+                id={user.id}
+                username={user.username}
+                destination={user.destination}
+                date={user.date}
+                active={user.active}
+                num_people={user.num_people}
+                redirect={redirect}
+              />
+            ))}
+          </Slider>
         </div>
       )}
     </div>
@@ -49,8 +58,10 @@ function UserDetails(props) {
   return (
     <div className="main-container">
       <div className="trips-container">
-        <div>
-          <p>Destination: {props.destination}</p>
+        <div className="content-details">
+          <div className="destination">
+            <p>Destination: {props.destination}</p>
+          </div>
           <p>Date: {props.date.toString()}</p>
           <p>Active: {props.active ? "Yes" : "No"}</p>
           <p>Number of People: {props.num_people}</p>
@@ -64,7 +75,24 @@ function UserDetails(props) {
             />
           </div> */}
         </div>
-        <p></p>
+        <div className="card-button">
+          <div className="card-button-container1">
+            <button
+              className="button-card"
+              onClick={() => props.redirect(`/trips/${props.id}`)}
+            >
+              View More
+            </button>
+          </div>
+          <div className="card-button-container2">
+            <button
+              className="button-card"
+              onClick={() => props.redirect(`/trips/${props.id}/edit`)}
+            >
+              Edit Trip
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

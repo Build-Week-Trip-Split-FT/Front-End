@@ -22,8 +22,8 @@ function Login( { errors, touched, status, logInUser, history }) {
         e.preventDefault();
         if (user.username && user.password) {
             logInUser(user)
-            setUser({ username: '', password: ''})
             history.push("/");
+            setUser({ username: '', password: ''})
         }
     }
 
