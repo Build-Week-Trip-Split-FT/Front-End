@@ -13,7 +13,7 @@ const NavBar = props => {
       <h1>Trip Split</h1>
       <nav>
         <Link to="/trips">Home</Link>
-        {props.token && <Link to="/login" onClick={props.logOut}>Log out</Link>}
+        {props.token && <Link to="/login" onClick={props.logOut}>Logout</Link>}
         {!props.token && <Link to="/login">Login</Link>}
         {!props.token && <Link to="/signup">Sign Up</Link>}
         <Link to="/trips">Trips</Link>
