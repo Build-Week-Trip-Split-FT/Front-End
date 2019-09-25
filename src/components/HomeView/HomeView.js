@@ -7,12 +7,7 @@ import { fetchUser } from "../../actions";
 import "./HomeView.scss";
 
 const HomeView = props => {
-<<<<<<< HEAD
-  console.log(props.userTrips);
-  console.log(localStorage.getItem('token'));
-=======
   
->>>>>>> 62b56986a2f6837e856bf4488b3ed3e99194ac9c
   useEffect(() => {
     props.fetchUser(props.username);
   }, []);
@@ -67,11 +62,11 @@ function UserDetails(props) {
 }
 
 
-function Map() {
-  return (
+// function Map() {
+//   return (
 
-  )
-}
+//   )
+// }
 
 const mapStateToProps = state => {
   return {

@@ -14,9 +14,22 @@ export const SET_EVENT = "SET_EVENT";
 export const ERROR = "ERROR";
 export const FETCHING_USER = "ERROR";
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
+export const LOG_OUT = "LOG_OUT";
 
 const baseURL = "https://bd-trip-split.herokuapp.com/api";
 
+export const checkTime = () => {
+  let currentTime = new Date().getTime();
+  let oldTime = Number(localStorage.getItem('token'));
+  if (!oldTime || currentTime - oldTime > 1.08e+7) {
+    logOut();
+  }
+  return ({type:"default"});
+}
+
+export const logOut = () => {
+  return {type:LOG_OUT}
+}
 export const fetchUser = (username) => dispatch => {
   let URL = baseURL + `/users/${username}`;
   dispatch({type: FETCHING_USER});

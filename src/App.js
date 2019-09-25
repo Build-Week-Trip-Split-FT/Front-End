@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
+import { connect } from 'react-redux';
 
+import { checkTime } from './actions';
 import { PrivateRoute } from "./utils";
 import ExampleComponent from "./components/ExampleComponent";
 import SignUp from "./components/SignUp/";
@@ -16,20 +18,16 @@ import DebtForm from './components/DebtForm';
 import './App.scss';
 
 
-const App = () => {
-  const logOut = () => {
-    localStorage.setItem("token", "");
-  };
+const App = (props) => {
+
+  useEffect(() => {
+    props.checkTime();
+  }, [])
 
   return (
     <div className="container">
       <NavBar />
       <div>Welcome To Trip Split</div>
-      <ul>
-        <li>
-          <button onClick={logOut}>Log out</button>
-        </li>
-      </ul>
       <PrivateRoute path="/add" component={AddTrip} />
       <Message />
       <PrivateRoute path="/secret" component={ExampleComponent} />
@@ -44,4 +42,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default connect(null, {checkTime : checkTime})(App);
