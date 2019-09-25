@@ -26,7 +26,10 @@ export const reducer = (state = initialState, action) => {
     case FETCH_USER_SUCCESS:
       return {...state, isFetching: false, fetching_message:"", userTrips: action.payload}
     case "POST_SUCCESS":
-      return {...state, userTrips: action.payload}
+      if (action.payload) {
+        return {...state, userTrips: action.payload}
+      } 
+      return state;
     case TOGGLE_PAID:
       return {...state, userTrips: {...state.userTrips, people: action.payload}}
     case SET_EVENT:

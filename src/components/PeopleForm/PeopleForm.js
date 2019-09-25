@@ -4,16 +4,17 @@ import { connect } from 'react-redux';
 import { postData } from '../../actions';
 
 const PeopleForm = (props) => {
-  let id = 0;
+  let tripID = props.match.params.tripID;
   let [nameInfo, setName] = useState({first_name: "", last_name: ""});
   
   const handleChange = (event) => {
-    setName({...nameInfo, [event.target.name]: event.target.value})
+    setName({...nameInfo, [event.target.name]: event.target.value.trim()})
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.postData(`/trips/${id}/people`, nameInfo);
+    props.postData(`/trips/${tripID}/people`, nameInfo);
+    props.history.push("/trips");
   }
 
   return (
@@ -21,9 +22,9 @@ const PeopleForm = (props) => {
       <h2>Who went on the trip?</h2>
       <form onSubmit={(e) => handleSubmit(e)} onChange={(e) => handleChange(e)}>
         <label>First Name</label>
-        <input type="text" placeholder="first name" name="first_name"/>
+        <input type="text" placeholder="first name" name="first_name" value={nameInfo.first_name}/>
         <label>Last Name</label>
-        <input type="text" placeholder="lats name" name="last_name"/>
+        <input type="text" placeholder="last name" name="last_name" value={nameInfo.last_name}/>
         <button>Add person</button>
       </form>
     </div>
