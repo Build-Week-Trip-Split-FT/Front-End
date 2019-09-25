@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import {GoogleMap} from 'react-google-maps';
+// import {GoogleMap} from 'react-google-maps';
 import { connect } from "react-redux";
 
 import { fetchUser } from "../../actions";

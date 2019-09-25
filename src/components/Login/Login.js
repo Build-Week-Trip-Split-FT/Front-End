@@ -8,9 +8,10 @@ import { Button, Input, Tooltip, Icon } from 'antd';
 import { logInUser } from '../../actions';
 
 import "./Login.scss";
+import { bold } from "ansi-colors";
 
 
-function Login( { errors, touched, status, logInUser, history }) {
+function Login( { logInUser, history }) {
     const [user, setUser] = useState({username: "", password:""});
 
     const handleChange = e => {
@@ -28,40 +29,46 @@ function Login( { errors, touched, status, logInUser, history }) {
     }
 
     return (
-        <div className="login-page">
-            <h2>Login</h2>
-            <Form onChange={handleChange}>
-                <div>
-                    <Input 
-                        type="text" 
-                        name="username"
-                        placeholder="User Name"
-                        value={user.username}
-                        
-                        prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                        suffix={<Tooltip title="Extra information">
-                                <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} 
+        <div className="login-container">
+            <div className="login-page">
+                <h2 style={{marginTop: 10, fontWeight: bold,}}>Login</h2>
+                <Form onChange={handleChange}>
+                    <div>
+                        <Input 
+                            type="text" 
+                            name="username"
+                            placeholder="User Name"
+                            value={user.username}
+                            style={{marginBottom: 10,
+                                    width: 300,
+                                    height: 40 }}
+                            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            suffix={<Tooltip title="Extra information">
+                                    <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} 
+                            />
+                            </Tooltip>
+                        }
+                        />  
+                    </div>
+                    <div>
+                        <Input 
+                            type="password" 
+                            name="password"
+                            placeholder="Password"
+                            value={user.password}
+                            style={{marginBottom: 10,
+                                    height: 40}}
+                            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            suffix={<Tooltip title="Extra information">
+                                    <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} 
+                            />
+                            </Tooltip>
+                        }
                         />
-                        </Tooltip>
-                      }
-                     />  
-                </div>
-                <div>
-                    <Input 
-                        type="password" 
-                        name="password"
-                        placeholder="Password"
-                        value={user.password}
-                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                        suffix={<Tooltip title="Extra information">
-                                <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} 
-                        />
-                        </Tooltip>
-                    }
-                    />
-                </div>
-                <Button type="primary" block onClick={(e) => handleSubmit(e)}>Submit</Button>
-            </Form>
+                    </div>
+                    <Button type="primary" block onClick={(e) => handleSubmit(e)} style={{marginBottom: 15}}>Submit</Button>
+                </Form>
+            </div>
         </div>
     )
 }

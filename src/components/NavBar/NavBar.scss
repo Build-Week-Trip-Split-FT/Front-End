@@ -3,6 +3,7 @@
 .container-nav {
     background-color: #659DBD;
     padding: 20px;
+    margin-top: 0px;
     display: flex;
     justify-content: space-between;
     align-content: center;
@@ -44,8 +45,8 @@
             font-size: 1.4rem;
         }
         a:hover {
-            color:  #659DBD;
-            background-color: white;
+            color:  #6f5c55;
+            // background-color: white;
             border-radius: 15px;
         }
             // @media @mobile {
