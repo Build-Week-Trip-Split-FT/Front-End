@@ -1,21 +1,24 @@
 import { axiosWithAuth } from '../utils';
 
-export const FETCHING_TRIP = "FETCHING";
-export const FETCH_TRIP_SUCCESS = "FETCH_TRIP_SUCCESS";
 export const AUTHORIZING = "AUTHORIZING";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
-export const ERROR = "ERROR";
+export const LOG_OUT = "LOG_OUT";
+
 export const FETCHING_USER = "ERROR";
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
-export const LOG_OUT = "LOG_OUT";
-export const POSTING = "POSTING";
-export const UPDATE_SUCCESS = "UPDATE_SUCCESS";
-
 export const POST_TRIP_SUCCESS = "POST_TRIP_SUCCESS";
-export const POST_SUCCESS = "POST_SUCCESS"
 export const PUT_TRIP_SUCCESS = "PUT_TRIP_SUCCESS";
 export const DELETE_TRIP_SUCCESS = "DELETE_TRIP_SUCCESS";
+
+export const FETCHING_TRIP = "FETCHING";
+export const FETCH_TRIP_SUCCESS = "FETCH_TRIP_SUCCESS";
+export const POSTING = "POSTING";
+export const POST_SUCCESS = "POST_SUCCESS"
+export const UPDATING = "UPDATING";
+export const UPDATE_SUCCESS = "UPDATE_SUCCESS";
+
+export const ERROR = "ERROR";
 
 const baseURL = "https://bd-trip-split.herokuapp.com/api";
 
@@ -26,6 +29,10 @@ export const checkTime = () => {
     return logOut();
   }
   return ({type:"default"});
+}
+
+export const logOut = () => {
+  return {type:LOG_OUT}
 }
 
 export const logInUser = (user) => dispatch => {
@@ -44,9 +51,6 @@ export const signUpUser = (user) => dispatch => {
     .catch(err => dispatch({type: ERROR, payload: err.response.data.code}));
 }
 
-export const logOut = () => {
-  return {type:LOG_OUT}
-}
 
 export const fetchUser = (username) => dispatch => {
   let URL = baseURL + `/users/${username}`;
@@ -95,12 +99,14 @@ export const postData = (partial, data) => dispatch => {
 
 // Saves when clicking on save or complete edit
 export const updateDB = (partial, info) => dispatch => {
+  dispatch({type: UPDATING})
   axiosWithAuth().put(`${baseURL}${partial}`, info)
     .then(res => dispatch({type: UPDATE_SUCCESS, payload: info}))
     .catch(err => dispatch({type: ERROR, payload: err.response.data.code}));
 }
 
 export const deleteInfo = (partial) => dispatch => {
+  dispatch({type: UPDATING})
   axiosWithAuth().delete(baseURL+partial)
     .then(res => dispatch({type: UPDATE_SUCCESS}))
     .catch(err => dispatch({type: ERROR, payload: err.response.data.code}));

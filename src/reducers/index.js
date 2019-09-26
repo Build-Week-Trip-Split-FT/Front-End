@@ -1,4 +1,4 @@
-import { LOG_OUT, POSTING, AUTHORIZING, PUT_TRIP_SUCCESS, DELETE_TRIP_SUCCESS, FETCHING_TRIP, FETCH_TRIP_SUCCESS, POST_TRIP_SUCCESS, FETCH_USER_SUCCESS, POST_SUCCESS, FETCHING_USER, ERROR, LOGIN_SUCCESS, SIGNUP_SUCCESS, UPDATE_SUCCESS } from '../actions';
+import { LOG_OUT, POSTING, UPDATING, AUTHORIZING, PUT_TRIP_SUCCESS, DELETE_TRIP_SUCCESS, FETCHING_TRIP, FETCH_TRIP_SUCCESS, POST_TRIP_SUCCESS, FETCH_USER_SUCCESS, POST_SUCCESS, FETCHING_USER, ERROR, LOGIN_SUCCESS, SIGNUP_SUCCESS, UPDATE_SUCCESS } from '../actions';
 
 export const reducer = (state = initialState, action) => {
   switch(action.type) {
@@ -41,8 +41,12 @@ export const reducer = (state = initialState, action) => {
       let filteredTrips = state.userTrips.trips.filter(trip => trip.id !== action.payload);
       let filteredUserData = {...state.userTrips, trips: filteredTrips};
       return {...state, userTrips: filteredUserData, changed:true}
+    case POSTING:
+      return {...state, isFetching: true, fetching_message: action.payload}
     case POST_SUCCESS:
       return {...state, changed:true}
+    case UPDATING:
+      return {...state, isFetching: true, fetching_message: "Sending to database..."}
     case UPDATE_SUCCESS:
       return {...state, changed:true}
     case ERROR:
