@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Icon } from "antd";
+import { Button, Icon } from "antd";
 import "./PeopleForm.scss";
 
 import { postData, updateDB, deleteInfo } from "../../actions";
@@ -59,32 +59,36 @@ const PeopleForm = props => {
   return (
     <div className="people-container">
       <div className="people-card">
-        <div className="back-arrow">
-          <p onClick={backSubmit}>
-            <Icon type="arrow-left" />
+        <div className="back-arrow-container">
+          <p className="back-arrow" onClick={backSubmit}>
+            <Icon type="arrow-left" /> <span> View Trip</span>
           </p>
         </div>
         <h2>Who went on the trip?</h2>
-        <form onSubmit={e => handleSubmit(e)}>
-          <label>First Name</label>
-          <input
-            type="text"
-            placeholder="first name"
-            name="first_name"
-            value={nameInfo.first_name}
-            onChange={e => handleChange(e)}
-          />
-          <label>Last Name</label>
-          <input
-            type="text"
-            placeholder="last name"
-            name="last_name"
-            value={nameInfo.last_name}
-            onChange={e => handleChange(e)}
-          />
-          <button>{status} person</button>
+        <form>
+          <div className="field">
+            <label>First Name</label>
+            <input
+              type="text"
+              placeholder="first name"
+              name="first_name"
+              value={nameInfo.first_name}
+              onChange={e => handleChange(e)}
+            />
+          </div>
+          <div className="field">
+            <label>Last Name</label>
+            <input
+              type="text"
+              placeholder="last name"
+              name="last_name"
+              value={nameInfo.last_name}
+              onChange={e => handleChange(e)}
+            />
+          </div>
+          <Button onClick={e => handleSubmit(e)} shape="round" type="primary" className={pID ? 'edit' : 'add'}>{pID ? <Icon type="edit" /> : <Icon type="plus" />} {status} person </Button>
+          {pID && <Button type="danger" onClick={() => handleDelete()}><Icon type="delete" />Delete Entry</Button>}
         </form>
-        {pID && <button onClick={() => handleDelete()}>Delete Entry</button>}
       </div>
     </div>
   );
