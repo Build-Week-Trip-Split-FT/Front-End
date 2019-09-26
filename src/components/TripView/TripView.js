@@ -73,7 +73,7 @@ const TripView = props => {
               Add Expense
             </button>
           )}
-          <TotalPrice singleTrip={singleTrip} />
+          {/* <TotalPrice singleTrip={singleTrip} /> */}
         </div>
       )}
     </div>

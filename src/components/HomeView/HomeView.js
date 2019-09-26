@@ -1,13 +1,18 @@
 import React, { useEffect } from "react";
 // import { GoogleMap, withScriptjs, withGoogleMap } from "react-google-maps";
-import Slider from "react-slick";
 import { connect } from "react-redux";
+import styled from "styled-components";
 
 import { fetchUser } from "../../actions";
 
 import "./HomeView.scss";
 
+const MainDiv = styled.div`
+  width: 100%;
+`;
+
 const HomeView = props => {
+  console.log(props.userTrips);
   useEffect(() => {
     props.fetchUser(props.username);
   }, []);
@@ -26,29 +31,20 @@ const HomeView = props => {
           Add a trip!
         </button>
       </div>
-
-      {props.userTrips.trips && (
+      {props.userTrips && (
         <div className="wrapper">
-          <Slider
-            speed={500}
-            slidesToShow={1}
-            slidesToScroll={1}
-            infinite={false}
-            dots={true}
-          >
-            {props.userTrips.trips.map((user, key) => (
-              <UserDetails
-                key={key}
-                id={user.id}
-                username={user.username}
-                destination={user.destination}
-                date={user.date}
-                active={user.active}
-                num_people={user.num_people}
-                redirect={redirect}
-              />
-            ))}
-          </Slider>
+          {props.userTrips.trips.map((user, key) => (
+            <UserDetails
+              key={key}
+              id={user.id}
+              username={user.username}
+              destination={user.destination}
+              date={user.date}
+              active={user.active}
+              num_people={user.num_people}
+              redirect={redirect}
+            />
+          ))}
         </div>
       )}
     </div>
