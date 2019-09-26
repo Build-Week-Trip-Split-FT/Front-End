@@ -6,7 +6,7 @@ import { postData, updateDB, deleteInfo } from '../../actions';
 const ExpenseForm = (props) => {
   let expID = Number(props.match.params.expID);
   let matchedExp;
-
+  let status = (expID ? "Edit" : "Add");
   if (expID) {
     matchedExp = props.singleTrip.expenses.find(expense => expense.id === expID )
   }
@@ -15,7 +15,6 @@ const ExpenseForm = (props) => {
   let [expense, setExpense] = useState(initialState);
 
   const handleChange = (event) => {
-    console.log(expense);
     setExpense({...expense, [event.target.name]: event.target.value});
   }
 
@@ -29,7 +28,6 @@ const ExpenseForm = (props) => {
     } else if (!expense.person_id) {
       alert("Please choose someone");
     } else {
-      console.log(expense);
       props.postData(`/trips/${tripID}/expenses`, expense);
       props.history.push("/trips");
     }
@@ -43,7 +41,7 @@ const ExpenseForm = (props) => {
 
   return (
     <div>
-      <h2>Add an expense</h2>
+      <h2>{status} an expense</h2>
       <form onSubmit={(e) => handleSubmit(e)}  >
         <label>
           Name of expense
@@ -63,7 +61,7 @@ const ExpenseForm = (props) => {
               {person.first_name} {person.last_name}
             </option>)}
         </select>
-        <button>Add Expense</button>
+        <button>{status} Expense</button>
       </form>
       {matchedExp && <button onClick={() => handleDelete()}>Delete Entry</button>}
     </div>
