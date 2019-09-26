@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchTrip } from "../../actions";
 import { Button, Icon, Dropdown, Menu } from "antd";
 import TotalPrice from "../TotalPrice";
+
 import "./TripView.scss";
 import styled from "styled-components";
 
@@ -112,7 +113,7 @@ const TripView = props => {
 
       </AlignDiv>
       <div className='expense-container'>
-        <h2 className="expenses">Expenses:</h2>
+        <h2 className="expenses">Expenses</h2>
         {singleTrip.expenses.map(expense => (
           <div className="expense-card" key={expense.id}>
             <h2>{expense.name}: ${expense.amount} </h2>

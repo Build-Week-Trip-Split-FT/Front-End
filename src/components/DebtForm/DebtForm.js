@@ -2,35 +2,37 @@ import React, { useState, useEffect }  from 'react';
 import { connect } from 'react-redux';
 
 import { postData, updateDB, deleteInfo } from "../../actions";
-import { Button, Input, Tooltip, Icon, Dropdown, Menu } from "antd";
-
-
+import { Button, Icon } from "antd";
 
 import styled from "styled-components";
+import './DebtForm.scss';
 
 const TripDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-content: center;
   background-color: white;
-  align-items: center;
-  width: 40%;
-  border-radius: 15px;
+  width: 25vw;
+  border-radius: 20px;
+  border: 1px solid lightgrey;
+  padding: 1% 0 3% 0;
+  box-shadow: -1px 15px 30px -12px black;
+  justify-content: space-between;
 `;
 
 const AlignDiv = styled.div`
   display: flex;
   justify-content: center;
+  margin:auto;
+  margin-top:6%;
+  font-size: 1.2rem;
 `;
 
 const Title = styled.h2`
-  margin-top: 25px;
   font-weight: bold;
+  text-align:center;
 `;
 
-const NewForm = styled.form`
-  width: 75%;
-`;
 const DebtForm = props => {
   
   useEffect(() => {
@@ -84,59 +86,64 @@ const DebtForm = props => {
   return (
     <AlignDiv>
       <TripDiv>
-        <div className="back-arrow">
-          <p onClick={backSubmit}>
-            <Icon type="arrow-left" />
+      <div className="back-arrow-container">
+          <p className="back-arrow" onClick={backSubmit}>
+            <Icon type="arrow-left" /> <span> View Trip</span>
           </p>
         </div>
         <Title>Debt Form</Title>
-        <form onSubmit={e => handleSubmit(e)}>
-          <label>Person</label>
-          {!pID && (
-            <select
-              name="person_id"
-              defaultValue="-1"
+        <form className="debt-form">
+          <div className="field">
+            <label>Person</label>
+            {!pID && (
+              <select
+                name="person_id"
+                defaultValue="-1"
+                onChange={e => handleChange(e)}
+              >
+                <option disabled value="-1">
+                  Select a person
+                </option>
+                {props.singleTrip.people
+                  .filter(person => person.id !== paidPersonID)
+                  .map(person => (
+                    <option key={person.id} value={person.id} name="person_id">
+                      {person.first_name} {person.last_name}
+                    </option>
+                  ))}
+              </select>
+            )}
+            {pID && (
+              <select
+                name="person_id"
+                defaultValue={pID}
+                onChange={e => handleChange(e)}
+              >
+                {props.singleTrip.people
+                  .filter(person => person.id === pID)
+                  .map(person => (
+                    <option key={person.id} value={person.id} name="person_id">
+                      {person.first_name} {person.last_name}
+                    </option>
+                  ))}
+              </select>
+            )}
+          </div>
+          <div className="field">
+            <label>Amount</label>
+            <input
+              type="number"
+              name="amount"
+              value={debt.amount}
+              className="number"
               onChange={e => handleChange(e)}
-            >
-              <option disabled value="-1">
-                Select a person
-              </option>
-              {props.singleTrip.people
-                .filter(person => person.id !== paidPersonID)
-                .map(person => (
-                  <option key={person.id} value={person.id} name="person_id">
-                    {person.first_name} {person.last_name}
-                  </option>
-                ))}
-            </select>
-          )}
-          {pID && (
-            <select
-              name="person_id"
-              defaultValue={pID}
-              onChange={e => handleChange(e)}
-            >
-              {props.singleTrip.people
-                .filter(person => person.id === pID)
-                .map(person => (
-                  <option key={person.id} value={person.id} name="person_id">
-                    {person.first_name} {person.last_name}
-                  </option>
-                ))}
-            </select>
-          )}
-          <label>Amount</label>
-          <input
-            type="number"
-            name="amount"
-            value={debt.amount}
-            onChange={e => handleChange(e)}
-          />
-          <button>{status} Debt</button>
-        </form>
-        {matchedDebt && (
-          <button onClick={() => handleDelete()}>Delete Entry</button>
+            />
+          </div>
+          <Button onClick={e => handleSubmit(e)} shape="round" type="primary" className={pID ? 'edit' : 'add'}>{pID ? <Icon type="edit" /> : <Icon type="plus" />} {status} debt </Button>
+          {matchedDebt && (
+          <Button type="danger" onClick={() => handleDelete()}><Icon type="delete" />Delete Entry</Button>
         )}
+        </form>
       </TripDiv>
     </AlignDiv>
   );
