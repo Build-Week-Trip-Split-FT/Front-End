@@ -6,12 +6,21 @@
     margin-top: 8%;
 
     .login-page {
+        align-items: center;
+        background: rgb(245, 247, 248);
+        border: 1px double black;
+        border-radius: 20px;
         display: flex;
         flex-flow: column;
-        align-items: center;
         line-height: 1.5;
-        background: rgb(245, 247, 248);
         width: 40%;
-        border-radius: 20px;
+
+        @media (max-width: 500px) {
+            width: 70%;
+        }
+
+        h2 {
+            font-weight: bold;
+        }
     }
 }

@@ -7,7 +7,7 @@ import { Button, Input, Tooltip, Icon } from "antd";
 import { logInUser } from "../../actions";
 
 import "./Login.scss";
-import { bold } from "ansi-colors";
+import { bold, underline } from "ansi-colors";
 
 function Login({ logInUser, history, token }) {
   const [user, setUser] = useState({ username: "", password: "" });
@@ -42,7 +42,7 @@ function Login({ logInUser, history, token }) {
               name="username"
               placeholder="User Name"
               value={user.username}
-              style={{ marginBottom: 10, width: 300, height: 40 }}
+              style={{ marginBottom: 10, width: "100%", height: 40 }}
               prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
               suffix={
                 <Tooltip title="Extra information">
@@ -76,8 +76,7 @@ function Login({ logInUser, history, token }) {
             type="primary"
             block
             onClick={e => handleSubmit(e)}
-            style={{ marginBottom: 15 }}
-          >
+            style={{ marginBottom: 15 }}>
             Submit
           </Button>
         </Form>
