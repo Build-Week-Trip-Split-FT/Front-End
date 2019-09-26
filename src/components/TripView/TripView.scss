@@ -1,8 +1,20 @@
 @import "../../App.scss";
 
-.back-arrow {
-  a {
-    font-size: 3rem;
-    color: #ec9b3b;
-  }
+.dropdown {
+  margin-top: 1rem;
+}
+
+.edit-icon {
+  // margin-left: 2rem;
+  color: #1890ff;
+}
+
+.main-buttons {
+  width: 10rem;
+  height: 2rem;
+  margin: 1rem;
+}
+
+.expenses {
+  margin-top: 0.5rem;
 }

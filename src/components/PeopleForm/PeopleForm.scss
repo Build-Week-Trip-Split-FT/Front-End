@@ -1,1 +1,20 @@
-@import '../../App.scss';
+@import "../../App.scss";
+
+.people-container {
+  display: flex;
+  justify-content: center;
+  .people-card {
+    border: 1px solid lightgrey;
+    // padding: 2rem;
+    border-radius: 20px;
+    background: white;
+    width: 25vw;
+    text-align: center;
+    box-shadow: -1px 15px 30px -12px black;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 1.2rem;
+  }
+}

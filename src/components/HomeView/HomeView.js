@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-// import { GoogleMap, withScriptjs, withGoogleMap } from "react-google-maps";
-import Slider from "react-slick";
 import { connect } from "react-redux";
 
 import { fetchUser } from "../../actions";
@@ -26,34 +24,24 @@ const HomeView = props => {
           Add a trip!
         </button>
       </div>
-
       {props.userTrips && (
         <div className="wrapper">
-          <Slider
-            speed={500}
-            slidesToShow={1}
-            slidesToScroll={1}
-            infinite={false}
-            dots={true}
-          >
-            {props.userTrips.trips.map((user, key) => (
-              <UserDetails
-                key={key}
-                id={user.id}
-                username={user.username}
-                destination={user.destination}
-                date={user.date}
-                active={user.active}
-                num_people={user.num_people}
-                redirect={redirect}
-              />
-            ))}
-          </Slider>
+          {props.userTrips.trips.map((user, key) => (
+            <UserDetails
+              key={key}
+              id={user.id}
+              username={user.username}
+              destination={user.destination}
+              date={user.date}
+              active={user.active}
+              num_people={user.num_people}
+              redirect={redirect}
+            />
+          ))}
         </div>
-        )}
-      </div>
+      )}
+    </div>
   );
-
 };
 
 function UserDetails(props) {
@@ -67,15 +55,6 @@ function UserDetails(props) {
           <p>Date: {props.date.toString()}</p>
           <p>Active: {props.active ? "Yes" : "No"}</p>
           <p>Number of People: {props.num_people}</p>
-          {/* <div style={{ width: "20vw", height: "20rem" }}>
-            <WrappedMap
-              googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBogHSf0D1ydBuNLDO0tYjZB_sN5r15Psw`}
-              loadingElement={<div style={{ height: "100%" }} />}
-              containerElement={<div style={{ height: "100%" }} />}
-              mapElement={<div style={{ height: "100%" }} />}
-              destination={props.destination}
-            />
-          </div> */}
         </div>
         <div className="card-button">
           <div className="card-button-container1">
@@ -99,18 +78,6 @@ function UserDetails(props) {
     </div>
   );
 }
-
-// function Map(props) {
-//   return (
-//     <GoogleMap
-//       defaultZoom={10}
-//       // defaultCenter={{ lat: 45.421532, lng: -75.697189 }}
-//       defaultCenter={props.destination}
-//     />
-//   );
-// }
-
-// const WrappedMap = withScriptjs(withGoogleMap(Map));
 
 const mapStateToProps = state => {
   return {
