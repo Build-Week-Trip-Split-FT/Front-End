@@ -8,10 +8,11 @@ const DebtForm = (props) => {
   let expense = props.singleTrip.expenses.find(expense => expense.id === expID);
   let paidPersonID = expense.person_id;
 
-  let pID = Number(props.match.params.debtID);
+  let pID = props.match.params.debtID;
   let matchedDebt;
-
+  let status = (pID ? "Edit" : "Add");
   if (pID) {
+    pID = Number(pID)
     matchedDebt = expense.debts.find(debt => debt.person_id === pID)
   }
 
@@ -48,25 +49,25 @@ const DebtForm = (props) => {
       <form onSubmit={(e) => handleSubmit(e)}>
         <label>Person</label>
         {!pID &&
-          <select name="person_id" defaultValue="-1" onChange={(e) => handleChange(e)}>
+          (<select name="person_id" defaultValue="-1" onChange={(e) => handleChange(e)}>
             <option disabled value="-1" >Select a person</option>
             {props.singleTrip.people.filter(person => person.id !== paidPersonID).map(person => 
               <option key={person.id} value={person.id} name="person_id" >
                 {person.first_name} {person.last_name}
               </option>)}
-          </select>
+          </select>)
         }
         {pID && 
-          <select name="person_id" defaultValue={pID} onChange={(e) => handleChange(e)}>
+          (<select name="person_id" defaultValue={pID} onChange={(e) => handleChange(e)}>
             {props.singleTrip.people.filter(person => person.id === pID).map(person => 
-              <option key={person.id} value={person.id} name="person_id" >
+              <option key={person.id} value={person.id} name="person_id">
                 {person.first_name} {person.last_name}
               </option>)}
-          </select>
+          </select>)
         }
         <label>Amount</label>
         <input type="number" name="amount" value={debt.amount} onChange={(e) => handleChange(e)}/>
-        <button>Submit</button>
+        <button>{status} Debt</button>
       </form>
       {matchedDebt && <button onClick={() => handleDelete()}>Delete Entry</button>}
     </div>
