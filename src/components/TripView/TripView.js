@@ -34,7 +34,7 @@ const TripView = (props) => {
           <p>Expenses:</p>
             {singleTrip.expenses.map(expense=> 
               (<div key={expense.id}>
-                {expense.name}: {expense.amount} paid by {expense.person_name} <button onClick={() => redirect(`/expense/${expense.id}/edit`)}>Edit expense</button>
+                {expense.name}: ${expense.amount} paid by {expense.person_name} <button onClick={() => redirect(`/expense/${expense.id}/edit`)}>Edit expense</button>
                 <ul>
                   {expense.debts.map(debt => 
                     <li key={debt.person_id}>

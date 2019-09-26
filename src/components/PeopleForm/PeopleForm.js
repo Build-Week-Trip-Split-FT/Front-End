@@ -76,7 +76,7 @@ const PeopleForm = props => {
           value={nameInfo.last_name}
           onChange={e => handleChange(e)}
         />
-        <button>Add person</button>
+        <button>{status} person</button>
       </form>
       {pID && <button onClick={() => handleDelete()}>Delete Entry</button>}
     </div>
