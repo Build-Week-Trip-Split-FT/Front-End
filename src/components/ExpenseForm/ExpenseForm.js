@@ -6,7 +6,7 @@ import { postData, updateDB, deleteInfo } from "../../actions";
 const ExpenseForm = props => {
   let expID = Number(props.match.params.expID);
   let matchedExp;
-
+  let status = expID ? "Edit" : "Add";
   if (expID) {
     matchedExp = props.singleTrip.expenses.find(
       expense => expense.id === expID
@@ -37,7 +37,6 @@ const ExpenseForm = props => {
     } else if (!expense.person_id) {
       alert("Please choose someone");
     } else {
-      console.log(expense);
       props.postData(`/trips/${tripID}/expenses`, expense);
       props.history.push("/trips");
     }
@@ -94,7 +93,7 @@ const ExpenseForm = props => {
             </option>
           ))}
         </select>
-        <button>Add Expense</button>
+        <button>{status} Expense</button>
       </form>
       {matchedExp && (
         <button onClick={() => handleDelete()}>Delete Entry</button>

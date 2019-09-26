@@ -1,15 +1,10 @@
 import React, { useEffect } from "react";
 // import { GoogleMap, withScriptjs, withGoogleMap } from "react-google-maps";
 import { connect } from "react-redux";
-import styled from "styled-components";
 
 import { fetchUser } from "../../actions";
 
 import "./HomeView.scss";
-
-const MainDiv = styled.div`
-  width: 100%;
-`;
 
 const HomeView = props => {
   console.log(props.userTrips);
