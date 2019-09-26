@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { fetchUser } from "../../actions";
 
 import "./HomeView.scss";
-import { Button } from "antd";
+import { Button, Icon } from "antd";
 
 const HomeView = props => {
   useEffect(() => {
@@ -17,16 +17,17 @@ const HomeView = props => {
 
   return (
     <div className="container">
-      <div className="welcomeUser">
-        <h2>Hello {props.username}!</h2>
-      </div>
       <div className="button-container">
+        <div className="welcomeUser">
+          <h2>Hello {props.username}!</h2>
+        </div>
         <Button
           type="primary"
           block
-          className="addTrip"
+          className="addTrip add"
           onClick={() => redirect("/add")}
         >
+          <Icon type="plus" />
           Add a trip!
         </Button>
       </div>
@@ -80,6 +81,7 @@ function UserDetails(props) {
               className="button-card2"
               onClick={() => props.redirect(`/trips/${props.id}/edit`)}
             >
+              <Icon type="edit" />
               Edit Trip
             </Button>
           </div>
