@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-import { Button, Input, DatePicker, Checkbox } from 'antd';
+import { Button, Input } from 'antd';
 
 import { addTrip, updateDB, deleteInfo } from '../../actions';
 import styled from "styled-components";
@@ -16,11 +16,15 @@ const TripDiv = styled.div`
     width: 40%;
     height: 250px;
     border-radius: 15px;
+    @media (max-width: 500px) {
+        width: 70%;
+    }
 `;
 
 const AlignDiv = styled.div`
     display: flex;
     justify-content: center;
+    
 `;
 
 const Title = styled.h2`
@@ -33,6 +37,7 @@ const NewForm = styled.form`
     flex-flow: column;
     align-content: center;
     align-times: center;
+
 `
 
 //END OF STYLED COMPONENTS
@@ -94,7 +99,7 @@ const AddTrip = (props) => {
                         placeholder="Add Destination"
                         value={trip.destination}
                         onChange={(e) => handleChange(e)}
-                        style={{ width: 300,
+                        style={{ width: "100%",
                                  marginTop: 5}}
                     />
                     <Input 
