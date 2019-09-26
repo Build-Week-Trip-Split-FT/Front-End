@@ -7,7 +7,7 @@ import './Fetching.scss';
 const Fetching = (props) => {
   return (
     <>
-      {props.isFetching && <Alert message="Error" type="error" description={props.fetching_message} closable/>}
+      {props.isFetching && <Alert message="In progress" type="info" description={props.fetching_message} closable/>}
     </>
   )
 }

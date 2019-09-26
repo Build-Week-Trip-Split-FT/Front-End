@@ -23,9 +23,9 @@ export const reducer = (state = initialState, action) => {
       return {...state, isFetching: true, fetching_message: "Looking for user...", singleTrip:""}
     case FETCH_USER_SUCCESS:
       localStorage.setItem('user', JSON.stringify(action.payload));
-      return {...state, isFetching: false, fetching_message:"", userTrips: action.payload, changed:false}
+      return {...state, isFetching: false, fetching_message:"", userTrips: action.payload, error: false, changed:false}
     case POST_TRIP_SUCCESS:
-        return {...state, userTrips: action.payload, changed:false}
+        return {...state, isFetching: false, userTrips: action.payload, error: false, changed:false}
     case PUT_TRIP_SUCCESS:
       let newTrips = state.userTrips.trips.map(trip => {
         if (trip.id === action.payload.id) {
@@ -34,21 +34,21 @@ export const reducer = (state = initialState, action) => {
           return trip
         }
       })
-      let newUserTrips = {...state.userTrips, trips: newTrips};
+      let newUserTrips = {...state.userTrips, isFetching: false, trips: newTrips};
       localStorage.setItem('user', JSON.stringify(newUserTrips));
-      return {...state, userTrips: newUserTrips, changed:false}
+      return {...state, userTrips: newUserTrips, error: false, changed:false}
     case DELETE_TRIP_SUCCESS:
       let filteredTrips = state.userTrips.trips.filter(trip => trip.id !== action.payload);
       let filteredUserData = {...state.userTrips, trips: filteredTrips};
-      return {...state, userTrips: filteredUserData, changed:true}
+      return {...state, isFetching: false, error: false, userTrips: filteredUserData, changed:true}
     case POSTING:
       return {...state, isFetching: true, fetching_message: action.payload}
     case POST_SUCCESS:
-      return {...state, changed:true}
+      return {...state, isFetching: false, error: false, changed:true}
     case UPDATING:
       return {...state, isFetching: true, fetching_message: "Sending to database..."}
     case UPDATE_SUCCESS:
-      return {...state, changed:true}
+      return {...state, isFetching: false, error: false, changed:true}
     case ERROR:
         return {...state, error: true, error_message: action.payload}
     default:
