@@ -7,7 +7,7 @@ import { Button, Input, Tooltip, Icon } from "antd";
 import { logInUser } from "../../actions";
 
 import "./Login.scss";
-import { bold, underline } from "ansi-colors";
+
 
 function Login({ logInUser, history }) {
   const [user, setUser] = useState({ username: "", password: "" });
@@ -29,7 +29,7 @@ function Login({ logInUser, history }) {
   return (
     <div className="login-container">
       <div className="login-page">
-        <h2 style={{ marginTop: 10, fontWeight: bold }}>Login</h2>
+        <h2 style={{ marginTop: 10 }}>Login</h2>
         <Form onChange={handleChange}>
           <div>
             <Input
