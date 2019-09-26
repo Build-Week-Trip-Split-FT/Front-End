@@ -1,1 +1,32 @@
 @import '../../App.scss';
+.debt-form {
+  * {
+    margin: 1%;
+  }
+  text-align: center;
+  .field {
+    label {
+      padding-right: 3%;
+    }
+    input {
+      padding: 1%;
+    }
+    .number {
+      width: 50%;
+    }
+  }
+  .edit {
+    background-color: #ffc53d;
+    border: none;
+    &:hover {
+      background-color: #ffd666;
+    }
+  }
+  .add {
+    background-color: #73d13d;
+    border:none;
+    &:hover {
+      background-color: #95de64
+    }
+  }
+}

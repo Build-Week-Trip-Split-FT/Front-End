@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { Button, Input } from "antd";
-import { addTrip, updateTrip, deleteTrip } from "../../actions";
+import { connect } from 'react-redux';
+import { Button, Icon, Input } from 'antd';
+import { addTrip, updateTrip, deleteTrip } from '../../actions';
+
+import './AddTrip.scss';
 import styled from "styled-components";
 
 //  START OF STYLED COMPONENTS
@@ -12,30 +14,29 @@ const TripDiv = styled.div`
   align-content: center;
   background-color: white;
   align-items: center;
-  width: 40%;
+  width: 25vw;
   height: 250px;
-  border-radius: 15px;
+  border-radius: 20px;
+  padding: 1% 0 3% 0;
+  box-shadow: -1px 15px 30px -12px black;
   @media (max-width: 500px) {
-    width: 70%;
+      width: 70%;
   }
 `;
 
 const AlignDiv = styled.div`
   display: flex;
   justify-content: center;
+  margin-top:6%;
 `;
 
 const Title = styled.h2`
-  margin-top: 25px;
   font-weight: bold;
 `;
 
 const NewForm = styled.form`
-  display: flex;
-  flex-flow: column;
-  align-content: center;
-  align-times: center;
-`;
+  text-align: center;
+`
 
 //END OF STYLED COMPONENTS
 
@@ -67,25 +68,38 @@ const AddTrip = props => {
       setTrip({ ...trip, [e.target.name]: e.target.value });
     }
   };
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (id) {
-      props.updateTrip(`/trips/${id}`, trip);
-    } else {
-      props.addTrip(trip);
-    }
-    props.history.push("/trips");
-  };
+
+  const handleSubmit = (e) => {
+      e.preventDefault();
+      if (id) {
+          props.updateTrip(`/trips/${id}`, trip)
+      } else {
+          props.addTrip(trip);
+      }
+      props.history.push('/trips');
+  }
+
   const handleDelete = () => {
-    let partial = `/trips/${id}`;
-    props.deleteTrip(partial, Number(id));
-    props.history.push("/trips");
-  };
+      let partial = `/trips/${id}`;
+      props.deleteTrip(partial, Number(id));
+      props.history.push("/trips");
+  }
+
+  const backSubmit = event => {
+    event.preventDefault();
+    props.history.goBack();
+  }
+
   return (
     <AlignDiv>
-      <TripDiv>
+     <TripDiv>
+        <div className="back-arrow-container">
+          <p className="back-arrow" onClick={backSubmit}>
+            <Icon type="arrow-left" /> <span> View Trip</span>
+          </p>
+        </div>
         <Title>{status} a Trip!</Title>
-        <NewForm>
+        <NewForm className="trip-form-form">
           <Input
             type="text"
             name="destination"
@@ -111,25 +125,13 @@ const AddTrip = props => {
               onChange={e => handleChange(e)}
             />
           </div>
-          <Button
-            type="primary"
-            onClick={e => handleSubmit(e)}
-            style={{ marginTop: 10 }}
-          >
-            {status} Trip
-          </Button>
-        </NewForm>
+          <Button onClick={e => handleSubmit(e)}  type="primary" className={id ? 'edit' : 'add'}>{id ? <Icon type="edit" /> : <Icon type="plus" />} {status} Trip </Button>
         {id && (
-          <Button
-            type="danger"
-            style={{ marginTop: 10 }}
-            onClick={() => handleDelete()}
-          >
-            Delete Trip
-          </Button>
+          <Button type="danger" shapeonClick={() => handleDelete()}><Icon type="delete" />Delete Entry</Button>
         )}
-      </TripDiv>
-    </AlignDiv>
+        </NewForm>
+    </TripDiv>
+  </AlignDiv>
   );
 };
 

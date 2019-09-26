@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Icon } from "antd";
+import { Button, Icon } from "antd";
 import { postData, updateDB, deleteInfo } from "../../actions";
+
+import './ExpenseForm.scss';
 
 const ExpenseForm = props => {
   useEffect(() => {
@@ -57,50 +59,58 @@ const ExpenseForm = props => {
   };
 
   return (
-    <div>
-      <div className="back-arrow">
-        <p onClick={backSubmit}>
-          <Icon type="arrow-left" />
-        </p>
+    <div className="expense-form-container">
+      <div className="expense-form-card">
+      <div className="back-arrow-container">
+          <p className="back-arrow" onClick={backSubmit}>
+            <Icon type="arrow-left" /> <span> View Trip</span>
+          </p>
+        </div>
+        <h2>Add an expense</h2>
+        <form onSubmit={e => handleSubmit(e)}>
+          <div className="field">
+            <label>Name of expense</label>
+            <input
+              type="text"
+              placeholder="Expense"
+              name="name"
+              onChange={e => handleChange(e)}
+              value={expense.name}
+            />
+          </div>
+          <div className="field">
+            <label>Cost</label>
+            <input
+              type="number"
+              placeholder="Cost"
+              name="amount"
+              onChange={e => handleChange(e)}
+              value={expense.amount}
+            />
+          </div>
+          <div className="field">
+            <label>Who Paid</label>
+            <select
+              name="person_id"
+              defaultValue={expense.person_id}
+              onChange={e => handleChange(e)}
+            >
+              <option disabled value="-1">
+                Select a person
+              </option>
+              {props.singleTrip.people.map(person => (
+                <option key={person.id} value={person.id} name="person_id">
+                  {person.first_name} {person.last_name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <Button onClick={e => handleSubmit(e)} type="primary" className={expID ? 'edit' : 'add'}>{expID ? <Icon type="edit" /> : <Icon type="plus" />} {status} expense </Button>
+          {matchedExp && (
+            <Button type="danger" onClick={() => handleDelete()}><Icon type="delete" />Delete Entry</Button>
+          )}
+        </form>
       </div>
-      <h2>Add an expense</h2>
-      <form onSubmit={e => handleSubmit(e)}>
-        <label>Name of expense</label>
-        <input
-          type="text"
-          placeholder="Expense"
-          name="name"
-          onChange={e => handleChange(e)}
-          value={expense.name}
-        />
-        <label>Cost</label>
-        <input
-          type="number"
-          placeholder="Cost"
-          name="amount"
-          onChange={e => handleChange(e)}
-          value={expense.amount}
-        />
-        <label>Who Paid</label>
-        <select
-          name="person_id"
-          defaultValue={expense.person_id}
-          onChange={e => handleChange(e)}
-        >
-          <option disabled value="-1">
-            Select a person
-          </option>
-          {props.singleTrip.people.map(person => (
-            <option key={person.id} value={person.id} name="person_id">
-              {person.first_name} {person.last_name}
-            </option>
-          ))}
-        </select>
-        <button>{status} Expense</button>
-      </form>
-      {matchedExp && (
-        <button onClick={() => handleDelete()}>Delete Entry</button>
-      )}
     </div>
   );
 };

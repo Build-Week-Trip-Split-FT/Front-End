@@ -74,6 +74,11 @@
   .button-card2 {
     width: 12rem;
     margin: 1rem 0rem 2rem;
+    background-color: #ffc53d;
+    border: none;
+    &:hover {
+      background-color: #ffd666;
+    }
   }
 }
 
@@ -89,9 +94,17 @@
 .button-container {
   display: flex;
   justify-content: center;
+  margin-top: 4%;
   .addTrip {
     width: 12rem;
     height: 2rem;
     border: none;
+  }
+  .add {
+    background-color: #73d13d;
+    border:none;
+    &:hover {
+      background-color: #95de64
+    }
   }
 }
