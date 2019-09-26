@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Icon } from "antd";
+import "./PeopleForm.scss";
 
 import { postData, updateDB, deleteInfo } from "../../actions";
 
@@ -9,6 +10,12 @@ const PeopleForm = props => {
   let pID = props.match.params.pID;
   let matchedPerson;
   let status = pID ? "Edit" : "Add";
+
+  useEffect(() => {
+    if (props.changed) {
+      props.history.push(`/trips/${tripID}`)
+    }
+  }, [props.changed])
 
   if (pID) {
     matchedPerson = props.singleTrip.people.find(
@@ -37,13 +44,11 @@ const PeopleForm = props => {
       };
       props.updateDB(`/people/${pID}`, newPerson);
     }
-    props.history.push("/trips");
   };
 
   const handleDelete = () => {
     let partial = `/people/${pID}`;
     props.deleteInfo(partial);
-    props.history.push("/trips");
   };
 
   const backSubmit = event => {
@@ -52,33 +57,35 @@ const PeopleForm = props => {
   };
 
   return (
-    <div>
-      <div className="back-arrow">
-        <p onClick={backSubmit}>
-          <Icon type="arrow-left" />
-        </p>
+    <div className="people-container">
+      <div className="people-card">
+        <div className="back-arrow">
+          <p onClick={backSubmit}>
+            <Icon type="arrow-left" />
+          </p>
+        </div>
+        <h2>Who went on the trip?</h2>
+        <form onSubmit={e => handleSubmit(e)}>
+          <label>First Name</label>
+          <input
+            type="text"
+            placeholder="first name"
+            name="first_name"
+            value={nameInfo.first_name}
+            onChange={e => handleChange(e)}
+          />
+          <label>Last Name</label>
+          <input
+            type="text"
+            placeholder="last name"
+            name="last_name"
+            value={nameInfo.last_name}
+            onChange={e => handleChange(e)}
+          />
+          <button>{status} person</button>
+        </form>
+        {pID && <button onClick={() => handleDelete()}>Delete Entry</button>}
       </div>
-      <h2>Who went on the trip?</h2>
-      <form onSubmit={e => handleSubmit(e)} >
-        <label>First Name</label>
-        <input
-          type="text"
-          placeholder="first name"
-          name="first_name"
-          value={nameInfo.first_name}
-          onChange={e => handleChange(e)}
-        />
-        <label>Last Name</label>
-        <input
-          type="text"
-          placeholder="last name"
-          name="last_name"
-          value={nameInfo.last_name}
-          onChange={e => handleChange(e)}
-        />
-        <button>{status} person</button>
-      </form>
-      {pID && <button onClick={() => handleDelete()}>Delete Entry</button>}
     </div>
   );
 };
@@ -86,7 +93,11 @@ const PeopleForm = props => {
 const mapStateToProps = state => {
   return {
     singleTrip: state.singleTrip,
+    changed: state.changed,
   }
 }
 
-export default connect(mapStateToProps, {postData:postData, updateDB: updateDB, deleteInfo : deleteInfo})(PeopleForm)
+export default connect(
+  mapStateToProps,
+  { postData: postData, updateDB: updateDB, deleteInfo: deleteInfo }
+)(PeopleForm);

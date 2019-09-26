@@ -3,5 +3,14 @@
 .sign-up-container {
   display: flex;
   justify-content: center;
-  height: 30vh;
+  margin: 8% auto;
+  line-height: 1.5;
+  background: rgb(245, 247, 248);
+  width: 40%;
+  border-radius: 20px;
+
+  .sign-up {
+    text-align: center;
+    margin-top: 1rem;
+  }
 }
