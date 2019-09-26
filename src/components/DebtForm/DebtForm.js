@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect }  from 'react';
+import { connect } from 'react-redux';
 
 import { postData, updateDB, deleteInfo } from "../../actions";
 import { Button, Input, Tooltip, Icon, Dropdown, Menu } from "antd";
+
+
 
 import styled from "styled-components";
 
@@ -29,8 +31,15 @@ const Title = styled.h2`
 const NewForm = styled.form`
   width: 75%;
 `;
-
 const DebtForm = props => {
+  
+  useEffect(() => {
+    if (props.changed) {
+      let tripID = props.match.params.tripID;
+      props.history.push(`/trips/${tripID}`)
+    }
+  }, [props.changed]);
+
   let expID = Number(props.match.params.expID);
   let expense = props.singleTrip.expenses.find(expense => expense.id === expID);
   let paidPersonID = expense.person_id;
@@ -55,10 +64,8 @@ const DebtForm = props => {
     if (pID) {
       let newDebt = { amount: Number(debt.amount) };
       props.updateDB(`/expenses/${expID}/debts/${pID}`, newDebt);
-      props.history.push("/trips");
-    } else if (debt.person_id) {
+    } else if (debt.person_id) { 
       props.postData(`/expenses/${expID}/debts`, debt);
-      props.history.push("/trips");
     } else {
       alert("Choose a person");
     }
@@ -67,13 +74,13 @@ const DebtForm = props => {
   const handleDelete = () => {
     let partial = `/expenses/${expID}/debts/${pID}`;
     props.deleteInfo(partial);
-    props.history.push("/trips");
-  };
+  }
 
   const backSubmit = event => {
     event.preventDefault();
     props.history.goBack();
   };
+  
   return (
     <AlignDiv>
       <TripDiv>
@@ -137,10 +144,8 @@ const DebtForm = props => {
 
 const mapStateToProps = state => {
   return {
-    singleTrip: state.singleTrip
-  };
-};
-export default connect(
-  mapStateToProps,
-  { postData: postData, updateDB: updateDB, deleteInfo: deleteInfo }
-)(DebtForm);
+    singleTrip: state.singleTrip,
+    changed: state.changed,
+  }
+}
+export default connect(mapStateToProps, { postData : postData, updateDB : updateDB, deleteInfo : deleteInfo })(DebtForm);

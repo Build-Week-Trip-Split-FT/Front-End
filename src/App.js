@@ -7,16 +7,17 @@ import { PrivateRoute } from "./utils";
 import ExampleComponent from "./components/ExampleComponent";
 import SignUp from "./components/SignUp/";
 import Login from "./components/Login/";
-import HomeView from "./components/HomeView/HomeView";
+import HomeView from "./components/HomeView/";
+import Fetching from './components/Fetching';
 import Message from "./components/Message";
-import NavBar from "./components/NavBar/NavBar";
-import AddTrip from "./components/TripForm/AddTrip";
+import NavBar from "./components/NavBar/";
+import AddTrip from "./components/TripForm/";
 import TripView from './components/TripView';
 import PeopleForm from './components/PeopleForm';
 import ExpenseForm from './components/ExpenseForm';
 import DebtForm from './components/DebtForm';
-import './App.scss';
 
+import './App.scss';
 
 const App = (props) => {
 
@@ -29,6 +30,7 @@ const App = (props) => {
       <NavBar />
       <div>Welcome To Trip Split</div>
       <Message />
+      <Fetching />
       <PrivateRoute path="/secret" component={ExampleComponent} />
       <PrivateRoute exact path="/trips" component={HomeView} />
       <PrivateRoute exact path="/trips/:tripID" component={TripView} />

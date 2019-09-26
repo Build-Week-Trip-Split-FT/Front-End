@@ -50,9 +50,9 @@ const TripView = props => {
   useEffect(() => {
     let id = props.match.params.tripID;
     props.fetchTrip(id);
-  }, []);
-
-  const redirect = type => {
+  }, [props.changed]);
+  
+  const redirect = (type) => {
     props.history.push(`/trips/${props.match.params.tripID}${type}`);
   };
 
@@ -196,8 +196,9 @@ const TripView = props => {
 const mapStateToProps = state => {
   return {
     singleTrip: state.singleTrip,
-    username: state.username
-  };
+    username: state.username,
+    changed: state.changed,
+  }
 };
 
 export default connect(
