@@ -151,6 +151,7 @@ const mapStateToProps = state => {
     username: state.username
   };
 };
+
 export default connect(
   mapStateToProps,
   { addTrip: addTrip, updateDB: updateDB, deleteInfo: deleteInfo }
