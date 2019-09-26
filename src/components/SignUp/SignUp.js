@@ -47,6 +47,8 @@ const RegistrationForm = props => {
   return (
     <div class="sign-up-container">
       <Form {...formItemLayout} onSubmit={handleSubmit}>
+        <h2 className="sign-up">Sign Up</h2>
+
         {/* <Form.Item
         label={
           <span>
