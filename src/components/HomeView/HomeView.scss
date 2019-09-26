@@ -1,5 +1,30 @@
+@mixin mobile {
+  @media (max-width: 500px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: 800px) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (max-width: 1000px) {
+    @content;
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .main-container {
   display: flex;
+
   justify-content: center;
   margin: 2rem;
   // border: 1px solid black;
@@ -29,56 +54,26 @@
         font-size: 1.5rem;
       }
     }
+
+    @include tablet {
+      width: 35vw;
+    }
+    @include tablet {
+      width: 50vw;
+    }
+
+    @include mobile {
+      width: 65vw;
+    }
   }
 
-  .card-button {
-    display: flex;
-    justify-content: space-evenly;
-    background: #1890ff;
-    height: 5rem;
-    border-radius: 0px 0px 20px 20px;
+  .button-card {
+    width: 12rem;
+  }
 
-    .card-button-container1 {
-      padding-top: 1rem;
-      width: 50%;
-      .button-card {
-        font-size: 12px;
-        width: 6rem;
-        height: 2rem;
-        border: none;
-        border-radius: 2rem;
-        margin: 0.5rem 0;
-        cursor: pointer;
-      }
-
-      .button-card:hover {
-        background-color: #fff;
-        -webkit-transition-duration: 0.4s;
-        transition-duration: 0.4s;
-        color: #1890ff;
-      }
-    }
-    .card-button-container2 {
-      padding-top: 1rem;
-      width: 50%;
-      border-left: 2px solid grey;
-      .button-card {
-        font-size: 12px;
-        width: 6rem;
-        height: 2rem;
-        border: none;
-        border-radius: 2rem;
-        margin: 0.5rem 0;
-        cursor: pointer;
-      }
-
-      .button-card:hover {
-        background-color: #fff;
-        -webkit-transition-duration: 0.4s;
-        transition-duration: 0.4s;
-        color: #1890ff;
-      }
-    }
+  .button-card2 {
+    width: 12rem;
+    margin: 1rem 0rem 2rem;
   }
 }
 
@@ -95,21 +90,8 @@
   display: flex;
   justify-content: center;
   .addTrip {
-    background: #1890ff;
-    // background: #659dbd;
-    width: 10rem;
-    height: 3rem;
+    width: 12rem;
+    height: 2rem;
     border: none;
-    border-radius: 2rem;
-    color: #fff;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  .addTrip:hover {
-    background-color: #fff;
-    color: #1890ff;
-    color: #1890ff;
   }
 }

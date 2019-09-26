@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withFormik, Form } from "formik";
 import { connect } from "react-redux";
 import * as Yup from "yup";
@@ -9,8 +9,14 @@ import { logInUser } from "../../actions";
 import "./Login.scss";
 import { bold, underline } from "ansi-colors";
 
-function Login({ logInUser, history }) {
+function Login({ logInUser, history, token }) {
   const [user, setUser] = useState({ username: "", password: "" });
+
+  useEffect(() => {
+    if (token) {
+      history.push("/trips");
+    }
+  }, [history, token])
 
   const handleChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -21,7 +27,6 @@ function Login({ logInUser, history }) {
     e.preventDefault();
     if (user.username && user.password) {
       logInUser(user);
-      history.push("/");
       setUser({ username: "", password: "" });
     }
   };
@@ -97,7 +102,12 @@ const LoginWithFormik = withFormik({
   })
 })(Login);
 
+const mapStateToProps = state => {
+  return {
+    token: state.token
+  }
+}
 export default connect(
-  null,
+  mapStateToProps,
   { logInUser: logInUser }
 )(LoginWithFormik);

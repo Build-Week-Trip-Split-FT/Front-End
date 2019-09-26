@@ -1,3 +1,2 @@
-import TripForm from './TripForm';
-import Other from './Other';
-export default Other;
+import AddTrip from './AddTrip';
+export default AddTrip;

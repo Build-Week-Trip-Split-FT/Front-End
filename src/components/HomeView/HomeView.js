@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { fetchUser } from "../../actions";
 
 import "./HomeView.scss";
+import { Button } from "antd";
 
 const HomeView = props => {
   useEffect(() => {
@@ -20,9 +21,14 @@ const HomeView = props => {
         <h2>Hello {props.username}!</h2>
       </div>
       <div className="button-container">
-        <button className="addTrip" onClick={() => redirect("/add")}>
+        <Button
+          type="primary"
+          block
+          className="addTrip"
+          onClick={() => redirect("/add")}
+        >
           Add a trip!
-        </button>
+        </Button>
       </div>
       {props.userTrips && (
         <div className="wrapper">
@@ -52,26 +58,30 @@ function UserDetails(props) {
           <div className="destination">
             <p>Destination: {props.destination}</p>
           </div>
-          <p>Date: {props.date.toString()}</p>
+          <p>Date: {props.date.toString().substring(0, 10)}</p>
           <p>Active: {props.active ? "Yes" : "No"}</p>
           <p>Number of People: {props.num_people}</p>
         </div>
         <div className="card-button">
           <div className="card-button-container1">
-            <button
+            <Button
+              type="primary"
+              block
               className="button-card"
               onClick={() => props.redirect(`/trips/${props.id}`)}
             >
               View More
-            </button>
+            </Button>
           </div>
           <div className="card-button-container2">
-            <button
-              className="button-card"
+            <Button
+              type="danger"
+              block
+              className="button-card2"
               onClick={() => props.redirect(`/trips/${props.id}/edit`)}
             >
               Edit Trip
-            </button>
+            </Button>
           </div>
         </div>
       </div>
