@@ -48,18 +48,18 @@ const DebtForm = (props) => {
       <form onSubmit={(e) => handleSubmit(e)}>
         <label>Person</label>
         {!pID &&
-          <select name="person_id" defaultValue="-1">
-            <option disabled value="-1" onChange={(e) => handleChange(e)}>Select a person</option>
+          <select name="person_id" defaultValue="-1" onChange={(e) => handleChange(e)}>
+            <option disabled value="-1" >Select a person</option>
             {props.singleTrip.people.filter(person => person.id !== paidPersonID).map(person => 
-              <option value={person.id} name="person_id" onChange={(e) => handleChange(e)}>
+              <option key={person.id} value={person.id} name="person_id" >
                 {person.first_name} {person.last_name}
               </option>)}
           </select>
         }
         {pID && 
-          <select name="person_id" defaultValue={pID}>
+          <select name="person_id" defaultValue={pID} onChange={(e) => handleChange(e)}>
             {props.singleTrip.people.filter(person => person.id === pID).map(person => 
-              <option key={person.id} value={person.id} name="person_id" onChange={(e) => handleChange(e)}>
+              <option key={person.id} value={person.id} name="person_id" >
                 {person.first_name} {person.last_name}
               </option>)}
           </select>

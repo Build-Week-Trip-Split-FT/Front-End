@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchTrip } from '../../actions';
 
+import TotalPrice from '../TotalPrice';
+
 const TripView = (props) => {
   let singleTrip = props.singleTrip;
   useEffect(() => {
@@ -14,8 +16,8 @@ const TripView = (props) => {
   }
 
   return (
-    <>
-    {singleTrip && 
+    <div>
+          {singleTrip && 
       <div>
         <h2>{singleTrip.destination}</h2>
         <p>Date of Trip: {singleTrip.date.substring(0,10)}</p>
@@ -49,10 +51,11 @@ const TripView = (props) => {
         </div>
         <button onClick={() => redirect("/people/add")}>Add Person</button>
         {singleTrip.people.length > 0 && <button onClick={() => redirect("/expense/add")}>Add Expense</button>}
+        <TotalPrice singleTrip={singleTrip} />
       </div>
     }
-    </>
-  )
+    </div>
+  );
 }
 
 const mapStateToProps = state => {
