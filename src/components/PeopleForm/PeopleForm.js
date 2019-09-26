@@ -86,7 +86,7 @@ const PeopleForm = props => {
               onChange={e => handleChange(e)}
             />
           </div>
-          <Button onClick={e => handleSubmit(e)} shape="round" type="primary" className={pID ? 'edit' : 'add'}>{pID ? <Icon type="edit" /> : <Icon type="plus" />} {status} person </Button>
+          <Button onClick={e => handleSubmit(e)} type="primary" className={pID ? 'edit' : 'add'}>{pID ? <Icon type="edit" /> : <Icon type="plus" />} {status} person </Button>
           {pID && <Button type="danger" onClick={() => handleDelete()}><Icon type="delete" />Delete Entry</Button>}
         </form>
       </div>

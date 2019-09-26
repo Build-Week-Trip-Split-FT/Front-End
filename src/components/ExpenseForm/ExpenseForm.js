@@ -105,7 +105,7 @@ const ExpenseForm = props => {
               ))}
             </select>
           </div>
-          <Button onClick={e => handleSubmit(e)} shape="round" type="primary" className={expID ? 'edit' : 'add'}>{expID ? <Icon type="edit" /> : <Icon type="plus" />} {status} expense </Button>
+          <Button onClick={e => handleSubmit(e)} type="primary" className={expID ? 'edit' : 'add'}>{expID ? <Icon type="edit" /> : <Icon type="plus" />} {status} expense </Button>
           {matchedExp && (
             <Button type="danger" onClick={() => handleDelete()}><Icon type="delete" />Delete Entry</Button>
           )}

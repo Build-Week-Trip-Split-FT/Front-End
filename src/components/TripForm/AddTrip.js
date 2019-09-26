@@ -120,9 +120,9 @@ const AddTrip = props => {
             <label>Active Trip: </label>
             <input type="checkbox" name="active" checked={trip.active} onChange={(e) => handleChange(e)}/>
           </div>
-          <Button onClick={e => handleSubmit(e)} shape="round" type="primary" className={id ? 'edit' : 'add'}>{id ? <Icon type="edit" /> : <Icon type="plus" />} {status} Trip </Button>
+          <Button onClick={e => handleSubmit(e)}  type="primary" className={id ? 'edit' : 'add'}>{id ? <Icon type="edit" /> : <Icon type="plus" />} {status} Trip </Button>
         {id && (
-          <Button type="danger" onClick={() => handleDelete()}><Icon type="delete" />Delete Entry</Button>
+          <Button type="danger" shapeonClick={() => handleDelete()}><Icon type="delete" />Delete Entry</Button>
         )}
         </NewForm>
     </TripDiv>

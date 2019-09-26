@@ -139,7 +139,7 @@ const DebtForm = props => {
               onChange={e => handleChange(e)}
             />
           </div>
-          <Button onClick={e => handleSubmit(e)} shape="round" type="primary" className={pID ? 'edit' : 'add'}>{pID ? <Icon type="edit" /> : <Icon type="plus" />} {status} debt </Button>
+          <Button onClick={e => handleSubmit(e)} type="primary" className={pID ? 'edit' : 'add'}>{pID ? <Icon type="edit" /> : <Icon type="plus" />} {status} debt </Button>
           {matchedDebt && (
           <Button type="danger" onClick={() => handleDelete()}><Icon type="delete" />Delete Entry</Button>
         )}
