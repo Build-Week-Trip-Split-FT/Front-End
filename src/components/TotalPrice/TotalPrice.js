@@ -3,7 +3,6 @@ import React from 'react';
 const TotalPrice = ({ singleTrip }) => {
   let costs = calculateSplits(singleTrip);
   let total = singleTrip.expenses.reduce((acc, expense) => acc + Number(expense.amount), 0);
-  console.log(Object.keys(costs));
   return (
     <div>
       <h3>A Grand Total of ${total}</h3>
@@ -31,7 +30,7 @@ const calculateSplits = (trip) => {
       people[debt.person_id].cost += Number(debt.amount)
       paidPeople[debt.person_id] = true;
     }
-    let dividedCost = currentExpense / (trip.people.length - Object.keys(paidPeople).length);
+    let dividedCost = Math.round(100*(currentExpense / (trip.people.length - Object.keys(paidPeople).length)))/100;
     for (let person in people) {
       if (!(person in paidPeople)) {
         people[person].cost += dividedCost

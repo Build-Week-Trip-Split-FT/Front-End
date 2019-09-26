@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { postData, updateDB, deleteInfo } from '../../actions';
 
 const ExpenseForm = (props) => {
+
+  useEffect(() => {
+    if (props.changed) {
+      let tripID = props.match.params.tripID;
+      props.history.push(`/trips/${tripID}`)
+    }
+  }, [props.changed]);
+
   let expID = Number(props.match.params.expID);
   let matchedExp;
   let status = (expID ? "Edit" : "Add");
@@ -24,19 +32,16 @@ const ExpenseForm = (props) => {
     if (expID) {
       let newExpense = {person_id: expense.person_id, name: expense.name, amount: expense.amount};
       props.updateDB(`/expenses/${expID}`, newExpense);
-      props.history.push("/trips");
     } else if (!expense.person_id) {
       alert("Please choose someone");
     } else {
       props.postData(`/trips/${tripID}/expenses`, expense);
-      props.history.push("/trips");
     }
   }
 
   const handleDelete = () => {
     let partial = `/expenses/${expID}`;
     props.deleteInfo(partial);
-    props.history.push("/trips");
   }
 
   return (
@@ -70,7 +75,8 @@ const ExpenseForm = (props) => {
 
 const mapStateToProps = state => {
   return {
-    singleTrip: state.singleTrip
+    singleTrip: state.singleTrip,
+    changed: state.changed,
   }
 }
 export default connect(mapStateToProps, {postData : postData, updateDB : updateDB, deleteInfo : deleteInfo})(ExpenseForm);

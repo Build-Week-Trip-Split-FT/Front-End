@@ -64,7 +64,7 @@ function UserDetails(props) {
           <div className="destination">
             <p>Destination: {props.destination}</p>
           </div>
-          <p>Date: {props.date.toString()}</p>
+          <p>Date: {props.date.toString().substring(0,10)}</p>
           <p>Active: {props.active ? "Yes" : "No"}</p>
           <p>Number of People: {props.num_people}</p>
           {/* <div style={{ width: "20vw", height: "20rem" }}>

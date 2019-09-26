@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Icon } from "antd";
 
@@ -9,6 +9,12 @@ const PeopleForm = props => {
   let pID = props.match.params.pID;
   let matchedPerson;
   let status = pID ? "Edit" : "Add";
+
+  useEffect(() => {
+    if (props.changed) {
+      props.history.push(`/trips/${tripID}`)
+    }
+  }, [props.changed])
 
   if (pID) {
     matchedPerson = props.singleTrip.people.find(
@@ -37,13 +43,11 @@ const PeopleForm = props => {
       };
       props.updateDB(`/people/${pID}`, newPerson);
     }
-    props.history.push("/trips");
   };
 
   const handleDelete = () => {
     let partial = `/people/${pID}`;
     props.deleteInfo(partial);
-    props.history.push("/trips");
   };
 
   const backSubmit = event => {
@@ -86,6 +90,7 @@ const PeopleForm = props => {
 const mapStateToProps = state => {
   return {
     singleTrip: state.singleTrip,
+    changed: state.changed,
   }
 }
 

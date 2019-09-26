@@ -8,6 +8,7 @@ import ExampleComponent from "./components/ExampleComponent";
 import SignUp from "./components/SignUp/";
 import Login from "./components/Login/";
 import HomeView from "./components/HomeView/HomeView";
+import Fetching from './components/Fetching';
 import Message from "./components/Message";
 import NavBar from "./components/NavBar/NavBar";
 import AddTrip from "./components/TripForm/AddTrip";
@@ -29,6 +30,7 @@ const App = (props) => {
       <NavBar />
       <div>Welcome To Trip Split</div>
       <Message />
+      <Fetching />
       <PrivateRoute path="/secret" component={ExampleComponent} />
       <PrivateRoute exact path="/trips" component={HomeView} />
       <PrivateRoute exact path="/trips/:tripID" component={TripView} />

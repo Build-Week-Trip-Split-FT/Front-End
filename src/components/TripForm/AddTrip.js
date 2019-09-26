@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-import { Button, Input, DatePicker, Checkbox } from 'antd';
+import { Button, Input } from 'antd';
 
-import { addTrip, updateDB, deleteInfo } from '../../actions';
+import { addTrip, updateTrip, deleteTrip } from '../../actions';
 import styled from "styled-components";
 
 //  START OF STYLED COMPONENTS
@@ -69,8 +69,7 @@ const AddTrip = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (id) {
-            let newTrip = {destination: trip.destination, date: trip.date, active: trip.active};
-            props.updateDB(`/trips/${id}`, newTrip)
+            props.updateTrip(`/trips/${id}`, trip)
         } else {
             props.addTrip(trip);
         }
@@ -79,7 +78,7 @@ const AddTrip = (props) => {
 
     const handleDelete = () => {
         let partial = `/trips/${id}`;
-        props.deleteInfo(partial);
+        props.deleteTrip(partial, Number(id));
         props.history.push("/trips");
     }
 
@@ -136,4 +135,4 @@ const mapStateToProps = state => {
         username: state.username,
     }
 }
-export default connect(mapStateToProps, {addTrip: addTrip, updateDB : updateDB, deleteInfo : deleteInfo})(AddTrip);
+export default connect(mapStateToProps, {addTrip: addTrip, updateTrip : updateTrip, deleteTrip : deleteTrip})(AddTrip);
