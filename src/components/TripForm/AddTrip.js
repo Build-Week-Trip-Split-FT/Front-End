@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { Button, Input, DatePicker, Checkbox } from "antd";
+import { connect } from 'react-redux';
+import { Button, Input } from 'antd';
 
 import { addTrip, updateDB, deleteInfo } from "../../actions";
 import styled from "styled-components";
@@ -8,20 +8,23 @@ import styled from "styled-components";
 //  START OF STYLED COMPONENTS
 
 const TripDiv = styled.div`
-  display: flex;
-  flex-flow: column;
-  align-content: center;
-  justify-content: center;
-  background-color: white;
-  align-items: center;
-  width: 40%;
-  height: 250px;
-  border-radius: 15px;
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+    background-color: white;
+    align-items: center;
+    width: 40%;
+    height: 250px;
+    border-radius: 15px;
+    @media (max-width: 500px) {
+        width: 70%;
+    }
 `;
 
 const AlignDiv = styled.div`
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
+    
 `;
 
 const Title = styled.h2`
@@ -30,11 +33,12 @@ const Title = styled.h2`
 `;
 
 const NewForm = styled.form`
-  display: flex;
-  flex-flow: column;
-  align-content: center;
-  align-times: center;
-`;
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+    align-times: center;
+
+`
 
 //END OF STYLED COMPONENTS
 
@@ -79,46 +83,35 @@ const AddTrip = props => {
     } else {
       props.addTrip(trip);
     }
-    props.history.push("/trips");
-  };
 
-  const handleDelete = () => {
-    let partial = `/trips/${id}`;
-    props.deleteInfo(partial);
-    props.history.push("/trips");
-  };
-
-  return (
-    <AlignDiv>
-      <TripDiv>
-        <Title>{status} a Trip!</Title>
-        <NewForm>
-          <Input
-            type="text"
-            name="destination"
-            placeholder="Add Destination"
-            value={trip.destination}
-            onChange={e => handleChange(e)}
-            style={{ width: 300, marginTop: 5 }}
-          />
-          <Input
-            type="date"
-            name="date"
-            placeholder="Insert Date"
-            value={trip.date}
-            style={{ marginTop: 10, marginBottom: 10 }}
-            onChange={e => handleChange(e)}
-          />
-          <div>
-            <label>Active Trip: </label>
-            <input
-              type="checkbox"
-              name="active"
-              checked={trip.active}
-              onChange={e => handleChange(e)}
-            />
-          </div>
-          {/* <div >
+    return (
+        <AlignDiv>
+            <TripDiv>
+                <Title>{status} a Trip!</Title>
+                <NewForm>
+                    <Input
+                        type="text"
+                        name="destination"
+                        placeholder="Add Destination"
+                        value={trip.destination}
+                        onChange={(e) => handleChange(e)}
+                        style={{ width: "100%",
+                                 marginTop: 5}}
+                    />
+                    <Input 
+                        type="date"
+                        name="date"
+                        placeholder="Insert Date"
+                        value={trip.date}
+                        style={{ marginTop: 10,
+                                 marginBottom: 10}}
+                        onChange={(e) => handleChange(e)}
+                    />
+                    <div >
+                        <label>Active Trip: </label>
+                        <input type="checkbox" name="active" checked={trip.active} onChange={(e) => handleChange(e)}/>
+                    </div>
+                    {/* <div >
                         <label>Destination: </label>
                         <input type="text" name="destination" placeholder="Destination" value={trip.destination} onChange={(e) => handleChange(e)}/>
                     </div> */}
