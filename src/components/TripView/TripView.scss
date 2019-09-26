@@ -1,20 +1,60 @@
 @import "../../App.scss";
 
 .dropdown {
-  margin-top: 1rem;
+  margin-left:10px;
 }
-
+.back-arrow-container {
+  padding-top:10px;
+  .back-arrow {
+    margin-right: 2px;
+    font-size:12px;
+    span {
+      font-size: 14px;
+    }
+    color:#1890ff;
+  }
+}
 .edit-icon {
   // margin-left: 2rem;
   color: #1890ff;
 }
 
 .main-buttons {
-  width: 10rem;
-  height: 2rem;
-  margin: 1rem;
+  width: 5rem;
+  height: 1.5rem;
+  text-align:center;
 }
 
 .expenses {
   margin-top: 0.5rem;
+}
+
+.trip-view-container {
+  display: flex;
+  width: 90%;
+}
+
+.expense-container {
+  width: 30%;
+  > * {
+    background-color: white;
+    border-radius: 15px;
+    padding: 2.5%;
+  }
+  .expense-card {
+    margin-top:10px;
+
+    .payer {
+      color:black;
+      font-size: 1rem;
+    }
+  }
+  align-items: center;
+
+}
+
+.name-list {
+  li {
+    margin-left: -15px;
+  }
 }

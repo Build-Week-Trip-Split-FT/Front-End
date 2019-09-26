@@ -1,0 +1,12 @@
+@import '../../App.scss';
+
+.total-price-container {
+  margin-left: 2.5%;
+  background-color: white;
+  border-radius: 15px;
+  padding: 2.5%;
+  padding-top: 1%;
+  .tp-debt {
+    color:red;
+  }
+}

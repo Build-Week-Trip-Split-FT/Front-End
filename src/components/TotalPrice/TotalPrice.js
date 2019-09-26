@@ -1,14 +1,16 @@
 import React from 'react';
 
-const TotalPrice = ({ singleTrip }) => {
-  let costs = calculateSplits(singleTrip);
-  let total = singleTrip.expenses.reduce((acc, expense) => acc + Number(expense.amount), 0);
+import './TotalPrice.scss';
+
+const TotalPrice = (props) => {
+  let costs = calculateSplits(props.singleTrip);
+  let total = props.singleTrip.expenses.reduce((acc, expense) => acc + Number(expense.amount), 0);
   return (
-    <div>
-      <h3>A Grand Total of ${total}</h3>
+    <div className="total-price-container">
+      <h2>A Grand Total of ${total}</h2>
       {Object.keys(costs).map(key => 
         <div>
-          <p>{costs[key].name} owes ${costs[key].cost}</p>
+          <p key={key}>{costs[key].name} owes <span className="tp-debt">${costs[key].cost}</span></p>
         </div>
       )}
     </div>
@@ -16,6 +18,7 @@ const TotalPrice = ({ singleTrip }) => {
 }
 
 const calculateSplits = (trip) => {
+  console.log(trip);
   let people = {};
   for (let i = 0; i < trip.people.length; i++) {
     let id = trip.people[i].id;

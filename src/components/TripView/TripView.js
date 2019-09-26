@@ -1,10 +1,17 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchTrip } from "../../actions";
-import { Button, Input, Tooltip, Icon, Dropdown, Menu } from "antd";
+import { Button, Icon, Dropdown, Menu } from "antd";
 import TotalPrice from "../TotalPrice";
 import "./TripView.scss";
 import styled from "styled-components";
+
+const AlignDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 20%;
+  margin-right: 5%;
+`;
 
 const TripDiv = styled.div`
   display: flex;
@@ -12,41 +19,33 @@ const TripDiv = styled.div`
   align-content: center;
   background-color: white;
   align-items: center;
-  width: 40%;
+  width: 100%;
   border-radius: 15px;
+  padding-bottom:2%;
 `;
 
-const AlignDiv = styled.div`
-  display: flex;
-  justify-content: center;
-`;
 
 const HeadingContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items:center;
 `;
 
 const Title = styled.h2`
-  margin-top: 25px;
+  margin-top: 5px;
   font-weight: bold;
+  display:flex;
+  align-items:center;
 `;
 
 const NewForm = styled.form`
   width: 75%;
 `;
 
-const NameDetails = styled.div`
-  text-align: center;
-`;
-
-const ExpenseDiv = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
 
 const TripView = props => {
   let singleTrip = props.singleTrip;
+
   useEffect(() => {
     let id = props.match.params.tripID;
     props.fetchTrip(id);
@@ -61,12 +60,6 @@ const TripView = props => {
   }
   const menu = (
     <Menu onClick={handleMenuClick}>
-      {/* <Menu.Item
-        key="1"
-        onClick={() => redirect(`/expense/${expense.id}/debt/add`)}
-      >
-        Add Debt
-      </Menu.Item> */}
       <Menu.Item key="2" onClick={() => redirect("/people/add")}>
         Add People
       </Menu.Item>
@@ -77,119 +70,95 @@ const TripView = props => {
   );
 
   return (
-    <AlignDiv>
-      {singleTrip && (
-        <TripDiv>
-          <NewForm>
-            <HeadingContainer>
-              <Title>{singleTrip.destination}</Title>
-              <Dropdown overlay={menu} className="dropdown">
-                <Button>
-                  Actions <Icon type="down" />
-                </Button>
-              </Dropdown>
-            </HeadingContainer>
+    <div className="trip-view-container">
+      {singleTrip && <>
+      <AlignDiv>
+          <TripDiv>
+            <NewForm>
+                <div onClick={() => props.history.push("/trips")} className="back-arrow-container">
+                  <p className="back-arrow"><Icon type="arrow-left" /> <span>View all trips</span></p>
+                </div>
+              <HeadingContainer>
+                <Title>
+                  {singleTrip.destination}
+                </Title>
+                <Dropdown overlay={menu} className="dropdown">
+                  <Button size="small">
+                    Actions <Icon type="down" />
+                  </Button>
+                </Dropdown>
+              </HeadingContainer>
 
-            <p>Date of Trip: {singleTrip.date.substring(0, 10)}</p>
-            <p>Active: {singleTrip.active ? "Yes" : "No"}</p>
-            <NameDetails>
+              <p>Date of Trip: {singleTrip.date.substring(0, 10)}</p>
+              <p>Ongoing: {singleTrip.active ? "Yes" : "No"}</p>
               <div>
                 <h2>Attendees:</h2>
+                <ul className="name-list">
                 {singleTrip.people.map(person => (
-                  <div key={person.id}>
+                  <li key={person.id}>
                     {person.first_name} {person.last_name}{" "}
                     <Icon
                       className="edit-icon"
+
                       type="edit"
                       onClick={() => redirect(`/people/${person.id}/edit`)}
                     />
-                    {/* <Button
-                    type="primary"
-                    block
-                    onClick={() => redirect(`/people/${person.id}/edit`)}
-                  >
-                    Edit person
-                  </Button> */}
-                  </div>
+                  </li>
                 ))}
-              </div>
-              <h2 className="expenses">Expenses:</h2>
-            </NameDetails>
-
-            {singleTrip.expenses.map(expense => (
-              <ExpenseDiv key={expense.id}>
-                {expense.name}: {expense.amount} paid by {expense.person_name}{" "}
-                <Button
-                  className="main-buttons"
-                  type="primary"
-                  block
-                  onClick={() => redirect(`/expense/${expense.id}/edit`)}
-                >
-                  Edit expense
-                </Button>
-                <h2>How much owed</h2>
-                <ul>
-                  {expense.debts.map(debt => (
-                    <li key={debt.person_id}>
-                      {debt.person_name} owes {debt.amount} dollars
-                      {/* <Button
-                        className="main-buttons"
-                        type="primary"
-                        block
-                        onClick={() =>
-                          redirect(
-                            `/expense/${expense.id}/debt/${debt.person_id}/edit`
-                          )
-                        }
-                      >
-                        Edit Debt
-                      </Button> */}
-                      <Icon
-                        className="edit-icon"
-                        type="edit"
-                        onClick={() =>
-                          redirect(
-                            `/expense/${expense.id}/debt/${debt.person_id}/edit`
-                          )
-                        }
-                      />
-                    </li>
-                  ))}
                 </ul>
-                {singleTrip.expenses.length > 0 && (
-                  <Button
-                    className="main-buttons"
-                    type="primary"
-                    block
-                    onClick={() => redirect(`/expense/${expense.id}/debt/add`)}
-                  >
-                    Add Debt
-                  </Button>
-                )}
-              </ExpenseDiv>
-            ))}
+              </div>
+            </NewForm>
+          </TripDiv>
 
-            {/* <Button
-              type="primary"
-              block
-              onClick={() => redirect("/people/add")}
-            >
-              Add Person
-            </Button>
-            {singleTrip.people.length > 0 && (
+      </AlignDiv>
+      <div className='expense-container'>
+        <h2 className="expenses">Expenses:</h2>
+        {singleTrip.expenses.map(expense => (
+          <div className="expense-card" key={expense.id}>
+            <h2>{expense.name}: ${expense.amount} </h2>
+            <p>
+              paid by <span className="payer">{expense.person_name}</span>
+              <Icon
+                className="edit-icon"
+                type="edit"
+                onClick={() => redirect(`/expense/${expense.id}/edit`)}
+              />
+            </p>
+            <h3>Tracked Fees</h3>
+            <ul>
+              {expense.debts.map(debt => (
+                <li key={debt.person_id}>
+                  {debt.person_name} owes {debt.amount} dollars
+                  <Icon
+                    className="edit-icon"
+                    type="edit"
+                    onClick={() =>
+                      redirect(
+                        `/expense/${expense.id}/debt/${debt.person_id}/edit`
+                      )
+                    }
+                  />
+                </li>
+              ))}
+            </ul>
+            {singleTrip.expenses.length > 0 && (
               <Button
+                className="main-buttons"
                 type="primary"
+                size="small"
                 block
-                onClick={() => redirect("/expense/add")}
+                onClick={() => redirect(`/expense/${expense.id}/debt/add`)}
               >
-                Add Expense
+                Add Debt
               </Button>
-            )} */}
-            {/* <TotalPrice singleTrip={singleTrip} /> */}
-          </NewForm>
-        </TripDiv>
-      )}
-    </AlignDiv>
+            )}
+          </div>
+
+        ))}
+      </div>
+      {singleTrip && <TotalPrice singleTrip={singleTrip} />}
+      </>}
+    </div>
   );
 };
 

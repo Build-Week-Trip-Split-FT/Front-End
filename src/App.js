@@ -28,7 +28,6 @@ const App = (props) => {
   return (
     <div className="container">
       <NavBar />
-      <div>Welcome To Trip Split</div>
       <Message />
       <Fetching />
       <PrivateRoute path="/secret" component={ExampleComponent} />
