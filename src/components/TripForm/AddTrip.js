@@ -50,12 +50,14 @@ const AddTrip = props => {
     matchedTrip.date = matchedTrip.date.substring(0, 10);
   }
 
-  let initialState = matchedTrip ? matchedTrip : {
-    username: props.username,
-    destination: "",
-    date: new Date().toJSON().substring(0, 10),
-    active: true
-  };
+  let initialState = matchedTrip
+    ? matchedTrip
+    : {
+        username: props.username,
+        destination: "",
+        date: new Date().toJSON().substring(0, 10),
+        active: true
+      };
 
   let [trip, setTrip] = useState(initialState);
 
@@ -103,22 +105,25 @@ const AddTrip = props => {
             name="destination"
             placeholder="Add Destination"
             value={trip.destination}
-            onChange={(e) => handleChange(e)}
-            style={{ width: "100%",
-                     marginTop: 5}}
+            onChange={e => handleChange(e)}
+            style={{ width: "100%", marginTop: 5 }}
           />
-          <Input 
+          <Input
             type="date"
             name="date"
             placeholder="Insert Date"
             value={trip.date}
-            style={{ marginTop: 10,
-                     marginBottom: 10}}
-            onChange={(e) => handleChange(e)}
+            style={{ marginTop: 10, marginBottom: 10 }}
+            onChange={e => handleChange(e)}
           />
-          <div >
+          <div>
             <label>Active Trip: </label>
-            <input type="checkbox" name="active" checked={trip.active} onChange={(e) => handleChange(e)}/>
+            <input
+              type="checkbox"
+              name="active"
+              checked={trip.active}
+              onChange={e => handleChange(e)}
+            />
           </div>
           <Button onClick={e => handleSubmit(e)}  type="primary" className={id ? 'edit' : 'add'}>{id ? <Icon type="edit" /> : <Icon type="plus" />} {status} Trip </Button>
         {id && (
@@ -131,9 +136,12 @@ const AddTrip = props => {
 };
 
 const mapStateToProps = state => {
-    return {
-        userTrips: state.userTrips,
-        username: state.username,
-    }
-}
-export default connect(mapStateToProps, {addTrip: addTrip, updateTrip : updateTrip, deleteTrip : deleteTrip})(AddTrip);
+  return {
+    userTrips: state.userTrips,
+    username: state.username
+  };
+};
+export default connect(
+  mapStateToProps,
+  { addTrip: addTrip, updateTrip: updateTrip, deleteTrip: deleteTrip }
+)(AddTrip);
