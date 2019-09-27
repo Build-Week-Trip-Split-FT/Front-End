@@ -127,7 +127,7 @@ const AddTrip = props => {
           </div>
           <Button onClick={e => handleSubmit(e)}  type="primary" className={id ? 'edit' : 'add'}>{id ? <Icon type="edit" /> : <Icon type="plus" />} {status} Trip </Button>
         {id && (
-          <Button type="danger" shapeonClick={() => handleDelete()}><Icon type="delete" />Delete Entry</Button>
+          <Button type="danger" onClick={() => handleDelete()}><Icon type="delete" />Delete Entry</Button>
         )}
         </NewForm>
     </TripDiv>
