@@ -59,14 +59,15 @@ const TripView = props => {
   function handleMenuClick(e) {
     console.log("click", e);
   }
+
   const menu = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="2" onClick={() => redirect("/people/add")}>
         Add People
       </Menu.Item>
-      <Menu.Item key="3" onClick={() => redirect("/expense/add")}>
+      {singleTrip && singleTrip.people.length > 0 && <Menu.Item key="3" onClick={() => redirect("/expense/add")}>
         Add Expense
-      </Menu.Item>
+      </Menu.Item>}
     </Menu>
   );
 
