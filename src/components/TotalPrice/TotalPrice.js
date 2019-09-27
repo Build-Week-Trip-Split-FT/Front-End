@@ -18,7 +18,6 @@ const TotalPrice = (props) => {
 }
 
 const calculateSplits = (trip) => {
-  console.log(trip);
   let people = {};
   for (let i = 0; i < trip.people.length; i++) {
     let id = trip.people[i].id;
