@@ -38,7 +38,7 @@ export const reducer = (state = initialState, action) => {
       localStorage.setItem('user', JSON.stringify(newUserTrips));
       return {...state, userTrips: newUserTrips, error: false, changed:false}
     case DELETE_TRIP_SUCCESS:
-      let filteredTrips = state.userTrips.trips.filter(trip => trip.id !== action.payload);
+      let filteredTrips = state.userTrips.trips.filter(trip => trip.id != action.payload);
       let filteredUserData = {...state.userTrips, trips: filteredTrips};
       return {...state, isFetching: false, error: false, userTrips: filteredUserData, changed:true}
     case POSTING:
